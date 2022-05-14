@@ -2,6 +2,7 @@ package fr.univtours.polytech.timetracker.view;
 
 import fr.univtours.polytech.timetracker.controller.MainController;
 import fr.univtours.polytech.timetracker.controller.Observable;
+import fr.univtours.polytech.timetracker.model.date.Date;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -49,6 +50,11 @@ public class MainView extends Application implements Observer {
     @Override
     public void update(Observable observable) {
         // TODO: Mettre à jour les champs de la vue à partir des données du contrôleur
+        try {
+            getController().setDateLabel(Date.getCurrentDate());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public MainController getController() {

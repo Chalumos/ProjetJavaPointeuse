@@ -46,6 +46,7 @@ public class Schedule {
     }
 }
 
+/*
 class testSchedule{
     public static void main(String[] args){
         Schedule S1 = new Schedule();
@@ -78,3 +79,4 @@ class testSchedule{
     }
 }
 
+*/
