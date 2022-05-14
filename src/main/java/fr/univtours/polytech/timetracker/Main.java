@@ -1,10 +1,10 @@
 package fr.univtours.polytech.timetracker;
 
-import fr.univtours.polytech.timetracker.view.MainView;
+import fr.univtours.polytech.timetracker.view.timetracker.TimeTrackerView;
 
 public class Main {
     public static void main(String[] args) {
-        MainView view = new MainView();
+        TimeTrackerView view = new TimeTrackerView();
         view.show();
     }
 }
