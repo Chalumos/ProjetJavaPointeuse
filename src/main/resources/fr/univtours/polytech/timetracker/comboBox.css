@@ -1,0 +1,21 @@
+ /* Edit The control itself */
+ .combo-box {
+    -fx-background-color: #353b48;
+ }
+
+/* Edit Normal Cell color */
+.combo-box .list-cell {
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #353b48;
+}
+
+/* Edit Cell Color Only when cursor hover cell */
+.combo-box .list-cell:hover {
+    -fx-background-color:  #474787;
+}
+
+/* Edit Cell Color Only when selected */
+.combo-box .list-cell:selected {
+    /* -fx-background-color: blue; */
+}

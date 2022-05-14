@@ -1,10 +1,7 @@
 package fr.univtours.polytech.timetracker.model.date;
 
-import java.time.Month;
 import java.util.HashMap;
 import java.util.Map;
-
-
 
 /**
  * Class that represents a schedule.
@@ -63,10 +60,10 @@ public class Schedule {
         String message= "this employee is scheduled to work :\n";
         for (Days day:workingDays.keySet()){
             if(day.equals(Days.SATURDAY) || day.equals(Days.SUNDAY)){
-                message+="break for "+workingDays.get(day).toString();
+                message += "break for "+workingDays.get(day).toString();
             }
             else{
-                message+="between "+workingDays.get(day).getStartTime().toString()
+                message += "between "+workingDays.get(day).getStartTime().toString()
                         +" and "+workingDays.get(day).getEndTime().toString();
                 message+=" on "+workingDays.get(day).toString()+"\n";
             }
@@ -76,36 +73,3 @@ public class Schedule {
         return message;
     }
 }
-
-
-class testSchedule{
-    public static void main(String[] args) throws Exception {
-        Schedule S1 = new Schedule();
-
-        Date today =new Date(13, Month.MAY,2022);
-
-        S1.setWeekDate(today);
-
-        Time start =new Time();
-        Time end=new Time();
-
-        start.setHour(8);
-        start.setMinute(00);
-
-        end.setHour(18);
-        end.setMinute(30);
-
-
-
-        for (Days day: Days.values()){
-            WorkingDay w =new WorkingDay();
-            w.setDay(day);
-            w.setStartTime(start);
-            w.setEndTime(end);
-            S1.getWorkingDays().put(day,w);
-        }
-        //System.out.println(S1.getWorkingDays().get(Days.MONDAY));
-        System.out.println(S1.toString());
-    }
-}
-

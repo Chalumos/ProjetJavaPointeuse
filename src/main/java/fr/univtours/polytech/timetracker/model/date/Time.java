@@ -44,20 +44,14 @@ public class Time {
      * @throws Exception If the time is not valid.
      */
     private void checkIfTimeValid() throws Exception{
-        boolean isValid;
+        boolean isValid = false
+                ;
         // If the hour is between 0 and 23.
         if (hour >= 0 && hour <= 23) {
             // If the minute is between 0 and 59.
             if (minute >= 0 && minute <= 59){
                 isValid = true;
             }
-            else{
-                isValid = false;
-            }
-        }
-        // If the time is invalid.
-        else {
-            isValid = false;
         }
 
         if (isValid != true) {
@@ -82,6 +76,41 @@ public class Time {
         }
 
         return currentTime;
+    }
+
+
+    /**
+     * Round the time given in arguments to the nearest quarter.
+     * @return The rounded time.
+     */
+    public Time getTimeRoundedToQuarter() {
+        Time roundedTime = null;
+
+        try {
+            roundedTime = new Time(hour, minute);
+            int rest = roundedTime.getMinute() % 15;
+
+            // If the hour must be rounded to the previous quarter.
+            if (rest <= 7) {
+                roundedTime.setMinute(roundedTime.getMinute() - rest);
+            }
+            // If the hour must be rounded to the next quarter.
+            else {
+                roundedTime.setMinute((roundedTime.getMinute() + (15 - rest)) % 60);
+
+                if (roundedTime.getMinute() == 0) {
+                    if (roundedTime.getHour() < 23) {
+                        roundedTime.setHour(roundedTime.getHour() + 1);
+                    } else {
+                        roundedTime.setHour(0);
+                    }
+                }
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
+        return roundedTime;
     }
 
     /**
@@ -127,15 +156,18 @@ public class Time {
     @Override
     public String toString() {
         String message = "";
+
         if (getHour() < 10){
             message += "0";
         }
+
         message += getHour() + ":";
+
         if (getMinute() < 10){
             message += "0";
         }
-        message += getMinute();
 
+        message += getMinute();
 
         return message;
     }

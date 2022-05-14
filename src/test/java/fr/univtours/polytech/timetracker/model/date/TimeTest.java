@@ -32,6 +32,28 @@ public class TimeTest {
     }
 
     @Test
+    void getTimeRoundedToQuarter() {
+        Time time;
+
+        try {
+            time = new Time(10, 3);
+            Assertions.assertEquals("10:00", (time).getTimeRoundedToQuarter().toString());
+            time = new Time(10, 7);
+            Assertions.assertEquals("10:00", (time).getTimeRoundedToQuarter().toString());
+            time = new Time(10, 8);
+            Assertions.assertEquals("10:15", (time).getTimeRoundedToQuarter().toString());
+            time = new Time(10, 13);
+            Assertions.assertEquals("10:15", (time).getTimeRoundedToQuarter().toString());
+
+            time = new Time(23, 58);
+            Assertions.assertEquals("00:00", (time).getTimeRoundedToQuarter().toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            Assertions.fail();
+        }
+    }
+
+    @Test
     void setHour() {
         Time time = new Time();
 
