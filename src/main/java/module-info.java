@@ -1,6 +1,7 @@
 module fr.univtours.polytech.timetracker {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.desktop;
 
 
     opens fr.univtours.polytech.timetracker to javafx.fxml;

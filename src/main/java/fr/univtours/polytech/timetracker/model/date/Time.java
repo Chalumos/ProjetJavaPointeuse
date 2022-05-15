@@ -18,22 +18,30 @@ public class Time {
     private int minute;
 
     /**
-     * Create the time '00:00' by default.
+     * Second of the hour.
+     */
+    private int second;
+
+    /**
+     * Create the time '00:00:00' by default.
      */
     public Time(){
         hour = 0;
         minute = 0;
+        second = 0;
     }
 
     /**
      * Create a time with the hour and minute given in the arguments.
      * @param hour The hour of the day.
      * @param minute The minute of the hour.
+     * @param second The second of the minute.
      * @throws Exception If the time is not valid.
      */
-    public Time(int hour, int minute) throws Exception{
+    public Time(int hour, int minute, int second) throws Exception{
         this.hour = hour;
         this.minute = minute;
+        this.second = second;
 
         // Check if the date is valid.
         checkIfTimeValid();
@@ -44,17 +52,20 @@ public class Time {
      * @throws Exception If the time is not valid.
      */
     private void checkIfTimeValid() throws Exception{
-        boolean isValid = false
-                ;
+        boolean isValid = false;
+
         // If the hour is between 0 and 23.
         if (hour >= 0 && hour <= 23) {
             // If the minute is between 0 and 59.
-            if (minute >= 0 && minute <= 59){
-                isValid = true;
+            if (minute >= 0 && minute <= 59) {
+                // If the minute is between 0 and 59.
+                if (second >= 0 && second <= 59) {
+                    isValid = true;
+                }
             }
         }
 
-        if (isValid != true) {
+        if (!isValid) {
             throw new Exception("The time '" + toString() + "' is not valid.");
         }
     }
@@ -69,7 +80,7 @@ public class Time {
         LocalTime localTime = LocalTime.now();
 
         try {
-            currentTime = new Time(localTime.getHour(), localTime.getMinute());
+            currentTime = new Time(localTime.getHour(), localTime.getMinute(), localTime.getSecond());
         }
         catch (Exception exception) {
             exception.printStackTrace();
@@ -87,7 +98,7 @@ public class Time {
         Time roundedTime = null;
 
         try {
-            roundedTime = new Time(hour, minute);
+            roundedTime = new Time(hour, minute, 0);
             int rest = roundedTime.getMinute() % 15;
 
             // If the hour must be rounded to the previous quarter.
@@ -130,6 +141,14 @@ public class Time {
     }
 
     /**
+     * Get the second of the hour.
+     * @return The second of the hour.
+     */
+    public int getSecond() {
+        return second;
+    }
+
+    /**
      * Set the hour of the day.
      * @param hour The new hour.
      * @throws Exception If the time is not valid.
@@ -153,8 +172,24 @@ public class Time {
         checkIfTimeValid();
     }
 
+    /**
+     * Set the second of the minute.
+     * @param second The new second.
+     * @throws Exception If the time is not valid.
+     */
+    public void setSecond(int second) throws Exception{
+        this.second = second;
+
+        // Check if the new date is valid.
+        checkIfTimeValid();
+    }
+
     @Override
     public String toString() {
+        return toString(true);
+    }
+
+    public String toString(boolean showSeconds) {
         String message = "";
 
         if (getHour() < 10){
@@ -168,6 +203,16 @@ public class Time {
         }
 
         message += getMinute();
+
+        if (showSeconds) {
+            message += ":";
+            
+            if (getSecond() < 10) {
+                message += "0";
+            }
+
+            message += getSecond();
+        }
 
         return message;
     }

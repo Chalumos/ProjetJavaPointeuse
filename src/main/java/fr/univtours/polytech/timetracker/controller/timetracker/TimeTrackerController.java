@@ -14,6 +14,16 @@ import javafx.scene.control.Label;
  */
 public class TimeTrackerController extends Observable {
     /**
+     * The current date.
+     */
+    private Date currentDate;
+
+    /**
+     * The currentTime;
+     */
+    private Time currentTime;
+
+    /**
      * Label of the current date.
      */
     @FXML
@@ -75,7 +85,22 @@ public class TimeTrackerController extends Observable {
      * Create the controller.
      */
     public TimeTrackerController() {
+    }
 
+    /**
+     * Get the current date.
+     * @return The current date;
+     */
+    public Date getCurrentDate() {
+        return currentDate;
+    }
+
+    /**
+     * Get the current time.
+     * @return The current time;
+     */
+    public Time getCurrentTime() {
+        return currentTime;
     }
 
     /**
@@ -174,7 +199,7 @@ public class TimeTrackerController extends Observable {
             throw new Exception("The rounded time can't be null.");
         }
 
-        getRoundedTimeLabel().setText(newRoundedTime.toString());
+        getRoundedTimeLabel().setText(newRoundedTime.toString(false));
     }
 
     /**
@@ -195,5 +220,15 @@ public class TimeTrackerController extends Observable {
      */
     public void setErrorLabel(String newError) {
         getErrorLabel().setText(newError);
+    }
+
+    /**
+     * Update the time of the time-tracker.
+     */
+    public void updateTime() {
+        currentDate = Date.getCurrentDate();
+        currentTime = Time.getCurrentTime();
+
+        super.notify("");
     }
 }
