@@ -24,10 +24,7 @@ public class EmployeeCard
      */
     public EmployeeCard(Employee employee)
     {
-        this.employee.setId(employee.getId());
-        this.employee.setFirstName(employee.getFirstName());
-        this.employee.setLastName(employee.getLastName());
-        this.employee.setDepartment(employee.getDepartment());
+        this.employee = employee;
     }
 
     /**
