@@ -12,10 +12,7 @@ public class EmployeeCard
      */
     public EmployeeCard()
     {
-        this.employee.setId(null);
-        this.employee.setFirstName(null);
-        this.employee.setLastName(null);
-        this.employee.setDepartment(null);
+        this.employee = null;
     }
 
     /**
