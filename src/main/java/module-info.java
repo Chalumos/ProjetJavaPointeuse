@@ -1,6 +1,7 @@
 module fr.univtours.polytech.timetracker {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.desktop;
 
 
     opens fr.univtours.polytech.timetracker to javafx.fxml;
@@ -9,4 +10,8 @@ module fr.univtours.polytech.timetracker {
     opens fr.univtours.polytech.timetracker.controller to javafx.fxml;
     exports fr.univtours.polytech.timetracker.view;
     opens fr.univtours.polytech.timetracker.view to javafx.fxml;
+    exports fr.univtours.polytech.timetracker.view.timetracker;
+    opens fr.univtours.polytech.timetracker.view.timetracker to javafx.fxml;
+    exports fr.univtours.polytech.timetracker.controller.timetracker;
+    opens fr.univtours.polytech.timetracker.controller.timetracker to javafx.fxml;
 }
