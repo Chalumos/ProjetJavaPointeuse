@@ -64,17 +64,11 @@ public class Schedule {
 
     @Override
     public String toString(){
-        String message= "this employee is scheduled to work :\n";
+        String message= "schedule :\n";
         for (Days day:workingDays.keySet()){
-            if(day.equals(Days.SATURDAY) || day.equals(Days.SUNDAY)){
-                message += "break for "+workingDays.get(day).toString();
+            if(!(day.equals(Days.SATURDAY) || day.equals(Days.SUNDAY))){
+                message+=workingDays.get(day)+"\n";
             }
-            else{
-                message += "between "+workingDays.get(day).getStartTime().toString()
-                        +" and "+workingDays.get(day).getEndTime().toString();
-                message+=" on "+workingDays.get(day).toString()+"\n";
-            }
-
         }
         message+="during the week number "+weekNumber+" of the year "+weekDate.getYear();
         return message;
