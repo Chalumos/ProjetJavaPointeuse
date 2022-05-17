@@ -8,6 +8,7 @@
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
     -fx-background-color: #353b48;
+    -fx-background-insets: -1;
 }
 
 /* Edit Cell Color Only when cursor hover cell */
@@ -17,5 +18,4 @@
 
 /* Edit Cell Color Only when selected */
 .combo-box .list-cell:selected {
-    /* -fx-background-color: blue; */
 }

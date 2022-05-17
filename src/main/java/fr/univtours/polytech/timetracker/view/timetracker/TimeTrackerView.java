@@ -6,7 +6,6 @@ import fr.univtours.polytech.timetracker.model.date.Date;
 import fr.univtours.polytech.timetracker.model.date.Time;
 import fr.univtours.polytech.timetracker.view.Observer;
 import javafx.animation.Animation;
-import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -58,6 +57,16 @@ public class TimeTrackerView extends Application implements Observer {
         controller.getEmployeeComboBox().getItems().add("> Select an employee");
         controller.getEmployeeComboBox().getItems().add("John Doe");
         controller.getEmployeeComboBox().getItems().add("Jane Doe");
+        controller.getEmployeeComboBox().getItems().add("Jim Doe");
+        controller.getEmployeeComboBox().getItems().add("Jack Doe");
+        controller.getEmployeeComboBox().getItems().add("Jojo Doe");
+        controller.getEmployeeComboBox().getItems().add("Jean Doe");
+        controller.getEmployeeComboBox().getItems().add("John Doe");
+        controller.getEmployeeComboBox().getItems().add("Jane Doe");
+        controller.getEmployeeComboBox().getItems().add("Jim Doe");
+        controller.getEmployeeComboBox().getItems().add("Jack Doe");
+        controller.getEmployeeComboBox().getItems().add("Jojo Doe");
+        controller.getEmployeeComboBox().getItems().add("Jean Doe");
         setController(controller);
 
         // Initialization of the time-tracker.

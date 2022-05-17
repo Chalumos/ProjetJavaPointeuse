@@ -8,6 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 
+import java.util.Collection;
+
 
 /**
  * Controller to manage the time-tracker view.
@@ -104,6 +106,16 @@ public class TimeTrackerController extends Observable {
     }
 
     /**
+     * Update the time of the time-tracker.
+     */
+    public void updateTime() {
+        currentDate = Date.getCurrentDate();
+        currentTime = Time.getCurrentTime();
+
+        super.notify("");
+    }
+
+    /**
      * Get the date printed on the time-tracker.
      * @return The date printed on the time-tracker.
      */
@@ -172,10 +184,6 @@ public class TimeTrackerController extends Observable {
         getDateLabel().setText(newDate.toString());
     }
 
-    public void setSettingsButton(Button settingsButton) {
-        this.settingsButton = settingsButton;
-    }
-
     /**
      * Set the time printed on the time-tracker.
      * @param newTime The new time.
@@ -204,14 +212,11 @@ public class TimeTrackerController extends Observable {
 
     /**
      * Set the combo box to select an employee.
-     * @param newComboBox The new combo box.
+     * @param newEmployeeList The new list of employees.
      */
-    public void setEmployeeComboBox(ComboBox<String> newComboBox) {
-        this.employeeComboBox = newComboBox;
-    }
-
-    public void setCheckEmployeeButton(Button checkEmployeeButton) {
-        this.checkEmployeeButton = checkEmployeeButton;
+    public void setEmployeeComboBox(Collection<String> newEmployeeList) {
+        this.employeeComboBox.getItems().clear();
+        this.employeeComboBox.getItems().addAll(newEmployeeList);
     }
 
     /**
@@ -220,15 +225,5 @@ public class TimeTrackerController extends Observable {
      */
     public void setErrorLabel(String newError) {
         getErrorLabel().setText(newError);
-    }
-
-    /**
-     * Update the time of the time-tracker.
-     */
-    public void updateTime() {
-        currentDate = Date.getCurrentDate();
-        currentTime = Time.getCurrentTime();
-
-        super.notify("");
     }
 }
