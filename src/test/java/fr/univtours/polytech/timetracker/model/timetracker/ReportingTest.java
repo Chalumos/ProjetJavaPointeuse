@@ -1,6 +1,5 @@
 package fr.univtours.polytech.timetracker.model.timetracker;
 
-import fr.univtours.polytech.timetracker.model.company.Department;
 import fr.univtours.polytech.timetracker.model.date.Date;
 import fr.univtours.polytech.timetracker.model.date.Time;
 import fr.univtours.polytech.timetracker.model.employee.Employee;
@@ -14,9 +13,8 @@ public class ReportingTest {
     @Test
     void setEmployee() {
         try {
-            Department administration = new Department("Administration");
-            Employee pierreTruc = new Employee("Truc", "Pierre", administration);
-            Employee mathildeMachin = new Employee("Machin","Mathilde", administration);
+            Employee pierreTruc = new Employee("Pierre", "Truc");
+            Employee mathildeMachin = new Employee("Mathilde","Machin");
             Reporting reporting = new Reporting(pierreTruc, Date.getCurrentDate(), Time.getCurrentTime());
             reporting.setEmployee(mathildeMachin);
 
@@ -30,8 +28,7 @@ public class ReportingTest {
     @Test
     void setDate() {
         try {
-            Department administration = new Department("Administration");
-            Employee pierreTruc = new Employee("Truc", "Pierre", administration);
+            Employee pierreTruc = new Employee("Pierre", "Truc");
             Reporting reporting = new Reporting(pierreTruc, Date.getCurrentDate(), Time.getCurrentTime());
             Date date = new Date(15, Month.FEBRUARY, 2022);
 
@@ -47,8 +44,7 @@ public class ReportingTest {
     @Test
     void setTime() {
         try {
-            Department administration = new Department("Administration");
-            Employee pierreTruc = new Employee("Truc", "Pierre", administration);
+            Employee pierreTruc = new Employee("Pierre", "Truc");
             Reporting reporting = new Reporting(pierreTruc, Date.getCurrentDate(), Time.getCurrentTime());
             Time time = new Time(15, 10, 50);
 
@@ -65,8 +61,7 @@ public class ReportingTest {
     @Test
     public void toStr() {
         try {
-            Department administration = new Department("Administration");
-            Employee pierreTruc = new Employee( "Truc", "Pierre", administration);
+            Employee pierreTruc = new Employee("Pierre", "Truc");
             Reporting reporting = new Reporting(pierreTruc, Date.getCurrentDate(), Time.getCurrentTime());
 
             Assertions.assertEquals("[ Pierre TRUC | " + Date.getCurrentDate() + " | " + Time.getCurrentTime() + " ]", reporting.toString());
