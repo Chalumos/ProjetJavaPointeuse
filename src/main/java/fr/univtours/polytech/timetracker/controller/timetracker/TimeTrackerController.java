@@ -3,11 +3,14 @@ package fr.univtours.polytech.timetracker.controller.timetracker;
 import fr.univtours.polytech.timetracker.controller.Observable;
 import fr.univtours.polytech.timetracker.model.date.Date;
 import fr.univtours.polytech.timetracker.model.date.Time;
+import fr.univtours.polytech.timetracker.model.employee.Employee;
+import fr.univtours.polytech.timetracker.model.timetracker.Reporting;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 
@@ -24,6 +27,11 @@ public class TimeTrackerController extends Observable {
      * The currentTime;
      */
     private Time currentTime;
+
+    /**
+     * Employees of the company.
+     */
+    private ArrayList<Employee> employees = new ArrayList<Employee>();
 
     /**
      * Label of the current date.
@@ -53,7 +61,7 @@ public class TimeTrackerController extends Observable {
      * Combo box to select an employee.
      */
     @FXML
-    private ComboBox<String> employeeComboBox;
+    private ComboBox<Employee> employeeComboBox;
 
     /**
      * Button to check an employee.
@@ -72,7 +80,20 @@ public class TimeTrackerController extends Observable {
      */
     @FXML
     void checkEmployee() {
-        System.out.println("Check employee");
+        Employee employee = getEmployeeComboBox().getValue();
+
+        if (employee == null) {
+            setErrorLabel("Please select an employee.");
+        } else {
+            setErrorLabel("");
+
+            try {
+                Reporting reporting = new Reporting(employee, getCurrentDate(), getCurrentTime());
+                System.out.println("Check employee: " + reporting);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -86,7 +107,15 @@ public class TimeTrackerController extends Observable {
     /**
      * Create the controller.
      */
-    public TimeTrackerController() {
+    public TimeTrackerController() {}
+
+    /**
+     * Initialize the data.
+     */
+    public void init() {
+        employees.add(new Employee("John", "Doe"));
+        employees.add(new Employee("Jane", "Doe"));
+        setEmployeeComboBox(getEmployees());
     }
 
     /**
@@ -103,6 +132,14 @@ public class TimeTrackerController extends Observable {
      */
     public Time getCurrentTime() {
         return currentTime;
+    }
+
+    /**
+     * Get the employees of the company.
+     * @return The employees.
+     */
+    public ArrayList<Employee> getEmployees() {
+        return employees;
     }
 
     /**
@@ -151,7 +188,7 @@ public class TimeTrackerController extends Observable {
      * Get the combo box to select an employee.
      * @return The combo box to select an employee.
      */
-    public ComboBox<String> getEmployeeComboBox() {
+    public ComboBox<Employee> getEmployeeComboBox() {
         return employeeComboBox;
     }
 
@@ -214,7 +251,7 @@ public class TimeTrackerController extends Observable {
      * Set the combo box to select an employee.
      * @param newEmployeeList The new list of employees.
      */
-    public void setEmployeeComboBox(Collection<String> newEmployeeList) {
+    public void setEmployeeComboBox(Collection<Employee> newEmployeeList) {
         this.employeeComboBox.getItems().clear();
         this.employeeComboBox.getItems().addAll(newEmployeeList);
     }

@@ -54,19 +54,7 @@ public class TimeTrackerView extends Application implements Observer {
 
         // Get the controller of the view.
         TimeTrackerController controller = fxmlLoader.getController();
-        controller.getEmployeeComboBox().getItems().add("> Select an employee");
-        controller.getEmployeeComboBox().getItems().add("John Doe");
-        controller.getEmployeeComboBox().getItems().add("Jane Doe");
-        controller.getEmployeeComboBox().getItems().add("Jim Doe");
-        controller.getEmployeeComboBox().getItems().add("Jack Doe");
-        controller.getEmployeeComboBox().getItems().add("Jojo Doe");
-        controller.getEmployeeComboBox().getItems().add("Jean Doe");
-        controller.getEmployeeComboBox().getItems().add("John Doe");
-        controller.getEmployeeComboBox().getItems().add("Jane Doe");
-        controller.getEmployeeComboBox().getItems().add("Jim Doe");
-        controller.getEmployeeComboBox().getItems().add("Jack Doe");
-        controller.getEmployeeComboBox().getItems().add("Jojo Doe");
-        controller.getEmployeeComboBox().getItems().add("Jean Doe");
+        controller.init();
         setController(controller);
 
         // Initialization of the time-tracker.
