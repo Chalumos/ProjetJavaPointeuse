@@ -16,7 +16,7 @@
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <ComboBox fx:id="employeeComboBox" prefHeight="37.0" prefWidth="320.0" promptText="&gt; Select an employee" stylesheets="@comboBox.css">
+                  <ComboBox fx:id="employeeComboBox" prefHeight="37.0" prefWidth="320.0" promptText="Select an employee" stylesheets="@comboBox.css">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

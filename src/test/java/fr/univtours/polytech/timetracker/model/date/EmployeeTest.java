@@ -18,11 +18,9 @@ public class EmployeeTest {
         Assertions.assertNotEquals(id, employee.getId());
         Assertions.assertEquals("unknow", employee.getLastName());
         Assertions.assertEquals("unknow", employee.getFirstName());
-        Assertions.assertEquals(null, employee.getDepartment());
-        Assertions.assertEquals(null, employee.getEmployeeCard());
         Assertions.assertEquals(null, employee.getSchedule());
 
-        Assertions.assertDoesNotThrow(() -> new Employee("Mendes","Theo",new Department("IT")));
+        Assertions.assertDoesNotThrow(() -> new Employee("Mendes","Theo"));
     }
 
     @Test

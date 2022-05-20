@@ -8,159 +8,121 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Locale;
 
+/**
+ * Employee of a company.
+ */
 public class Employee {
-
     /**
-     * Employee id
+     * ID of the employee.
      */
     private String id;
 
     /**
-     * Employee last name
+     * Last name of the employee;
      */
     private String lastName;
+
     /**
-     * Employee first name
+     * First name of the employee.
      */
     private String firstName;
+
     /**
-     * Employee department
-     */
-    private Department department;
-    /**
-     * Employee card
-     */
-    private EmployeeCard employeeCard;
-    /**
-     * Employee Schedule
+     * Schedule of the employee.
      */
     private Schedule schedule;
 
-    public Employee(){
-        LocalDate date = LocalDate.now();
-        id = date.getYear()+""+date.getMonthValue()+""+date.getDayOfMonth() + System.currentTimeMillis();
-        lastName = "Unknow";
-        firstName = "Unknow";
-        department = null;
-        employeeCard = null;
-        schedule = null;
-    }
-
-    public Employee(String lastName, String firstName) {
-        this(lastName, firstName, null);
-    }
-
     /**
-     * Comfort constructor allows you to create an employee by directly initializing all its attributes
-     * @param lastName
-     * @param firstName
-     * @param department
+     * Create an unknown employee.
      */
-    public Employee(String lastName, String firstName, Department department) {
-        LocalDate date = LocalDate.now();
-        id = date.getYear()+""+date.getMonthValue()+""+date.getDayOfMonth() + System.currentTimeMillis();
-        this.lastName = lastName.substring(0, 1).toUpperCase() + lastName.substring(1).toLowerCase();
-        this.firstName = firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase();
-        this.department = department;
-        this.schedule = new Schedule();
-        this.employeeCard = new EmployeeCard(this);
+    public Employee() {
+        this("Unknown", "Unknown", null);
     }
 
     /**
-     * Get the employee id
-     * @return id of employee
+     * Create an employee with a name but without schedule.
+     * @param firstName The first name of the employee.
+     * @param lastName The last name of the employee.
+     */
+    public Employee(String firstName, String lastName) {
+        this(firstName, lastName, null);
+    }
+
+    /**
+     * Create an employee with a name and a schedule.
+     * @param firstName First name of the employee.
+     * @param lastName Last name of the employee.
+     * @param schedule Schedule of the employee.
+     */
+    public Employee(String firstName, String lastName, Schedule schedule) {
+        LocalDate date = LocalDate.now();
+        id = date.getYear() + "" + date.getMonthValue() + "" + date.getDayOfMonth() + System.currentTimeMillis();
+        this.firstName = firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase();
+        this.lastName = lastName.substring(0, 1).toUpperCase() + lastName.substring(1).toLowerCase();
+        this.schedule = schedule;
+    }
+
+    /**
+     * Get the ID of the employee.
+     * @return The ID of the employee.
      */
     public String getId() {
         return id;
     }
-    
 
     /**
-     * Get the employee last name
-     * @return last name of employee
-     */
-    public String getLastName() {
-        return lastName;
-    }
-
-    /**
-     * Set the employee lastName
-     * @param lastName the new employee lastName
-     */
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    /**
-     * Get the employee first name
-     * @return first name of employee
+     * Get the first name of the employee.
+     * @return The first name of the employee.
      */
     public String getFirstName() {
         return firstName;
     }
 
     /**
-     * Set the employee firstName
-     * @param firstName the new employee firstName
+     * Get the last name of the employee.
+     * @return The last name of the employee.
+     */
+    public String getLastName() {
+        return lastName;
+    }
+
+    /**
+     * Set the first name of the employee.
+     * @param firstName The new first name of the employee.
      */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
     /**
-     * Get the employee department
-     * @return department of employee
+     * Set the last name of the employee.
+     * @param lastName The new last name of the employee.
      */
-    public Department getDepartment() {
-        return department;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     /**
-     * Set the employee department
-     * @param department the new employee department
-     */
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
-    /**
-     * Get the employee Card
-     * @return the EmployeeCard
-     */
-    public EmployeeCard getEmployeeCard() {
-        return employeeCard;
-    }
-
-    /**
-     * Set the employee card
-     * @param employeeCard the new employee card
-     */
-    public void setEmployeeCard(EmployeeCard employeeCard) {
-        this.employeeCard = employeeCard;
-    }
-
-    /**
-     * Get the employee schedule
-     * @return the Schedule of employee
+     * Get the schedule of the employee.
+     * @return The schedule of the employee.
      */
     public Schedule getSchedule() {
         return schedule;
     }
 
     /**
-     * Set the employee schedule
-     * @param schedule the new employee schedule
+     * Set the schedule of the employee.
+     * @param schedule The new schedule of the employee.
      */
     public void setSchedule(Schedule schedule) {
         this.schedule = schedule;
     }
 
     /**
-     * @return Employee informations
+     * @return The description of the employee.
      */
     @Override
     public String toString() {
-        return "Employee : "+ lastName + " " + firstName + " ID: "+ id +
-                department.toString();
+        return  firstName + " " + lastName + " (" + id + ")";
     }
 }
