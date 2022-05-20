@@ -75,6 +75,13 @@ public class Department {
     }
 
     /**
+     * @return List of the employees of  the department
+     */
+    public ArrayList<Employee> getEmployees() {
+        return employees;
+    }
+
+    /**
      * this method allows you to change the name of the department
      * @param name
      */

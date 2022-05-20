@@ -1,5 +1,7 @@
 package fr.univtours.polytech.timetracker.model.company;
 
+import fr.univtours.polytech.timetracker.model.employee.Employee;
+
 import java.util.ArrayList;
 
 public class Company {
@@ -42,6 +44,7 @@ public class Company {
         }
         this.departments.add(department);
     }
+
     /**
      * Delete a department of the company.
      * @param department Department to remove.
@@ -51,10 +54,34 @@ public class Company {
     }
 
     /**
-     * @return the name of the company
+     * Determine if a specific department is in the company.
+     * @param department Department to search.
+     * @return If a specific department is in the company.
+     */
+    public boolean isDepartmentInCompany(Department department){
+        boolean flag = false;
+        for (Department counterDepartment : departments){
+            if (counterDepartment == department){
+                flag = true;
+            }
+        }
+        return flag;
+    }
+
+    /**
+     * Return the name of the company.
+     * @return The name of the company.
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * Return a list of the department of the company.
+     * @return List of the department of the company.
+     */
+    public ArrayList<Department> getDepartments() {
+        return departments;
     }
 
     /**

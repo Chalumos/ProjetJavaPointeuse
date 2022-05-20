@@ -24,10 +24,6 @@ public class Employee {
      */
     private String firstName;
     /**
-     * Employee department
-     */
-    private Department department;
-    /**
      * Employee card
      */
     private EmployeeCard employeeCard;
@@ -41,7 +37,6 @@ public class Employee {
         id = date.getYear()+""+date.getMonthValue()+""+date.getDayOfMonth() + System.currentTimeMillis();
         lastName = "Unknow";
         firstName = "Unknow";
-        department = null;
         employeeCard = null;
         schedule = null;
     }
@@ -61,7 +56,6 @@ public class Employee {
         id = date.getYear()+""+date.getMonthValue()+""+date.getDayOfMonth() + System.currentTimeMillis();
         this.lastName = lastName.substring(0, 1).toUpperCase() + lastName.substring(1).toLowerCase();
         this.firstName = firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase();
-        this.department = department;
         this.schedule = new Schedule();
         this.employeeCard = new EmployeeCard(this);
     }
@@ -108,22 +102,6 @@ public class Employee {
     }
 
     /**
-     * Get the employee department
-     * @return department of employee
-     */
-    public Department getDepartment() {
-        return department;
-    }
-
-    /**
-     * Set the employee department
-     * @param department the new employee department
-     */
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
-    /**
      * Get the employee Card
      * @return the EmployeeCard
      */
@@ -160,7 +138,6 @@ public class Employee {
      */
     @Override
     public String toString() {
-        return "Employee : "+ lastName + " " + firstName + " ID: "+ id +
-                department.toString();
+        return "Employee : "+ lastName + " " + firstName + " ID: "+ id;
     }
 }

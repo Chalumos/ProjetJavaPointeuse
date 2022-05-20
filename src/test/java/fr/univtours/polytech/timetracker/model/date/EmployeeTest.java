@@ -16,9 +16,8 @@ public class EmployeeTest {
         Employee employee = new Employee();
 
         Assertions.assertNotEquals(id, employee.getId());
-        Assertions.assertEquals("unknow", employee.getLastName());
-        Assertions.assertEquals("unknow", employee.getFirstName());
-        Assertions.assertEquals(null, employee.getDepartment());
+        Assertions.assertEquals("unknown", employee.getLastName());
+        Assertions.assertEquals("unknown", employee.getFirstName());
         Assertions.assertEquals(null, employee.getEmployeeCard());
         Assertions.assertEquals(null, employee.getSchedule());
 
