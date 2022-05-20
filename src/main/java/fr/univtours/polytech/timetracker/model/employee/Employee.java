@@ -1,7 +1,12 @@
 package fr.univtours.polytech.timetracker.model.employee;
 
 import fr.univtours.polytech.timetracker.model.company.Department;
+import fr.univtours.polytech.timetracker.model.date.Date;
 import fr.univtours.polytech.timetracker.model.date.Schedule;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Locale;
 
 public class Employee {
 
@@ -31,20 +36,34 @@ public class Employee {
      */
     private Schedule schedule;
 
+    public Employee(){
+        LocalDate date = LocalDate.now();
+        id = date.getYear()+""+date.getMonthValue()+""+date.getDayOfMonth() + System.currentTimeMillis();
+        lastName = "Unknow";
+        firstName = "Unknow";
+        department = null;
+        employeeCard = null;
+        schedule = null;
+    }
+
+    public Employee(String lastName, String firstName) {
+        this(lastName, firstName, null);
+    }
+
     /**
      * Comfort constructor allows you to create an employee by directly initializing all its attributes
-     * @param id
      * @param lastName
      * @param firstName
      * @param department
      */
-    public Employee(String id, String lastName, String firstName, Department department) {
-        this.id = id;
-        this.lastName = lastName;
-        this.firstName = firstName;
+    public Employee(String lastName, String firstName, Department department) {
+        LocalDate date = LocalDate.now();
+        id = date.getYear()+""+date.getMonthValue()+""+date.getDayOfMonth() + System.currentTimeMillis();
+        this.lastName = lastName.substring(0, 1).toUpperCase() + lastName.substring(1).toLowerCase();
+        this.firstName = firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase();
         this.department = department;
-        this.employeeCard = new EmployeeCard(this);
         this.schedule = new Schedule();
+        this.employeeCard = new EmployeeCard(this);
     }
 
     /**
@@ -54,15 +73,7 @@ public class Employee {
     public String getId() {
         return id;
     }
-
-
-    /**
-     * Set the employee id
-     * @param id the new employee id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
+    
 
     /**
      * Get the employee last name
