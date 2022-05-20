@@ -11,14 +11,14 @@ public class Company {
     /**
      * List of departments of a company
      */
-    private ArrayList<Department> departements;
+    private ArrayList<Department> departments;
 
     /**
      * Default constructor
      */
     public Company() {
         this.name = "";
-        this.departements = new ArrayList<Department>();
+        this.departments = new ArrayList<Department>();
     }
 
     /**
@@ -27,7 +27,27 @@ public class Company {
      */
     public Company(String name) {
         this.name = name;
-        this.departements = new ArrayList<Department>();
+        this.departments = new ArrayList<Department>();
+    }
+
+    /**
+     * Add a department to the company.
+     * @param department New departement of company.
+     */
+    public void addDepartment(Department department) throws Exception {
+        for (Department counterDepartment : departments){
+            if (counterDepartment == department){
+                throw new Exception();
+            }
+        }
+        this.departments.add(department);
+    }
+    /**
+     * Delete a department of the company.
+     * @param department Department to remove.
+     */
+    public void deleteDepartment(Department department){
+        departments.remove(department);
     }
 
     /**
@@ -38,8 +58,8 @@ public class Company {
     }
 
     /**
-     * this method allows you to change the name of the company
-     * @param name
+     * This method allows you to change the name of the company
+     * @param name Name of the name
      */
     public void setName(String name) {
         this.name = name;
