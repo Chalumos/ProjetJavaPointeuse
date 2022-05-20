@@ -15,8 +15,8 @@ public class ReportingTest {
     void setEmployee() {
         try {
             Department administration = new Department("Administration");
-            Employee pierreTruc = new Employee("1", "Truc", "Pierre", administration);
-            Employee mathildeMachin = new Employee("2", "Machin","Mathilde", administration);
+            Employee pierreTruc = new Employee("Truc", "Pierre", administration);
+            Employee mathildeMachin = new Employee("Machin","Mathilde", administration);
             Reporting reporting = new Reporting(pierreTruc, Date.getCurrentDate(), Time.getCurrentTime());
             reporting.setEmployee(mathildeMachin);
 
@@ -31,7 +31,7 @@ public class ReportingTest {
     void setDate() {
         try {
             Department administration = new Department("Administration");
-            Employee pierreTruc = new Employee("1", "Truc", "Pierre", administration);
+            Employee pierreTruc = new Employee("Truc", "Pierre", administration);
             Reporting reporting = new Reporting(pierreTruc, Date.getCurrentDate(), Time.getCurrentTime());
             Date date = new Date(15, Month.FEBRUARY, 2022);
 
@@ -48,7 +48,7 @@ public class ReportingTest {
     void setTime() {
         try {
             Department administration = new Department("Administration");
-            Employee pierreTruc = new Employee("1", "Truc", "Pierre", administration);
+            Employee pierreTruc = new Employee("Truc", "Pierre", administration);
             Reporting reporting = new Reporting(pierreTruc, Date.getCurrentDate(), Time.getCurrentTime());
             Time time = new Time(15, 10, 50);
 
@@ -66,7 +66,7 @@ public class ReportingTest {
     public void toStr() {
         try {
             Department administration = new Department("Administration");
-            Employee pierreTruc = new Employee("1", "Truc", "Pierre", administration);
+            Employee pierreTruc = new Employee( "Truc", "Pierre", administration);
             Reporting reporting = new Reporting(pierreTruc, Date.getCurrentDate(), Time.getCurrentTime());
 
             Assertions.assertEquals("[ Pierre TRUC | " + Date.getCurrentDate() + " | " + Time.getCurrentTime() + " ]", reporting.toString());
