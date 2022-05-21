@@ -1,6 +1,7 @@
  /* Edit The control itself */
  .combo-box {
     -fx-background-color: #353b48;
+    -fx-background-insets: -1;
  }
 
 /* Edit Normal Cell color */

@@ -38,6 +38,14 @@ public class TimeTrackerController extends Controller {
         updateTime();
         employees.add(new Employee("John", "Doe"));
         employees.add(new Employee("Jane", "Doe"));
+        employees.add(new Employee("John", "Doe"));
+        employees.add(new Employee("Jane", "Doe"));
+        employees.add(new Employee("John", "Doe"));
+        employees.add(new Employee("Jane", "Doe"));
+        employees.add(new Employee("John", "Doe"));
+        employees.add(new Employee("Jane", "Doe"));
+        employees.add(new Employee("John", "Doe"));
+        employees.add(new Employee("Jane", "Doe"));
 
         String[] messages = {"date", "time", "employees"};
         notifyObservers(messages);
