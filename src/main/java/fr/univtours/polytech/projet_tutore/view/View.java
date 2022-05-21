@@ -3,6 +3,9 @@ package fr.univtours.polytech.projet_tutore.view;
 import fr.univtours.polytech.projet_tutore.controller.Controller;
 import javafx.application.Application;
 
+/**
+ * View of a HIM.
+ */
 public abstract class View extends Application implements Observer {
     /**
      * Controller which controls the elements of the view.

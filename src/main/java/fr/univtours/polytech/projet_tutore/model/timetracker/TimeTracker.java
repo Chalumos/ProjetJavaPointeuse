@@ -3,8 +3,6 @@ package fr.univtours.polytech.projet_tutore.model.timetracker;
 import java.io.*;
 
 public class TimeTracker {
-
-
     public void serialisationEmployee(){
         // In the case of the separator for the resources, it's the same for every OS: '/'.
         // So there is no need to use File.separator.

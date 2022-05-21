@@ -20,7 +20,7 @@ public class Schedule {
     /**
      * Working days of the week.
      */
-    private Map<Days, WorkingDay> workingDays;
+    private HashMap<Days, WorkingDay> workingDays;
 
     /**
      * Create an empty schedule.
@@ -72,7 +72,7 @@ public class Schedule {
      * Get the working days of the week.
      * @return The working days of the week.
      */
-    public Map<Days, WorkingDay> getWorkingDays() {
+    public HashMap<Days, WorkingDay> getWorkingDays() {
         return workingDays;
     }
 

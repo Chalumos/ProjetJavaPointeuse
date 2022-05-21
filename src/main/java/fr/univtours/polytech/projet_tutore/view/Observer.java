@@ -10,7 +10,7 @@ public interface Observer {
     /**
      * Updates the observer when the observable notifies it.
      * @param observable The observable that the observer observes.
-     * @param message Message sent by the observer to inform the observer of what to do.
+     * @param messages Messages sent by the observer to inform the observer of what to do.
      */
-    public void update(Observable observable, String[] messages);
+    void update(Observable observable, String[] messages);
 }
