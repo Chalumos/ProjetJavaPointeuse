@@ -4,20 +4,38 @@ import fr.univtours.polytech.timetracker.view.Observer;
 
 import java.util.ArrayList;
 
+/**
+ * The observable (the controller) is observed by an observer (the view)
+ * and notify it when it needs to update its content.
+ */
 public class Observable {
+    /**
+     * Observers of the observable.
+     */
     private ArrayList<Observer> observers = new ArrayList<Observer>();
 
+    /**
+     * Add an observer to the observer list.
+     * @param observer The observer to add.
+     */
     public void register(Observer observer)
     {
         observers.add(observer);
     }
 
+    /**
+     * Remove an observer from the observer list.
+     * @param observer The observer to remove.
+     */
     public void unregister(Observer observer)
     {
         observers.remove(observer);
     }
 
-    public void notify(String message)
+    /**
+     * Notify the observers that they should to update their content.
+     */
+    public void notifyObservers()
     {
         for(Observer observer : observers) {
             observer.update(this);

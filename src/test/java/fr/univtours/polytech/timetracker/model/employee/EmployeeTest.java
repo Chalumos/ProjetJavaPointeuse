@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 public class EmployeeTest {
     @Test
-    void EmployeeTest() {
+    void constructors() {
         Employee employee = new Employee();
         Assertions.assertEquals("Unknown", employee.getFirstName());
         Assertions.assertEquals("Unknown", employee.getLastName());

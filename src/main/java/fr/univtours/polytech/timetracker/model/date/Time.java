@@ -1,7 +1,6 @@
 package fr.univtours.polytech.timetracker.model.date;
 
 import java.time.LocalTime;
-import java.time.Month;
 
 /**
  * Class that represents and allows to edit a time.

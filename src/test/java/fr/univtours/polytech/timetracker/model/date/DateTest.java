@@ -8,7 +8,7 @@ import java.time.Month;
 
 public class DateTest {
     @Test
-    void Date() {
+    void constructors() {
         Date date = new Date();
 
         Assertions.assertEquals(1, date.getDay());

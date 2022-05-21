@@ -1,75 +1,80 @@
 package fr.univtours.polytech.timetracker.model.company;
 
-import fr.univtours.polytech.timetracker.model.employee.Employee;
-
 import java.util.ArrayList;
 
 public class Company {
     /**
-     * Company name
+     * Company name.
      */
     private String name;
 
     /**
-     * List of departments of a company
+     * List of departments of the company.
      */
     private ArrayList<Department> departments;
 
     /**
-     * Default constructor
+     * Create an unknown company without departments.
      */
     public Company() {
-        this.name = "";
+        setName("Unknown");
         this.departments = new ArrayList<Department>();
     }
 
     /**
-     * Constructor with company name
-     * @param name
+     * Create a company with a name but without departments.
+     * @param name Name of the company.
      */
     public Company(String name) {
-        this.name = name;
+        setName(name);
         this.departments = new ArrayList<Department>();
     }
 
     /**
      * Add a department to the company.
-     * @param department New departement of company.
+     * @param department New department to add.
+     * @throws Exception If the department is already in the company.
      */
     public void addDepartment(Department department) throws Exception {
-        for (Department counterDepartment : departments){
-            if (counterDepartment == department){
-                throw new Exception();
-            }
+        if (!isDepartmentInCompany(department)) {
+            departments.add(department);
+        } else {
+            throw new Exception("This department is already in the company.");
         }
-        this.departments.add(department);
     }
 
     /**
-     * Delete a department of the company.
+     * Delete a department from the company.
      * @param department Department to remove.
+     * @throws Exception If the department isn't in the company.
      */
-    public void deleteDepartment(Department department){
-        departments.remove(department);
+    public void deleteDepartment(Department department) throws Exception {
+        if (isDepartmentInCompany(department)) {
+            departments.remove(department);
+        } else {
+            throw new Exception("This department is not in the company.");
+        }
     }
 
     /**
-     * Determine if a specific department is in the company.
+     * Determine whether a specific department is in the company or not.
      * @param department Department to search.
      * @return If a specific department is in the company.
      */
     public boolean isDepartmentInCompany(Department department){
         boolean flag = false;
-        for (Department counterDepartment : departments){
-            if (counterDepartment == department){
+
+        for (Department counterDepartment : getDepartments()){
+            if (counterDepartment == department) {
                 flag = true;
             }
         }
+
         return flag;
     }
 
     /**
-     * Return the name of the company.
+     * Get the name of the company.
      * @return The name of the company.
      */
     public String getName() {
@@ -77,24 +82,21 @@ public class Company {
     }
 
     /**
-     * Return a list of the department of the company.
-     * @return List of the department of the company.
+     * Get the list of departments of the company.
+     * @return List of departments of the company.
      */
     public ArrayList<Department> getDepartments() {
         return departments;
     }
 
     /**
-     * This method allows you to change the name of the company
-     * @param name Name of the name
+     * Set the name of the company.
+     * @param name New name of the company.
      */
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     * @return the name of company
-     */
     @Override
     public String toString() {
         return "Company: " + this.name;

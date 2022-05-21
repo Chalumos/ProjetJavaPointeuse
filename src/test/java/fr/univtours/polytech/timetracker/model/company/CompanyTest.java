@@ -1,56 +1,77 @@
 package fr.univtours.polytech.timetracker.model.company;
 
-import fr.univtours.polytech.timetracker.model.employee.Employee;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class CompanyTest {
     @Test
-    void CompanyTest() {
-        Company company = new Company("NameOfCompany");
+    void constructors() {
+        Company company = new Company();
+
+        Assertions.assertEquals("Unknown", company.getName());
+        Assertions.assertEquals(0, company.getDepartments().size());
+
+        company = new Company("NameOfCompany");
 
         Assertions.assertEquals("NameOfCompany", company.getName());
+        Assertions.assertEquals(0, company.getDepartments().size());
     }
 
     @Test
-    void addDepartment() throws Exception {
-        Company company = new Company();
-        company.setName("theCompany");
+    void addDepartment() {
+        try {
+            Company company = new Company();
 
-        Department department = new Department("Department1");
-        company.addDepartment(department);
+            Department department = new Department("Department 1");
+            company.addDepartment(department);
 
-        Assertions.assertEquals(1, company.getDepartments().size());
-        Assertions.assertEquals(department, company.getDepartments().get(company.getDepartments().size() - 1));
+            Assertions.assertEquals(1, company.getDepartments().size());
+            Assertions.assertEquals(department, company.getDepartments().get(0));
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            Assertions.fail();
+        }
     }
 
     @Test
-    void deleteDepartment() throws Exception {
-        Company company = new Company();
-        company.setName("theCompany");
+    void deleteDepartment() {
+        try {
+            Company company = new Company();
 
-        Department department1 = new Department("Department1");
-        Department department2 = new Department("Department2");
-        company.addDepartment(department1);
-        company.addDepartment(department2);
+            Department department1 = new Department("Department 1");
+            Department department2 = new Department("Department 2");
+            company.addDepartment(department1);
+            company.addDepartment(department2);
 
-        company.deleteDepartment(department2);
-        Assertions.assertEquals(1,company.getDepartments().size());
-        Assertions.assertEquals(department1, company.getDepartments().get(company.getDepartments().size() - 1) );
+            Assertions.assertEquals(2, company.getDepartments().size());
+
+            company.deleteDepartment(department2);
+            Assertions.assertEquals(1, company.getDepartments().size());
+            Assertions.assertEquals(department1, company.getDepartments().get(0));
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            Assertions.fail();
+        }
     }
 
     @Test
-    void isDepartmentInCompany() throws Exception {
-        Company company = new Company("theCompany");
+    void isDepartmentInCompany() {
+        try {
+            Company company = new Company();
 
-        Department department1 = new Department("department1");
-        Department department2 = new Department("department2");
-        Department department3 = new Department("department3");
-        company.addDepartment(department1);
-        company.addDepartment(department2);
+            Department department1 = new Department("Department 1");
+            Department department2 = new Department("Department 2");
+            Department department3 = new Department("Department 3");
+            company.addDepartment(department1);
+            company.addDepartment(department2);
 
-        Assertions.assertEquals(true, company.isDepartmentInCompany(department1));
-        Assertions.assertEquals(false, company.isDepartmentInCompany(department3));
+            Assertions.assertTrue(company.isDepartmentInCompany(department1));
+            Assertions.assertTrue(company.isDepartmentInCompany(department2));
+            Assertions.assertFalse(company.isDepartmentInCompany(department3));
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            Assertions.fail();
+        }
     }
 
     @Test
@@ -62,11 +83,11 @@ public class CompanyTest {
     }
 
     @Test
-    void toStr(){
-        Company company = new Company("theCompany");
+    void toStr() {
+        Company company = new Company();
+        Assertions.assertEquals("Company: Unknown", company.toString());
 
-        Assertions.assertEquals("Company: theCompany",company.toString());
-
+        company = new Company("theCompany");
+        Assertions.assertEquals("Company: theCompany", company.toString());
     }
-
 }

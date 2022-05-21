@@ -7,7 +7,7 @@ import java.time.LocalTime;
 
 public class TimeTest {
     @Test
-    void Time(){
+    void constructors() {
         Time time = new Time();
 
         Assertions.assertEquals(0, time.getHour());

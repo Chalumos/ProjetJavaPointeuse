@@ -149,7 +149,7 @@ public class TimeTrackerController extends Observable {
         currentDate = Date.getCurrentDate();
         currentTime = Time.getCurrentTime();
 
-        super.notify("");
+        super.notifyObservers();
     }
 
     /**

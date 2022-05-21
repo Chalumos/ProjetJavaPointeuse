@@ -6,50 +6,56 @@ import java.util.ArrayList;
 
 public class Department {
     /**
-     * Department name
+     * Department name.
      */
     private String name;
+
     /**
-     * List of employee of a department
+     * List of employees of the department.
      */
     private ArrayList<Employee> employees;
 
     /**
-     * Default constructor
+     * Create an unknown department without employees.
      */
     public Department() {
-        this.name = "";
+        setName("Unknown");
         this.employees = new ArrayList<Employee>();
     }
 
     /**
-     * Constructor with department name
-     * @param name
+     * Create a department with a name but without employees.
+     * @param name Name of the department.
      */
     public Department(String name) {
-        this.name = name;
+        setName(name);
         this.employees = new ArrayList<Employee>();
     }
 
     /**
      * Add an employee to the department.
-     * @param employee New employee to the department.
+     * @param employee New employee to add.
+     * @throws Exception If the employee is already in the department.
      */
     public void addEmployee(Employee employee) throws Exception {
-        for(Employee counterEmployee : this.employees){
-            if (counterEmployee == employee){
-                throw new Exception();
-            }
+        if (!isEmployeeInDepartment(employee)) {
+            this.employees.add(employee);
+        } else {
+            throw new Exception("This employee is already in the department");
         }
-        this.employees.add(employee);
     }
 
     /**
      * Delete an employee to the department.
      * @param employee Employee to remove.
+     * @throws Exception If the employee isn't in the department.
      */
-    public void deleteEmployee(Employee employee) {
-        this.employees.remove(employee);
+    public void deleteEmployee(Employee employee) throws Exception {
+        if (isEmployeeInDepartment(employee)) {
+            this.employees.remove(employee);
+        } else {
+            throw new Exception("This employee is npt in the department");
+        }
     }
 
     /**
@@ -57,41 +63,42 @@ public class Department {
      * @param employee Employee to search.
      * @return If a specific employee is in the department
      */
-    public boolean isEmployeeInDepartment(Employee employee){
+    public boolean isEmployeeInDepartment(Employee employee) {
         boolean flag = false;
+
         for (Employee counterEmployee : employees){
             if (counterEmployee == employee){
                 flag = true;
             }
         }
+
         return flag;
     }
 
     /**
-     * @return the name of the department
+     * Get the name of the department.
+     * @return The name of the department
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @return List of the employees of  the department
+     * Get the list of employees of the department.
+     * @return List of employees of the department
      */
     public ArrayList<Employee> getEmployees() {
         return employees;
     }
 
     /**
-     * this method allows you to change the name of the department
-     * @param name
+     * Set the name of the department.
+     * @param name New name of the department.
      */
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     * @return The name of department
-     */
     @Override
     public String toString() {
         return "Department: " + this.name;

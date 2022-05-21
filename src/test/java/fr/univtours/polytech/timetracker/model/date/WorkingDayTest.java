@@ -8,6 +8,30 @@ import java.sql.SQLOutput;
 
 public class WorkingDayTest {
     @Test
+    void constructors() {
+        try {
+            WorkingDay workingDay = new WorkingDay();
+
+            Assertions.assertNull(workingDay.getDay());
+            Assertions.assertNull(workingDay.getStartTime());
+            Assertions.assertNull(workingDay.getEndTime());
+
+            System.out.println(workingDay);
+
+            Time startTime = new Time(9, 0, 0);
+            Time endTime = new Time(18, 0, 0);
+            workingDay = new WorkingDay(Days.MONDAY, startTime, endTime);
+
+            Assertions.assertEquals(Days.MONDAY, workingDay.getDay());
+            Assertions.assertEquals(startTime, workingDay.getStartTime());
+            Assertions.assertEquals(endTime, workingDay.getEndTime());
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            Assertions.fail();
+        }
+    }
+
+    @Test
     void setDay(){
         WorkingDay workingDay= new WorkingDay();
         workingDay.setDay(Days.MONDAY);
@@ -19,12 +43,12 @@ public class WorkingDayTest {
     void setStartTime(){
         try{
             WorkingDay workingDay= new WorkingDay();
-            Time time = new Time(1,1,1);
+            Time time = new Time(9,30,0);
             workingDay.setStartTime(time);
 
-            Assertions.assertEquals(01 ,workingDay.getStartTime().getHour());
-            Assertions.assertEquals(01 ,workingDay.getStartTime().getMinute());
-            Assertions.assertEquals(01 ,workingDay.getStartTime().getSecond());
+            Assertions.assertEquals(9 ,workingDay.getStartTime().getHour());
+            Assertions.assertEquals(30 ,workingDay.getStartTime().getMinute());
+            Assertions.assertEquals(0 ,workingDay.getStartTime().getSecond());
         }
         catch(Exception exception){
             exception.printStackTrace();
@@ -37,12 +61,12 @@ public class WorkingDayTest {
     void setEndTime() {
         try {
             WorkingDay workingDay = new WorkingDay();
-            Time time = new Time(1, 1, 1);
+            Time time = new Time(18, 45, 0);
             workingDay.setEndTime(time);
 
-            Assertions.assertEquals(01, workingDay.getEndTime().getHour());
-            Assertions.assertEquals(01, workingDay.getEndTime().getMinute());
-            Assertions.assertEquals(01, workingDay.getEndTime().getSecond());
+            Assertions.assertEquals(18, workingDay.getEndTime().getHour());
+            Assertions.assertEquals(45, workingDay.getEndTime().getMinute());
+            Assertions.assertEquals(0, workingDay.getEndTime().getSecond());
         } catch (Exception exception) {
             exception.printStackTrace();
             Assertions.fail();
@@ -50,23 +74,19 @@ public class WorkingDayTest {
     }
 
     @Test
-    void toStr(){
-        try{
+    void toStr() {
+        try {
             WorkingDay workingDay = new WorkingDay();
-            Time startTime= new Time(1,1,1);
-            Time endTime=new Time(2,2,2);
+            Assertions.assertEquals("Unknown (Unknown - Unknown)", workingDay.toString());
 
-            workingDay.setDay(Days.MONDAY);
-            workingDay.setEndTime(endTime);
-            workingDay.setStartTime(startTime);
+            Time startTime = new Time(9,0,0);
+            Time endTime = new Time(17,30,0);
+            workingDay = new WorkingDay(Days.MONDAY, startTime, endTime);
 
-            Assertions.assertEquals("Date : MONDAY\n\tStarting time : 01:01:01\n\tEnding time : 02:02:02",workingDay.toString());
-        }
-        catch(Exception exception){
+            Assertions.assertEquals("MONDAY (09:00:00 - 17:30:00)", workingDay.toString());
+        } catch(Exception exception){
             exception.printStackTrace();
             Assertions.fail();
         }
-
-
     }
 }

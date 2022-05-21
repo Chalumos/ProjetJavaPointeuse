@@ -59,7 +59,6 @@ public class TimeTrackerView extends Application implements Observer {
 
         // Initialization of the time-tracker.
         getController().updateTime();
-        update(getController());
 
         // Update of the time-tracker every second.
         KeyFrame frame = new KeyFrame(Duration.seconds(1), event -> {
@@ -76,9 +75,11 @@ public class TimeTrackerView extends Application implements Observer {
     @Override
     public void update(Observable observable) {
         try {
+            // Get the current date and time.
             Date date = getController().getCurrentDate();
             Time time = getController().getCurrentTime();
 
+            // Update the content of the view.
             getController().setDateLabel(date);
             getController().setTimeLabel(time);
             getController().setRoundedTimeLabel(time.getTimeRoundedToQuarter());
@@ -101,7 +102,8 @@ public class TimeTrackerView extends Application implements Observer {
      */
     public void setController(TimeTrackerController controller) {
         this.controller = controller;
+
+        // The view observes the controller.
         this.controller.register(this);
-        // update(this.controller);
     }
 }
