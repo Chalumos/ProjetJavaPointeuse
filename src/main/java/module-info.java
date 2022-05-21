@@ -4,14 +4,14 @@ module fr.univtours.polytech.timetracker {
     requires java.desktop;
 
 
-    opens fr.univtours.polytech.timetracker to javafx.fxml;
-    exports fr.univtours.polytech.timetracker;
-    exports fr.univtours.polytech.timetracker.controller;
-    opens fr.univtours.polytech.timetracker.controller to javafx.fxml;
-    exports fr.univtours.polytech.timetracker.view;
-    opens fr.univtours.polytech.timetracker.view to javafx.fxml;
-    exports fr.univtours.polytech.timetracker.view.timetracker;
-    opens fr.univtours.polytech.timetracker.view.timetracker to javafx.fxml;
-    exports fr.univtours.polytech.timetracker.controller.timetracker;
-    opens fr.univtours.polytech.timetracker.controller.timetracker to javafx.fxml;
+    opens fr.univtours.polytech.projet_tutore to javafx.fxml;
+    exports fr.univtours.polytech.projet_tutore;
+    exports fr.univtours.polytech.projet_tutore.controller;
+    opens fr.univtours.polytech.projet_tutore.controller to javafx.fxml;
+    exports fr.univtours.polytech.projet_tutore.view;
+    opens fr.univtours.polytech.projet_tutore.view to javafx.fxml;
+    exports fr.univtours.polytech.projet_tutore.view.timetracker;
+    opens fr.univtours.polytech.projet_tutore.view.timetracker to javafx.fxml;
+    exports fr.univtours.polytech.projet_tutore.controller.timetracker;
+    opens fr.univtours.polytech.projet_tutore.controller.timetracker to javafx.fxml;
 }
