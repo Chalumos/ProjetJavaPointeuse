@@ -4,11 +4,10 @@ import fr.univtours.polytech.timetracker.controller.timetracker.TimeTrackerContr
 import fr.univtours.polytech.timetracker.controller.Observable;
 import fr.univtours.polytech.timetracker.model.date.Date;
 import fr.univtours.polytech.timetracker.model.date.Time;
-import fr.univtours.polytech.timetracker.view.Observer;
+import fr.univtours.polytech.timetracker.view.View;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -19,24 +18,17 @@ import java.io.IOException;
 /**
  * View of the time-tracker.
  */
-public class TimeTrackerView extends Application implements Observer {
-    /**
-     * Controller of the view.
-     */
-    private TimeTrackerController controller;
-
-    /**
+public class TimeTrackerView extends View {
+     /**
      * Initialize the controller to null.
      */
     public TimeTrackerView() {
-        controller = null;
+        setController(null);
     }
 
-    /**
-     * Show the view.
-     */
+    @Override
     public void show() {
-        TimeTrackerView.launch();
+        View.launch();
     }
 
     @Override
@@ -52,13 +44,14 @@ public class TimeTrackerView extends Application implements Observer {
         stage.setResizable(false);
         stage.setScene(scene);
 
-        // Get the controller of the view.
-        TimeTrackerController controller = fxmlLoader.getController();
-        controller.init();
-        setController(controller);
+        // Get the controller which controls the elements of the view.
+        setViewController(fxmlLoader.getController());
+        getViewController().setView(this);
 
-        // Initialization of the time-tracker.
-        getController().updateTime();
+        // Get the controller of the view.
+        TimeTrackerController controller = new TimeTrackerController();
+        setController(controller);
+        controller.initialize();
 
         // Update of the time-tracker every second.
         KeyFrame frame = new KeyFrame(Duration.seconds(1), event -> {
@@ -73,37 +66,39 @@ public class TimeTrackerView extends Application implements Observer {
     }
 
     @Override
-    public void update(Observable observable) {
+    public void update(Observable observable, String[] messages) {
         try {
-            // Get the current date and time.
-            Date date = getController().getCurrentDate();
-            Time time = getController().getCurrentTime();
-
-            // Update the content of the view.
-            getController().setDateLabel(date);
-            getController().setTimeLabel(time);
-            getController().setRoundedTimeLabel(time.getTimeRoundedToQuarter());
+            for (String message : messages) {
+                switch (message) {
+                    case "date" -> {
+                        // Update of the current date.
+                        Date date = getController().getCurrentDate();
+                        getViewController().setDateLabel(date);
+                    }
+                    case "time" -> {
+                        // Update of the current and rounded time.
+                        Time time = getController().getCurrentTime();
+                        getViewController().setTimeLabel(time);
+                        getViewController().setRoundedTimeLabel(time.getTimeRoundedToQuarter());
+                    }
+                    case "employees" -> {
+                        // Update of the employee list.
+                        getViewController().setEmployeeComboBox(getController().getEmployees());
+                    }
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * Get the controller of the view.
-     * @return The controller of the view.
-     */
+    @Override
     public TimeTrackerController getController() {
-        return controller;
+        return (TimeTrackerController) super.getController();
     }
 
-    /**
-     * Set the controller of the view.
-     * @param controller The new controller of the view.
-     */
-    public void setController(TimeTrackerController controller) {
-        this.controller = controller;
-
-        // The view observes the controller.
-        this.controller.register(this);
+    @Override
+    public TimeTrackerViewController getViewController() {
+        return (TimeTrackerViewController) super.getViewController();
     }
 }

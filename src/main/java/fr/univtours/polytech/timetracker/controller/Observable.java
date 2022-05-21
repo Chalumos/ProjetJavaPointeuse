@@ -34,11 +34,12 @@ public class Observable {
 
     /**
      * Notify the observers that they should to update their content.
+     * @param messages Messages to inform observers of what to do.
      */
-    public void notifyObservers()
+    public void notifyObservers(String[] messages)
     {
         for(Observer observer : observers) {
-            observer.update(this);
+            observer.update(this, messages);
         }
     }
 }
