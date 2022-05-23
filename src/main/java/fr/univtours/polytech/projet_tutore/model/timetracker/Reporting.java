@@ -91,19 +91,23 @@ public class Reporting {
      * @param time The new time.
      */
     public void setTime(Time time) {
-        this.time = time.getTimeRoundedToQuarter();
+        if (time != null) {
+            this.time = time.getTimeRoundedToQuarter();
 
-        // If the time was rounded to the next day.
-        if (time.getHour() == 23 && this.time.getHour() == 0 && date != null) {
-            LocalDate localDate = LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
-            localDate = localDate.plusDays(1);
+            // If the time was rounded to the next day.
+            if (time.getHour() == 23 && this.time.getHour() == 0 && date != null) {
+                LocalDate localDate = LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
+                localDate = localDate.plusDays(1);
 
-            try {
-                Date date = new Date(localDate.getDayOfMonth(), localDate.getMonth(), localDate.getYear());
-                setDate(date);
-            } catch (Exception exception) {
-                exception.printStackTrace();
+                try {
+                    Date date = new Date(localDate.getDayOfMonth(), localDate.getMonth(), localDate.getYear());
+                    setDate(date);
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
             }
+        } else {
+            this.time = null;
         }
     }
 

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.time.LocalDate;
+import java.util.UUID;
 
 
 /**
@@ -66,8 +67,7 @@ public class Employee implements Externalizable {
      * Generate a unique ID for an employee.
      */
     private void generateID() {
-        LocalDate date = LocalDate.now();
-        id = date.getYear() + "" + date.getMonthValue() + "" + date.getDayOfMonth() + System.currentTimeMillis();
+        id = UUID.randomUUID().toString();
     }
 
     /**
