@@ -5,6 +5,7 @@ import fr.univtours.polytech.projet_tutore.model.date.Date;
 import fr.univtours.polytech.projet_tutore.model.date.Time;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 import fr.univtours.polytech.projet_tutore.model.timetracker.Reporting;
+import fr.univtours.polytech.projet_tutore.model.timetracker.TimeTracker;
 
 import java.util.ArrayList;
 
@@ -14,30 +15,26 @@ import java.util.ArrayList;
  */
 public class TimeTrackerController extends Controller {
     /**
-     * The current date.
+     * Time-tracker controlled by the controller.
      */
-    private Date currentDate;
-
-    /**
-     * The currentTime;
-     */
-    private Time currentTime;
-
-    /**
-     * Employees of the company.
-     */
-    private ArrayList<Employee> employees = new ArrayList<Employee>();
+    private TimeTracker timeTracker;
 
     /**
      * Create the controller.
      */
-    public TimeTrackerController() {}
+    public TimeTrackerController() {
+        setTimeTracker(new TimeTracker());
+    }
 
     @Override
     public void initialize() {
+        ArrayList<Employee> employees = new ArrayList<Employee>();
+
         updateTime();
+
         employees.add(new Employee("John", "Doe"));
         employees.add(new Employee("Jane", "Doe"));
+        timeTracker.setEmployees(employees);
 
         String[] messages = {"date", "time", "employees"};
         notifyObservers(messages);
@@ -48,7 +45,7 @@ public class TimeTrackerController extends Controller {
      */
     public void checkEmployee(Employee employee) {
         try {
-            Reporting reporting = new Reporting(employee, getCurrentDate(), getCurrentTime());
+            Reporting reporting = new Reporting(employee, timeTracker.getCurrentDate(), timeTracker.getCurrentTime());
             System.out.println("Check employee: " + reporting);
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -56,35 +53,11 @@ public class TimeTrackerController extends Controller {
     }
 
     /**
-     * Get the current date.
-     * @return The current date;
-     */
-    public Date getCurrentDate() {
-        return currentDate;
-    }
-
-    /**
-     * Get the current time.
-     * @return The current time;
-     */
-    public Time getCurrentTime() {
-        return currentTime;
-    }
-
-    /**
-     * Get the employees of the company.
-     * @return The employees.
-     */
-    public ArrayList<Employee> getEmployees() {
-        return employees;
-    }
-
-    /**
      * Update the time of the time-tracker.
      */
     public void updateTime() {
-        currentDate = Date.getCurrentDate();
-        currentTime = Time.getCurrentTime();
+        timeTracker.setCurrentDate(Date.getCurrentDate());
+        timeTracker.setCurrentTime(Time.getCurrentTime());
 
         String[] messages = {"date", "time"};
         super.notifyObservers(messages);
@@ -96,5 +69,21 @@ public class TimeTrackerController extends Controller {
     public void updateEmployees() {
         String[] messages = {"employees"};
         super.notifyObservers(messages);
+    }
+
+    /**
+     * Get the time-tracker.
+     * @return The time-tracker.
+     */
+    public TimeTracker getTimeTracker() {
+        return timeTracker;
+    }
+
+    /**
+     * Set the time-tracker.
+     * @param newTimeTracker The new time-tracker.
+     */
+    public void setTimeTracker(TimeTracker newTimeTracker) {
+        timeTracker = newTimeTracker;
     }
 }

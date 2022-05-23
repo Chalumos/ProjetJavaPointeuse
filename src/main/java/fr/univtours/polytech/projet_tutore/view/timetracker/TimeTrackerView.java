@@ -72,18 +72,18 @@ public class TimeTrackerView extends View {
                 switch (message) {
                     case "date" -> {
                         // Update of the current date.
-                        Date date = getController().getCurrentDate();
+                        Date date = getController().getTimeTracker().getCurrentDate();
                         getViewController().setDateLabel(date);
                     }
                     case "time" -> {
                         // Update of the current and rounded time.
-                        Time time = getController().getCurrentTime();
+                        Time time = getController().getTimeTracker().getCurrentTime();
                         getViewController().setTimeLabel(time);
                         getViewController().setRoundedTimeLabel(time.getTimeRoundedToQuarter());
                     }
                     case "employees" -> {
                         // Update of the employee list.
-                        getViewController().setEmployeeComboBox(getController().getEmployees());
+                        getViewController().setEmployeeComboBox(getController().getTimeTracker().getEmployees());
                     }
                 }
             }
