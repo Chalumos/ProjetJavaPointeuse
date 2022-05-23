@@ -26,12 +26,14 @@ public class ReportingTest {
 
             Employee employee = new Employee("John", "Doe");
             Date date = new Date(21, Month.MAY, 2022);
-            Time time = new Time(9, 0, 0);
+            Time time = new Time(9, 12, 57);
             reporting = new Reporting(employee, date, time);
 
             Assertions.assertEquals(employee, reporting.getEmployee());
             Assertions.assertEquals(date, reporting.getDate());
-            Assertions.assertEquals(time, reporting.getTime());
+            Assertions.assertEquals(9, reporting.getTime().getHour());
+            Assertions.assertEquals(15, reporting.getTime().getMinute());
+            Assertions.assertEquals(0, reporting.getTime().getSecond());
         } catch (Exception exception) {
             exception.printStackTrace();
             Assertions.fail();
@@ -65,11 +67,25 @@ public class ReportingTest {
     @Test
     void testSetTime() {
         try {
-            Time time = new Time(15, 10, 50);
+            Date date = new Date(31, Month.JANUARY, 2022);
+            Time time = new Time(15, 27, 26);
 
             reporting.setTime(time);
 
-            Assertions.assertEquals(time, reporting.getTime());
+            Assertions.assertEquals(15, reporting.getTime().getHour());
+            Assertions.assertEquals(30, reporting.getTime().getMinute());
+            Assertions.assertEquals(0, reporting.getTime().getSecond());
+
+            time = new Time(23, 59, 59);
+            reporting.setDate(date);
+            reporting.setTime(time);
+
+            Assertions.assertEquals(0, reporting.getTime().getHour());
+            Assertions.assertEquals(0, reporting.getTime().getMinute());
+            Assertions.assertEquals(0, reporting.getTime().getSecond());
+            Assertions.assertEquals(1, reporting.getDate().getDay());
+            Assertions.assertEquals(Month.FEBRUARY, reporting.getDate().getMonth());
+            Assertions.assertEquals(2022, reporting.getDate().getYear());
         }
         catch(Exception exception) {
             exception.printStackTrace();
