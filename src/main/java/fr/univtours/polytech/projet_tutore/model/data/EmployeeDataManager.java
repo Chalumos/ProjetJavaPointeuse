@@ -1,9 +1,16 @@
 package fr.univtours.polytech.projet_tutore.model.data;
 
+import fr.univtours.polytech.projet_tutore.model.employee.Employee;
+
 import java.io.*;
 import java.util.ArrayList;
 
 public class EmployeeDataManager extends DataManager {
+
+    public EmployeeDataManager(){
+        super();
+    }
+
     @Override
     public void initialize() {
         // Get the project root path.
@@ -26,21 +33,11 @@ public class EmployeeDataManager extends DataManager {
         setFilePath(path);
     }
 
-    @Override
-    public void serialize(ArrayList<Object> objects) throws IOException {
-        FileOutputStream file = new FileOutputStream(getFilePath());
-        BufferedOutputStream buffer = new BufferedOutputStream(file);
-        DataOutputStream outputStream = new DataOutputStream(buffer);
-
-        /* TODO: trouver un moyen de sérialiser un Objet de la classe Employee !
-            pour cela il faut que Employee implement Externalizable */
-        // dataEmployee.writeUTF("");
-
-        outputStream.close();
+    public void serializeEmployees(ArrayList<Employee> employees) throws IOException {
+        super.serialize(employees);
     }
 
-    @Override
-    public ArrayList<Object> parse() {
-        return null;
+    public ArrayList<Employee> parseEmployees() throws IOException, ClassNotFoundException {
+        return super.parse();
     }
 }

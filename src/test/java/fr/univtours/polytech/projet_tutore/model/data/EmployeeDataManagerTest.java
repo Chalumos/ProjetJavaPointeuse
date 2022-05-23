@@ -1,8 +1,12 @@
 package fr.univtours.polytech.projet_tutore.model.data;
 
+import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class EmployeeDataManagerTest {
     private DataManager dataManager;
@@ -14,19 +18,22 @@ public class EmployeeDataManagerTest {
 
     @Test
     void testEmployeeDataManager() {
-        Assertions.assertNotNull(dataManager.getFilePath());
-        System.out.println(dataManager.getFilePath());
+        EmployeeDataManager employeeDataManager= new EmployeeDataManager();
+
+        Assertions.assertNotNull(employeeDataManager.getFilePath());
+        System.out.println(employeeDataManager.getFilePath());
     }
 
     @Test
     void testInitialize() {
-        dataManager.setFilePath(null);
-        Assertions.assertNull(dataManager.getFilePath());
+        EmployeeDataManager employeeDataManager= new EmployeeDataManager();
+        employeeDataManager.setFilePath(null);
+        Assertions.assertNull(employeeDataManager.getFilePath());
 
-        dataManager.initialize();
-        Assertions.assertNotNull(dataManager.getFilePath());
+        employeeDataManager.initialize();
+        Assertions.assertNotNull(employeeDataManager.getFilePath());
 
-        System.out.println(dataManager.getFilePath());
+        System.out.println(employeeDataManager.getFilePath());
     }
 
     @Test
@@ -35,7 +42,15 @@ public class EmployeeDataManagerTest {
     }
 
     @Test
-    void testSerialize() {
+    void testSerializeEmployees() throws IOException {
+        Employee employee= new Employee("Jean","Truc");
+        ArrayList<Employee> theList =new ArrayList<Employee>();
+        theList.add(employee);
+        EmployeeDataManager employeeDataManager= new EmployeeDataManager();
+
+
+        employeeDataManager.serializeEmployees(theList);
+        //TODO tester le parse() !!
 
     }
 }
