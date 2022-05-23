@@ -2,12 +2,20 @@ package fr.univtours.polytech.projet_tutore.model.employee;
 
 import fr.univtours.polytech.projet_tutore.model.date.Schedule;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class EmployeeTest {
+    private Employee employee;
+
+    @BeforeEach
+    void setUp() {
+        employee = new Employee("John", "Doe");
+    }
+
     @Test
-    void constructors() {
-        Employee employee = new Employee();
+    void testEmployee() {
+        employee = new Employee();
         Assertions.assertEquals("Unknown", employee.getFirstName());
         Assertions.assertEquals("Unknown", employee.getLastName());
         Assertions.assertNull(employee.getSchedule());
@@ -27,24 +35,21 @@ public class EmployeeTest {
     }
 
     @Test
-    void setFirstName() {
-        Employee employee = new Employee("John", "Doe");
+    void testSetFirstName() {
         employee.setFirstName("Jane");
 
         Assertions.assertEquals("Jane", employee.getFirstName());
     }
 
     @Test
-    void setLastName() {
-        Employee employee = new Employee("John", "Doe");
+    void testSetLastName() {
         employee.setLastName("Smith");
 
         Assertions.assertEquals("Smith", employee.getLastName());
     }
 
     @Test
-    void setSchedule() {
-        Employee employee = new Employee("John", "Doe");
+    void testSetSchedule() {
         Schedule schedule = new Schedule();
         Assertions.assertNull(employee.getSchedule());
 
@@ -53,8 +58,7 @@ public class EmployeeTest {
     }
 
     @Test
-    void toStr() {
-        Employee employee = new Employee("John", "Doe");
+    void testToString() {
         Assertions.assertEquals(employee.toString(), "John Doe (" + employee.getId() + ")");
     }
 }

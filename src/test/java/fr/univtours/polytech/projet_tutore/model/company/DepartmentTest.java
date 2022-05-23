@@ -2,13 +2,19 @@ package fr.univtours.polytech.projet_tutore.model.company;
 
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class DepartmentTest {
-    @Test
-    void constructors() {
-        Department department = new Department();
+    private Department department;
 
+    @BeforeEach
+    void setUp() {
+        department = new Department();
+    }
+
+    @Test
+    void testDepartment() {
         Assertions.assertEquals("Unknown", department.getName());
         Assertions.assertEquals(0, department.getEmployees().size());
 
@@ -19,10 +25,8 @@ public class DepartmentTest {
     }
 
     @Test
-    void addEmployee() throws Exception {
+    void testAddEmployee() throws Exception {
         try {
-            Department department = new Department();
-
             Employee employee = new Employee("John", "Doe");
             department.addEmployee(employee);
 
@@ -35,10 +39,8 @@ public class DepartmentTest {
     }
 
     @Test
-    void deleteEmployee() throws Exception {
+    void testDeleteEmployee() throws Exception {
         try {
-            Department department = new Department();
-
             Employee employee1 = new Employee("John", "Doe");
             Employee employee2 = new Employee("Jane", "Doe");
             department.addEmployee(employee1);
@@ -56,10 +58,8 @@ public class DepartmentTest {
     }
 
     @Test
-    void isEmployeeInDepartment() throws Exception {
+    void testIsEmployeeInDepartment() throws Exception {
         try {
-            Department department = new Department();
-
             Employee employee1 = new Employee("John", "Doe");
             Employee employee2 = new Employee("Jane", "Doe");
             Employee employee3 = new Employee("John", "Smith");
@@ -76,16 +76,14 @@ public class DepartmentTest {
     }
 
     @Test
-    void setName() {
-        Department department = new Department();
+    void testSetName() {
         department.setName("theDepartment");
 
         Assertions.assertEquals("theDepartment", department.getName());
     }
 
     @Test
-    void toStr() {
-        Department department = new Department();
+    void testToString() {
         Assertions.assertEquals("Department: Unknown",department.toString());
 
         department = new Department("theDepartment");

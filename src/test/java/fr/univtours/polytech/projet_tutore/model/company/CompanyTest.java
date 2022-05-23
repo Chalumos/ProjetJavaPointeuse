@@ -1,13 +1,19 @@
 package fr.univtours.polytech.projet_tutore.model.company;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class CompanyTest {
-    @Test
-    void constructors() {
-        Company company = new Company();
+    private Company company;
 
+    @BeforeEach
+    void setUp() {
+        company = new Company();
+    }
+
+    @Test
+    void testCompany() {
         Assertions.assertEquals("Unknown", company.getName());
         Assertions.assertEquals(0, company.getDepartments().size());
 
@@ -18,10 +24,8 @@ public class CompanyTest {
     }
 
     @Test
-    void addDepartment() {
+    void testAddDepartment() {
         try {
-            Company company = new Company();
-
             Department department = new Department("Department 1");
             company.addDepartment(department);
 
@@ -34,10 +38,8 @@ public class CompanyTest {
     }
 
     @Test
-    void deleteDepartment() {
+    void testDeleteDepartment() {
         try {
-            Company company = new Company();
-
             Department department1 = new Department("Department 1");
             Department department2 = new Department("Department 2");
             company.addDepartment(department1);
@@ -55,10 +57,8 @@ public class CompanyTest {
     }
 
     @Test
-    void isDepartmentInCompany() {
+    void testIsDepartmentInCompany() {
         try {
-            Company company = new Company();
-
             Department department1 = new Department("Department 1");
             Department department2 = new Department("Department 2");
             Department department3 = new Department("Department 3");
@@ -75,16 +75,14 @@ public class CompanyTest {
     }
 
     @Test
-    void setName(){
-        Company company = new Company();
+    void testSetName(){
         company.setName("theCompany");
 
         Assertions.assertEquals("theCompany",company.getName());
     }
 
     @Test
-    void toStr() {
-        Company company = new Company();
+    void testToString() {
         Assertions.assertEquals("Company: Unknown", company.toString());
 
         company = new Company("theCompany");

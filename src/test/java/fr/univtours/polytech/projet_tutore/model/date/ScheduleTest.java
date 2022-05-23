@@ -1,17 +1,23 @@
 package fr.univtours.polytech.projet_tutore.model.date;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.Month;
 
 
 public class ScheduleTest {
-    @Test
-    void constructors() {
-        try {
-            Schedule schedule = new Schedule();
+    private Schedule schedule;
 
+    @BeforeEach
+    void setUp() {
+        schedule = new Schedule();
+    }
+
+    @Test
+    void testSchedule() {
+        try {
             Assertions.assertEquals(0, schedule.getWeekNumber());
             Assertions.assertNull(schedule.getWeekDate());
 
@@ -36,9 +42,8 @@ public class ScheduleTest {
     }
 
     @Test
-    void setWeekNumber(){
+    void testSetWeekNumber(){
         try {
-            Schedule schedule = new Schedule();
             schedule.setWeekNumber(1);
 
             Assertions.assertEquals(1, schedule.getWeekNumber());
@@ -49,8 +54,7 @@ public class ScheduleTest {
     }
 
     @Test
-    void setWeekDate(){
-        Schedule schedule=new Schedule();
+    void testSetWeekDate(){
         Date date = new Date();
         schedule.setWeekDate(date);
 
@@ -60,9 +64,8 @@ public class ScheduleTest {
     }
 
     @Test
-    void setWorkingDay() {
+    void testSetWorkingDay() {
         try {
-            Schedule schedule = new Schedule();
             Time startTime = new Time(9, 0, 0);
             Time endTime = new Time(18, 0, 0);
 
@@ -90,9 +93,9 @@ public class ScheduleTest {
     }
 
     @Test
-    void toStr() {
+    void testToString() {
         try {
-            Schedule schedule = new Schedule(20, new Date());
+            schedule = new Schedule(20, new Date());
             Time startTime = new Time(9, 0, 0);
             Time endTime = new Time(18, 0, 0);
 

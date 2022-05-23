@@ -1,21 +1,52 @@
 package fr.univtours.polytech.projet_tutore.model.date;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalTime;
 
 public class TimeTest {
-    @Test
-    void constructors() {
-        Time time = new Time();
+    private Time time;
 
+    @BeforeEach
+    void setUp() {
+        time = new Time();
+    }
+
+    @Test
+    void testTime() {
         Assertions.assertEquals(0, time.getHour());
         Assertions.assertEquals(0, time.getMinute());
     }
 
     @Test
-    void getCurrentTime(){
+    void testCompareTo() {
+        try {
+            Time time1 = new Time(8, 0, 0);
+            Time time2 = new Time(8, 30, 0);
+            Time time3 = new Time(8, 30, 30);
+            Time time4 = new Time(9, 0, 0);
+
+            Assertions.assertTrue(time1.compareTo(time2) < 0);
+            Assertions.assertTrue(time1.compareTo(time3) < 0);
+            Assertions.assertTrue(time1.compareTo(time4) < 0);
+
+            Assertions.assertEquals(0, time1.compareTo(time1));
+            Assertions.assertEquals(0, time2.compareTo(time2));
+            Assertions.assertEquals(0, time3.compareTo(time3));
+
+            Assertions.assertTrue(time2.compareTo(time1) > 0);
+            Assertions.assertTrue(time3.compareTo(time2) > 0);
+            Assertions.assertTrue(time4.compareTo(time3) > 0);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Assertions.fail();
+        }
+    }
+
+    @Test
+    void testGetCurrentTime(){
         LocalTime localTime = LocalTime.now();
         Time currentTime = Time.getCurrentTime();
 
@@ -24,7 +55,7 @@ public class TimeTest {
     }
 
     @Test
-    void checkIfTimeValid() {
+    void testCheckIfTimeValid() {
         Assertions.assertThrows(Exception.class, () -> new Time(-5, 2, 0));
         Assertions.assertThrows(Exception.class, () -> new Time(24, 2, 0));
         Assertions.assertThrows(Exception.class, () -> new Time(5, -2, 0));
@@ -32,9 +63,7 @@ public class TimeTest {
     }
 
     @Test
-    void getTimeRoundedToQuarter() {
-        Time time;
-
+    void testGetTimeRoundedToQuarter() {
         try {
             time = new Time(10, 3, 0);
             Assertions.assertEquals("10:00:00", (time).getTimeRoundedToQuarter().toString());
@@ -54,9 +83,7 @@ public class TimeTest {
     }
 
     @Test
-    void setHour() {
-        Time time = new Time();
-
+    void testSetHour() {
         try {
             Assertions.assertNotEquals(5, time.getHour());
             time.setHour(5);
@@ -72,9 +99,7 @@ public class TimeTest {
     }
 
     @Test
-    void setMinute() {
-        Time time = new Time();
-
+    void testSetMinute() {
         try {
             Assertions.assertNotEquals(15, time.getMinute());
             time.setMinute(15);
@@ -90,7 +115,7 @@ public class TimeTest {
     }
 
     @Test
-    void toStr() {
+    void testToString() {
         try {
             Assertions.assertEquals("18:53:00", (new Time(18,53, 0)).toString());
 

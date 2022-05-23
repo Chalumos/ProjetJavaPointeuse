@@ -1,16 +1,22 @@
 package fr.univtours.polytech.projet_tutore.model.date;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.Month;
 
 public class DateTest {
-    @Test
-    void constructors() {
-        Date date = new Date();
+    private Date date;
 
+    @BeforeEach
+    void setUp() {
+        date = new Date();
+    }
+
+    @Test
+    void testDate() {
         Assertions.assertEquals(1, date.getDay());
         Assertions.assertEquals(Month.JANUARY, date.getMonth());
         Assertions.assertEquals(0, date.getYear());
@@ -19,7 +25,7 @@ public class DateTest {
     }
 
     @Test
-    void getCurrentDate() {
+    void testGetCurrentDate() {
         LocalDate localDate = LocalDate.now();
         Date currentDate = Date.getCurrentDate();
 
@@ -29,7 +35,7 @@ public class DateTest {
     }
 
     @Test
-    void isYearLeap() {
+    void testIsYearLeap() {
         for (int year = 1980; year <= 2096; year += 4) {
             int finalYear = year;
             Assertions.assertDoesNotThrow(() -> new Date(29, Month.FEBRUARY, finalYear));
@@ -37,7 +43,7 @@ public class DateTest {
     }
 
     @Test
-    void checkIfDateValid() {
+    void testCheckIfDateValid() {
         Assertions.assertThrows(Exception.class, () -> new Date(0, Month.JANUARY, 2022));
         Assertions.assertThrows(Exception.class, () -> new Date(32, Month.JANUARY, 2022));
 
@@ -52,9 +58,7 @@ public class DateTest {
     }
 
     @Test
-    void setDay() {
-        Date date = new Date();
-
+    void testSetDay() {
         try {
             Assertions.assertNotEquals(23, date.getDay());
             date.setDay(23);
@@ -73,11 +77,9 @@ public class DateTest {
     }
 
     @Test
-    void setMonth() {
-        Date date;
-
+    void testSetMonth() {
         try {
-            date = new Date(1, Month.JANUARY, 2022);
+            Date date = new Date(1, Month.JANUARY, 2022);
 
             date.setMonth(Month.DECEMBER);
             Assertions.assertEquals(Month.DECEMBER, date.getMonth());
@@ -92,11 +94,9 @@ public class DateTest {
     }
 
     @Test
-    void setYear() {
-        Date date;
-
+    void testSetYear() {
         try {
-            date = new Date(29, Month.FEBRUARY, 2020);
+            Date date = new Date(29, Month.FEBRUARY, 2020);
 
             date.setYear(2000);
             Assertions.assertEquals(2000, date.getYear());
@@ -109,7 +109,7 @@ public class DateTest {
     }
 
     @Test
-    void toStr() {
+    void testToString() {
         try {
             Assertions.assertEquals("May 13th, 2022", (new Date(13, Month.MAY, 2022)).toString());
 
