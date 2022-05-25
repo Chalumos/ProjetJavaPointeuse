@@ -4,6 +4,8 @@ import fr.univtours.polytech.projet_tutore.model.date.Date;
 import fr.univtours.polytech.projet_tutore.model.date.Time;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 
+import java.time.LocalDate;
+
 /**
  * Class that represents and allows to edit a Reporting.
  */
@@ -27,7 +29,9 @@ public class Reporting {
      * Create an empty reporting.
      */
     public Reporting() {
-        this(null, null, null);
+        employee = null;
+        date = null;
+        time = null;
     }
 
     /**
@@ -87,7 +91,24 @@ public class Reporting {
      * @param time The new time.
      */
     public void setTime(Time time) {
-        this.time = time;
+        if (time != null) {
+            this.time = time.getTimeRoundedToQuarter();
+
+            // If the time was rounded to the next day.
+            if (time.getHour() == 23 && this.time.getHour() == 0 && date != null) {
+                LocalDate localDate = LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
+                localDate = localDate.plusDays(1);
+
+                try {
+                    Date date = new Date(localDate.getDayOfMonth(), localDate.getMonth(), localDate.getYear());
+                    setDate(date);
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+            }
+        } else {
+            this.time = null;
+        }
     }
 
     @Override
