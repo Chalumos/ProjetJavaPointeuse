@@ -49,12 +49,13 @@ public abstract class DataManager {
 
         ArrayList<T> theList = new ArrayList<T>();
         T t;
-        while ((t=(T) objectOutput.readObject())!=null){
-            theList.add(t);
-        }
 
-        objectOutput.readObject();
+
+        t=(T) objectOutput.readObject();
+        theList.addAll((ArrayList) t);
+
         outputStream.close();
+        System.out.println(t.getClass());
         return theList;
     }
 
