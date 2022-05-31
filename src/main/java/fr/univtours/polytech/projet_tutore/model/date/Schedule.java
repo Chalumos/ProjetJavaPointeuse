@@ -32,7 +32,8 @@ public class Schedule {
         workingDays = new HashMap<Days, WorkingDay>();
 
         for (Days day : Days.values()) {
-            workingDays.put(day, new WorkingDay(day, null, null));
+            workingDays.put(day, new WorkingDay());
+            workingDays.get(day).setDay(day);
         }
     }
 

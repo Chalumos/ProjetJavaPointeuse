@@ -163,14 +163,14 @@ public class Stub {
                     }
                 }
 
-                if (employee.getSchedule().getWorkingDay(day).getEndTime() != null) {
+                if (employee.getSchedule().getWorkingDay(day).getEndTime() != null){
                     endTimeReporting = new Time(employee.getSchedule().getWorkingDay(day).getEndTime().getHour(), employee.getSchedule().getWorkingDay(day).getEndTime().getMinute(), employee.getSchedule().getWorkingDay(day).getEndTime().getSecond());
 
                     // The employee report between -15 and 15 minutes before or after his real starting time.
                     int randEnd = -15 + new Random().nextInt(31);
 
                     // If the minute is between 0 and 59
-                    if (endTimeReporting.getMinute() + randEnd >= 0 && endTimeReporting.getMinute() + randEnd <= 59) {
+                    if (endTimeReporting.getMinute() + randEnd >= 0 && endTimeReporting.getMinute() + randEnd <= 59){
                         endTimeReporting.setMinute(endTimeReporting.getMinute() + randEnd);
                     }
                     // If the minute is before 0

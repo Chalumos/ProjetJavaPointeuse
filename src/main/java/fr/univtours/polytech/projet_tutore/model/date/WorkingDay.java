@@ -24,8 +24,8 @@ public class WorkingDay {
      */
     public WorkingDay() {
         setDay(null);
-        setStartTime(null);
-        setEndTime(null);
+        startTime = null;
+        endTime = null;
     }
 
     /**
@@ -34,10 +34,10 @@ public class WorkingDay {
      * @param startTime The time when the employee is supposed to start working.
      * @param endTime The time when the employee is supposed to stop working.
      */
-    public WorkingDay(Days day, Time startTime, Time endTime) {
+    public WorkingDay(Days day, Time startTime, Time endTime) throws Exception {
         setDay(day);
-        setStartTime(startTime);
-        setEndTime(endTime);
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     /**
@@ -75,17 +75,27 @@ public class WorkingDay {
     /**
      * Set the time when the employee is supposed to start working
      * @param startTime The time when the employee is supposed to start working.
+     * @throws Exception If the new starting time is not before the ending time.
      */
-    public void setStartTime(Time startTime) {
-        this.startTime = startTime;
+    public void setStartTime(Time startTime) throws Exception {
+        if (getEndTime() != null && startTime.compareTo(getEndTime()) >= 0) {
+            throw new Exception("The starting time should be before the ending time.");
+        } else {
+            this.startTime = startTime;
+        }
     }
 
     /**
      * Set the time when the employee is supposed to stop working
      * @param endTime The time when the employee is supposed to stop working.
+     * @throws Exception If the new starting time is not before the ending time.
      */
-    public void setEndTime(Time endTime) {
-        this.endTime = endTime;
+    public void setEndTime(Time endTime) throws Exception {
+        if (getStartTime() != null && endTime.compareTo(getStartTime()) <= 0) {
+            throw new Exception("The ending time should be after the starting time.");
+        } else {
+            this.endTime = endTime;
+        }
     }
 
     @Override

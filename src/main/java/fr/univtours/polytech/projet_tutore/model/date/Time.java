@@ -5,7 +5,7 @@ import java.time.LocalTime;
 /**
  * Class that represents and allows to edit a time.
  */
-public class Time {
+public class Time implements Comparable<Time> {
     /**
      * Hour of the day.
      */
@@ -69,6 +69,14 @@ public class Time {
         }
     }
 
+    @Override
+    public int compareTo(Time time) {
+        int currentTimeSeconds = 3600 * getHour() + 60 * getMinute() + getSecond();
+        int timeSeconds = 3600 * time.getHour() + 60 * time.getMinute() + time.getSecond();
+
+        return currentTimeSeconds - timeSeconds;
+    }
+
     /**
      * Get the current time.
      * The time may be null if a problem to get the current time has occurred.
@@ -87,6 +95,7 @@ public class Time {
 
         return currentTime;
     }
+
 
 
     /**

@@ -1,33 +1,90 @@
 package fr.univtours.polytech.projet_tutore.model.timetracker;
 
-import java.io.*;
+import fr.univtours.polytech.projet_tutore.model.date.Date;
+import fr.univtours.polytech.projet_tutore.model.date.Time;
+import fr.univtours.polytech.projet_tutore.model.employee.Employee;
+
+import java.util.ArrayList;
 
 public class TimeTracker {
-    public void serialisationEmployee(){
-        // In the case of the separator for the resources, it's the same for every OS: '/'.
-        // So there is no need to use File.separator.
-        File root = new File("");
-        String packages = File.separator+"src"+
-                File.separator+"main"+
-                File.separator+"resources"+
-                File.separator+"fr"+
-                File.separator+"univtours"+
-                File.separator+"polytech"+
-                File.separator+"timetracker"+File.separator;
-        String filePath = root.getAbsolutePath() + packages + "Employee.txt";
-        System.out.println(filePath);
+    /**
+     * The current date.
+     */
+    private Date currentDate;
 
-        try{
-            FileOutputStream fileEmployee = new FileOutputStream(filePath);
-            BufferedOutputStream bufferEmployee = new BufferedOutputStream(fileEmployee);
-            DataOutputStream dataEmployee = new DataOutputStream(bufferEmployee);
+    /**
+     * The currentTime;
+     */
+    private Time currentTime;
 
-            //TODO trouver un moyen de sérialiser un Objet de la classe Employee!
-            // pour cela il faut que Employee implement Externalizable
-            //dataEmployee.writeUTF("");
-            dataEmployee.close();
-        } catch(IOException exception){
-            exception.printStackTrace();
-        }
+    /**
+     * Employees of the company.
+     */
+    private ArrayList<Employee> employees;
+
+    /**
+     * Create a time tracker without any employee.
+     */
+    public TimeTracker() {
+        setCurrentDate(Date.getCurrentDate());
+        setCurrentTime(Time.getCurrentTime());
+        employees = new ArrayList<Employee>();
+    }
+
+    /**
+     * Get the current date.
+     * @return The current date;
+     */
+    public Date getCurrentDate() {
+        return currentDate;
+    }
+
+    /**
+     * Get the current time.
+     * @return The current time;
+     */
+    public Time getCurrentTime() {
+        return currentTime;
+    }
+
+    /**
+     * Get the employees of the company.
+     * @return The employees.
+     */
+    public ArrayList<Employee> getEmployees() {
+        return employees;
+    }
+
+    /**
+     * Set the current date of the time-tracker.
+     * @param newCurrentDate The new current date.
+     */
+    public void setCurrentDate(Date newCurrentDate) {
+        currentDate = newCurrentDate;
+    }
+
+    /**
+     * Set the current time of the time-tracker.
+     * @param newCurrentTime The new current time.
+     */
+    public void setCurrentTime(Time newCurrentTime) {
+        currentTime = newCurrentTime;
+    }
+
+    /**
+     * Set the list of employees.
+     * @param newEmployeeList The new list of employees.
+     */
+    public void setEmployees(ArrayList<Employee> newEmployeeList) {
+        employees.clear();
+        employees.addAll(newEmployeeList);
+    }
+
+    @Override
+    public String toString() {
+        String date = getCurrentDate().toString();
+        String time = getCurrentTime().toString();
+        String employees = String.valueOf(getEmployees().size());
+        return "Time-tracker (" + date + " at " + time + ", " + employees + " employees)";
     }
 }
