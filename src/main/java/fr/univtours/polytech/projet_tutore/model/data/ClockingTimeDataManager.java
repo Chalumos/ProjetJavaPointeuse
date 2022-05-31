@@ -1,15 +1,14 @@
 package fr.univtours.polytech.projet_tutore.model.data;
 
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
+import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
-public class EmployeeDataManager extends DataManager {
-
-    public EmployeeDataManager(){
-        super();
-    }
+public class ClockingTimeDataManager extends DataManager{
+    public ClockingTimeDataManager(){super();}
 
     @Override
     public void initialize() {
@@ -27,15 +26,16 @@ public class EmployeeDataManager extends DataManager {
                 File.separator + "data" +
                 File.separator;
 
-        String path = root.getAbsolutePath() + packages + "Employee.txt";
+        String path = root.getAbsolutePath() + packages + "ClockingTime.txt";
         setFilePath(path);
     }
 
-    public void serializeEmployees(ArrayList<Employee> employees) throws IOException {
-        super.serialize(employees);
+    public void serializeClockingTime(ArrayList<ClockingTime> clockingTime) throws IOException {
+        super.serialize(clockingTime);
     }
 
-    public ArrayList<Employee> parseEmployees() throws IOException, ClassNotFoundException {
+    public ArrayList<ClockingTime> parseClockingTime() throws IOException, ClassNotFoundException {
         return super.parse();
     }
+
 }

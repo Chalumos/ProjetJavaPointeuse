@@ -1,15 +1,20 @@
 package fr.univtours.polytech.projet_tutore.model.timetracker;
 
 import fr.univtours.polytech.projet_tutore.model.date.Date;
+import fr.univtours.polytech.projet_tutore.model.date.Schedule;
 import fr.univtours.polytech.projet_tutore.model.date.Time;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.time.LocalDate;
 
 /**
  * Class that represents and allows to edit a ClockingTime.
  */
-public class ClockingTime {
+public class ClockingTime implements Externalizable {
     /**
      * Employee who is reporting.
      */
@@ -120,5 +125,24 @@ public class ClockingTime {
         String time = getTime() != null ? getTime().toString() : "Unknown";
 
         return "[ " + employee + " | " + date + " | " + time + " ]";
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        if (this!=null){
+            out.writeObject(employee);
+            out.writeObject(date);
+            out.writeObject(time);
+        }
+        else{
+            throw new IOException();
+        }
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        employee = (Employee) in.readObject();
+        date =(Date) in.readObject();
+        time = (Time) in.readObject();
     }
 }
