@@ -7,40 +7,40 @@ import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 import java.time.LocalDate;
 
 /**
- * Class that represents and allows to edit a Reporting.
+ * Class that represents and allows to edit a ClockingTime.
  */
-public class Reporting {
+public class ClockingTime {
     /**
-     * Employee who is reporting
+     * Employee who is reporting.
      */
     private Employee employee;
 
     /**
-     * Date of reporting
+     * Date of the clocking time
      */
     private Date date;
 
     /**
-     * Time of reporting
+     * Time of clocking time
      */
     private Time time;
 
     /**
-     * Create an empty reporting.
+     * Create an empty clocking time.
      */
-    public Reporting() {
+    public ClockingTime() {
         employee = null;
         date = null;
         time = null;
     }
 
     /**
-     * Create a reporting with arguments.
-     * @param employee The employee of the reporting.
-     * @param date The date of the reporting.
-     * @param time The time of the reporting.
+     * Create a clocking time with arguments.
+     * @param employee The employee of the clocking time.
+     * @param date The date of the clocking time.
+     * @param time The time of the clocking time.
      */
-    public Reporting(Employee employee, Date date, Time time) {
+    public ClockingTime(Employee employee, Date date, Time time) {
         setEmployee(employee);
         setDate(date);
         setTime(time);
@@ -55,16 +55,16 @@ public class Reporting {
     }
 
     /**
-     * Get the date of the reporting.
-     * @return The date of the reporting.
+     * Get the date of the clocking time.
+     * @return The date of the clocking time.
      */
     public Date getDate() {
         return date;
     }
 
     /**
-     * Get the time of the reporting.
-     * @return The time of the reporting.
+     * Get the time of the clocking time.
+     * @return The time of the clocking time.
      */
     public Time getTime() {
         return time;
@@ -79,7 +79,7 @@ public class Reporting {
     }
 
     /**
-     * Set the date of the reporting.
+     * Set the date of the clocking time.
      * @param date The new date.
      */
     public void setDate(Date date) {
@@ -87,7 +87,7 @@ public class Reporting {
     }
 
     /**
-     * Set the time of the reporting.
+     * Set the time of the clocking time.
      * @param time The new time.
      */
     public void setTime(Time time) {

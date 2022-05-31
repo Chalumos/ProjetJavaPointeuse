@@ -44,18 +44,23 @@ public abstract class DataManager {
     public <T> ArrayList<T> parse() throws IOException, ClassNotFoundException {
         FileInputStream file = new FileInputStream(getFilePath());
         BufferedInputStream buffer = new BufferedInputStream(file);
-        DataInputStream outputStream = new DataInputStream(buffer);
-        ObjectInputStream objectOutput = new ObjectInputStream(outputStream);
+        DataInputStream inputStream = new DataInputStream(buffer);
 
-        ArrayList<T> theList = new ArrayList<T>();
+        ArrayList<T> theList = new ArrayList<T>(1);
         T t;
 
+        try{
+            ObjectInputStream objectInput = new ObjectInputStream(inputStream);
 
-        t=(T) objectOutput.readObject();
-        theList.addAll((ArrayList) t);
+            t = (T) objectInput.readObject();
 
-        outputStream.close();
-        System.out.println(t.getClass());
+            theList.addAll((ArrayList) t);
+            inputStream.close();
+        }
+        catch(EOFException e){
+            return theList;
+        }
+
         return theList;
     }
 

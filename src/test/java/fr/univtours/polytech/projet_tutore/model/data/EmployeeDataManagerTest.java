@@ -7,39 +7,34 @@ import org.junit.jupiter.api.Test;
 
 import java.io.EOFException;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class EmployeeDataManagerTest {
-    private DataManager dataManager;
+    private EmployeeDataManager employeeDataManager;
 
     @BeforeEach
     void setUp() {
-        EmployeeDataManager dataManager = new EmployeeDataManager();
+        employeeDataManager = new EmployeeDataManager();
     }
 
     @Test
     void testEmployeeDataManager() {
-        EmployeeDataManager employeeDataManager= new EmployeeDataManager();
-
         Assertions.assertNotNull(employeeDataManager.getFilePath());
-        System.out.println(employeeDataManager.getFilePath());
     }
 
     @Test
     void testInitialize() {
-        EmployeeDataManager employeeDataManager= new EmployeeDataManager();
         employeeDataManager.setFilePath(null);
         Assertions.assertNull(employeeDataManager.getFilePath());
 
         employeeDataManager.initialize();
         Assertions.assertNotNull(employeeDataManager.getFilePath());
-
-        System.out.println(employeeDataManager.getFilePath());
     }
 
     @Test
-    void testSerializeEmployees() throws IOException {
+    void testSerializeEmployees() {
         ArrayList<Employee> theList =new ArrayList<Employee>();
 
         Employee employee1= new Employee("Jean","Truc");
@@ -49,7 +44,6 @@ public class EmployeeDataManagerTest {
         theList.add(employee2);
 
         ArrayList<Employee> theNewList = new ArrayList<Employee>();
-        EmployeeDataManager employeeDataManager= new EmployeeDataManager();
 
         try{
             String path = (new File(employeeDataManager.getFilePath())).getParentFile() + File.separator + "EmployeeTest.txt";
@@ -63,5 +57,29 @@ public class EmployeeDataManagerTest {
         catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    @Test
+    void testSerializeEmployees_emptyFile(){
+        ArrayList<Employee> theNewList = new ArrayList<Employee>();
+
+        String path = (new File(employeeDataManager.getFilePath())).getParentFile() + File.separator + "emptyFileTest.txt";
+        employeeDataManager.setFilePath(path);
+
+
+        try{
+            theNewList.addAll(employeeDataManager.parseEmployees());
+            Assertions.assertEquals(new ArrayList<Employee>(1),theNewList);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void testSerializeEmployees_ThrowsExceptions(){
+        employeeDataManager.setFilePath("");
+
+        Assertions.assertThrows(FileNotFoundException.class,()->employeeDataManager.parseEmployees());
     }
 }
