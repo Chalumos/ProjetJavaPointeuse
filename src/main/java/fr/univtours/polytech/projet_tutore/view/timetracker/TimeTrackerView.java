@@ -35,7 +35,7 @@ public class TimeTrackerView extends View {
     public void start(Stage stage) throws IOException {
         // In the case of the separator for the resources, it's the same for every OS: '/'.
         // So there is no need to use File.separator.
-        String fileName = "/fr/univtours/polytech/projet_tutore/data/mainView.fxml";
+        String fileName = "/fr/univtours/polytech/projet_tutore/view/timetracker/timetrackerView.fxml";
         FXMLLoader fxmlLoader = new FXMLLoader(TimeTrackerView.class.getResource(fileName));
 
         // Creation of the scene.

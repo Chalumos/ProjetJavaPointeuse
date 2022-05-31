@@ -4,7 +4,7 @@ import fr.univtours.polytech.projet_tutore.controller.Controller;
 import fr.univtours.polytech.projet_tutore.model.date.Date;
 import fr.univtours.polytech.projet_tutore.model.date.Time;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
-import fr.univtours.polytech.projet_tutore.model.timetracker.Reporting;
+import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
 import fr.univtours.polytech.projet_tutore.model.timetracker.TimeTracker;
 
 import java.util.ArrayList;
@@ -45,8 +45,8 @@ public class TimeTrackerController extends Controller {
      */
     public void checkEmployee(Employee employee) {
         try {
-            Reporting reporting = new Reporting(employee, timeTracker.getCurrentDate(), timeTracker.getCurrentTime());
-            System.out.println("Check employee: " + reporting);
+            ClockingTime clockingTime = new ClockingTime(employee, timeTracker.getCurrentDate(), timeTracker.getCurrentTime());
+            System.out.println("Check employee: " + clockingTime);
         } catch (Exception exception) {
             exception.printStackTrace();
         }
