@@ -1,19 +1,23 @@
 package fr.univtours.polytech.projet_tutore.view.application;
 
-import fr.univtours.polytech.projet_tutore.controller.Controller;
 import fr.univtours.polytech.projet_tutore.controller.Observable;
 import fr.univtours.polytech.projet_tutore.controller.application.ApplicationController;
-import fr.univtours.polytech.projet_tutore.controller.timetracker.TimeTrackerController;
+import fr.univtours.polytech.projet_tutore.model.Stub;
+import fr.univtours.polytech.projet_tutore.model.company.Company;
+import fr.univtours.polytech.projet_tutore.model.company.Department;
+import fr.univtours.polytech.projet_tutore.model.date.Days;
+import fr.univtours.polytech.projet_tutore.model.date.Schedule;
+import fr.univtours.polytech.projet_tutore.model.date.WorkingDay;
+import fr.univtours.polytech.projet_tutore.model.employee.Employee;
+import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
 import fr.univtours.polytech.projet_tutore.view.View;
-import fr.univtours.polytech.projet_tutore.view.ViewController;
-import fr.univtours.polytech.projet_tutore.view.timetracker.TimeTrackerView;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.util.Duration;
+
+import java.util.ArrayList;
 
 public class ApplicationView extends View {
     /**
@@ -23,14 +27,65 @@ public class ApplicationView extends View {
         setController(null);
     }
 
-    @Override
-    public void update(Observable observable, String[] messages) {
+    /**
+     * Initialize the table view of clocking times.
+     */
+    private void initializeTableViewClockingTimes() {
+        TableColumn<ClockingTime, String> columnEmployee = new TableColumn<>("Employee");
+        TableColumn<ClockingTime, String> columnDate = new TableColumn<>("Date");
+        TableColumn<ClockingTime, String> columnTime = new TableColumn<>("Time");
+        TableColumn<ClockingTime, String> columnEdit = new TableColumn<>("Edit");
+        TableColumn<ClockingTime, String> columnRemove = new TableColumn<>("Remove");
 
+        columnEmployee.setCellValueFactory(new PropertyValueFactory<>("employee"));
+        columnDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        columnTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+        /*columnEdit.setCellValueFactory(new PropertyValueFactory<>("date"));
+        columnRemove.setCellValueFactory(new PropertyValueFactory<>("time"));*/
+
+        getViewController().getTableViewClockingTimes().getColumns().setAll(
+                columnEmployee, columnDate, columnTime, columnEdit, columnRemove);
+    }
+
+    /**
+     * Initialize the table view of employees.
+     */
+    private void initializeTableViewEmployees() {
+        TableColumn<Employee, String> columnFirstname = new TableColumn<>("First name");
+        TableColumn<Employee, String> columnLastname = new TableColumn<>("Last name");
+
+        columnFirstname.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        columnLastname.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        getViewController().getTableViewEmployeeList().getColumns().setAll(
+                columnFirstname, columnLastname);
+    }
+
+    /**
+     * Initialize the table view of working days.
+     */
+    private void initializeTableViewEmployeeSchedule() {
+        TableColumn<WorkingDay, String> columnDay = new TableColumn<>("Day");
+        TableColumn<WorkingDay, String> columnStartingTime = new TableColumn<>("Starting time");
+        TableColumn<WorkingDay, String> columnEndingTime = new TableColumn<>("Ending time");
+
+        columnDay.setCellValueFactory(new PropertyValueFactory<>("day"));
+        columnStartingTime.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+        columnEndingTime.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+        getViewController().getTableViewEmployeeSchedule().getColumns().setAll(
+                columnDay, columnStartingTime, columnEndingTime);
     }
 
     @Override
     public void initialize() {
+        // Initialization of the controller.
+        ApplicationController controller = new ApplicationController();
+        setController(controller);
+        getController().initialize();
 
+        // Initialization of the components.
+        initializeTableViewClockingTimes();
+        initializeTableViewEmployees();
+        initializeTableViewEmployeeSchedule();
     }
 
     @Override
@@ -56,12 +111,68 @@ public class ApplicationView extends View {
         getViewController().setView(this);
 
         // Get the controller of the view.
-        ApplicationController controller = new ApplicationController();
-        setController(controller);
-        controller.initialize();
+        initialize();
 
         // Show the view.
         stage.show();
+    }
+
+    @Override
+    public void update(Observable observable, String[] messages) {
+        Company company = getController().getCompany();
+        ArrayList<Employee> employees = new ArrayList<>();
+
+        for (Department department : company.getDepartments()) {
+            employees.addAll(department.getEmployees());
+        }
+
+        try {
+            for (String message : messages) {
+                switch (message) {
+                    case "employee_filter" -> {
+                        // Update of the employee list in the filters.
+                        getViewController().setComboBoxEmployeeFilters(employees);
+                    }
+                    case "department_filter" -> {
+                        // Update of the department list in the filters.
+                        getViewController().setComboBoxDepartmentFilters(company.getDepartments());
+                    }
+                    case "clocking_time" -> {
+                        // Update the list of clocking times.
+                        getViewController().setTableViewClockingTimes(Stub.getClockingTimeList());
+
+                    }
+                    case "employees" -> {
+                        // Update the list of employees.
+                        getViewController().setTableViewEmployeeList(employees);
+                    }
+                    case "selected_employee" -> {
+                        // Update the information about the selected employee.
+                        Employee selectedEmployee = getController().getSelectedEmployee();
+                        Schedule schedule = selectedEmployee.getSchedule();
+                        ArrayList<WorkingDay> workingDays = new ArrayList<>();
+                        Days[] days = {Days.MONDAY, Days.TUESDAY, Days.WEDNESDAY, Days.THURSDAY, Days.FRIDAY, Days.SATURDAY, Days.SUNDAY};
+
+                        for (Days day : days) {
+                            workingDays.add(selectedEmployee.getSchedule().getWorkingDay(day));
+                        }
+
+                        // Employee.
+                        getViewController().setLabelEmployeeID(selectedEmployee.getId());
+                        getViewController().setLabelEmployeeFirstname(selectedEmployee.getFirstName());
+                        getViewController().setLabelEmployeeLastname(selectedEmployee.getLastName());
+//                        getViewController().setLabelEmployeeDepartment(selectedEmployee.get());
+
+                        // Schedule.
+                        String scheduleTitle = "Week " + schedule.getWeekNumber() + " (" + schedule.getWeekDate() + ")";
+                        getViewController().setLabelEmployeeScheduleTitle(scheduleTitle);
+                        getViewController().setTableViewEmployeeSchedule(workingDays);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
