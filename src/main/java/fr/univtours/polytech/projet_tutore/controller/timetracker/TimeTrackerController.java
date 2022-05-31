@@ -1,6 +1,8 @@
 package fr.univtours.polytech.projet_tutore.controller.timetracker;
 
 import fr.univtours.polytech.projet_tutore.controller.Controller;
+import fr.univtours.polytech.projet_tutore.model.company.Company;
+import fr.univtours.polytech.projet_tutore.model.company.Department;
 import fr.univtours.polytech.projet_tutore.model.date.Date;
 import fr.univtours.polytech.projet_tutore.model.date.Time;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
@@ -20,6 +22,11 @@ public class TimeTrackerController extends Controller {
     private TimeTracker timeTracker;
 
     /**
+     * List of employee controlled by the controller.
+     */
+    private ArrayList<Employee> employees;
+
+    /**
      * Create the controller.
      */
     public TimeTrackerController() {
@@ -28,12 +35,8 @@ public class TimeTrackerController extends Controller {
 
     @Override
     public void initialize() {
-        ArrayList<Employee> employees = new ArrayList<Employee>();
-
         updateTime();
 
-        employees.add(new Employee("John", "Doe"));
-        employees.add(new Employee("Jane", "Doe"));
         timeTracker.setEmployees(employees);
 
         String[] messages = {"date", "time", "employees"};
@@ -80,10 +83,26 @@ public class TimeTrackerController extends Controller {
     }
 
     /**
+     * Get the list of employees.
+     * @return The list of employees.
+     */
+    public ArrayList<Employee> getEmployees() {
+        return employees;
+    }
+
+    /**
      * Set the time-tracker.
      * @param newTimeTracker The new time-tracker.
      */
     public void setTimeTracker(TimeTracker newTimeTracker) {
         timeTracker = newTimeTracker;
+    }
+
+    /**
+     * Set the list of employees.
+     * @param newEmployees The new employee list.
+     */
+    public void setEmployees(ArrayList<Employee> newEmployees) {
+        this.employees = newEmployees;
     }
 }

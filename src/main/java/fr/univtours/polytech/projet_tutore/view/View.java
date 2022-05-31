@@ -18,6 +18,11 @@ public abstract class View extends Application implements Observer {
     private Controller controller;
 
     /**
+     * Initialize the view.
+     */
+    public abstract void initialize();
+
+    /**
      * Show the view.
      */
     public abstract void show();

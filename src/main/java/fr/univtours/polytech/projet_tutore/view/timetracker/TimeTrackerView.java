@@ -2,8 +2,12 @@ package fr.univtours.polytech.projet_tutore.view.timetracker;
 
 import fr.univtours.polytech.projet_tutore.controller.timetracker.TimeTrackerController;
 import fr.univtours.polytech.projet_tutore.controller.Observable;
+import fr.univtours.polytech.projet_tutore.model.Stub;
+import fr.univtours.polytech.projet_tutore.model.company.Company;
+import fr.univtours.polytech.projet_tutore.model.company.Department;
 import fr.univtours.polytech.projet_tutore.model.date.Date;
 import fr.univtours.polytech.projet_tutore.model.date.Time;
+import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 import fr.univtours.polytech.projet_tutore.view.View;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -14,6 +18,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * View of the time-tracker.
@@ -23,7 +28,24 @@ public class TimeTrackerView extends View {
      * Initialize the controller to null.
      */
     public TimeTrackerView() {
-        setController(null);
+        setController(new TimeTrackerController());
+    }
+
+    @Override
+    public void initialize() {
+        try {
+            Company company = Stub.generateCompany();
+            ArrayList<Employee> employees = new ArrayList<>();
+            for(Department department : company.getDepartments()){
+                for (Employee employee : department.getEmployees()){
+                    employees.add(employee);
+                }
+            }
+            getController().setEmployees(employees);
+            getController().initialize();
+        } catch (Exception exception){
+            exception.printStackTrace();
+        }
     }
 
     @Override
@@ -32,7 +54,7 @@ public class TimeTrackerView extends View {
     }
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws Exception {
         // In the case of the separator for the resources, it's the same for every OS: '/'.
         // So there is no need to use File.separator.
         String fileName = "/fr/univtours/polytech/projet_tutore/data/mainView.fxml";
@@ -48,10 +70,8 @@ public class TimeTrackerView extends View {
         setViewController(fxmlLoader.getController());
         getViewController().setView(this);
 
-        // Get the controller of the view.
-        TimeTrackerController controller = new TimeTrackerController();
-        setController(controller);
-        controller.initialize();
+        // Create the controller.
+        initialize();
 
         // Update of the time-tracker every second.
         KeyFrame frame = new KeyFrame(Duration.seconds(1), event -> {
