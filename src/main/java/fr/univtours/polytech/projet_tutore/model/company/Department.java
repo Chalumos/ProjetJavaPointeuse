@@ -101,6 +101,6 @@ public class Department {
 
     @Override
     public String toString() {
-        return "Department: " + this.name;
+        return this.name;
     }
 }

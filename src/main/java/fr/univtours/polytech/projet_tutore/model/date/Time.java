@@ -1,11 +1,16 @@
 package fr.univtours.polytech.projet_tutore.model.date;
 
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.time.LocalTime;
+import java.time.Month;
 
 /**
  * Class that represents and allows to edit a time.
  */
-public class Time implements Comparable<Time> {
+public class Time implements Comparable<Time>, Externalizable {
     /**
      * Hour of the day.
      */
@@ -223,5 +228,24 @@ public class Time implements Comparable<Time> {
         }
 
         return message;
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        if (this!=null){
+            out.writeObject(hour);
+            out.writeObject(minute);
+            out.writeObject(second);
+        }
+        else{
+            throw new IOException();
+        }
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        hour = (int) in.readObject();
+        minute =(int) in.readObject();
+        second = (int) in.readObject();
     }
 }

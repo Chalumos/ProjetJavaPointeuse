@@ -84,9 +84,9 @@ public class DepartmentTest {
 
     @Test
     void testToString() {
-        Assertions.assertEquals("Department: Unknown",department.toString());
+        Assertions.assertEquals("Unknown",department.toString());
 
         department = new Department("theDepartment");
-        Assertions.assertEquals("Department: theDepartment",department.toString());
+        Assertions.assertEquals("theDepartment",department.toString());
     }
 }

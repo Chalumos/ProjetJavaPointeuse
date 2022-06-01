@@ -6,7 +6,6 @@ import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
-import java.time.LocalDate;
 import java.util.UUID;
 
 
@@ -128,7 +127,7 @@ public class Employee implements Externalizable {
 
     @Override
     public String toString() {
-        return  firstName + " " + lastName + " (" + id + ")";
+        return  firstName + " " + lastName;
     }
 
     @Override

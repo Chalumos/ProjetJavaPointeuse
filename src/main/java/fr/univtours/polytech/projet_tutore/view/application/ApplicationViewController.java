@@ -1,14 +1,19 @@
 package fr.univtours.polytech.projet_tutore.view.application;
 
+import fr.univtours.polytech.projet_tutore.controller.Observable;
 import fr.univtours.polytech.projet_tutore.model.company.Department;
 import fr.univtours.polytech.projet_tutore.model.date.Date;
 import fr.univtours.polytech.projet_tutore.model.date.WorkingDay;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
 import fr.univtours.polytech.projet_tutore.view.ViewController;
+import fr.univtours.polytech.projet_tutore.view.timetracker.TimeTrackerView;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.time.Clock;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -166,6 +171,12 @@ public class ApplicationViewController extends ViewController {
     @FXML
     public void addClockingTimesFromFile() {}
 
+    @FXML
+    public void updateSelectedEmployee() {
+        Employee selectedEmployee = getTableViewEmployeeList().getFocusModel().getFocusedItem();
+        getView().getController().updateSelectedEmployee(selectedEmployee);
+    }
+
     /**
      * Update the current schedule with the previous week's schedule.
      */
@@ -213,6 +224,16 @@ public class ApplicationViewController extends ViewController {
      */
     @FXML
     public void removeEmployee() {}
+
+    /**
+     * Create a view controller without view.
+     */
+    public ApplicationViewController() {}
+
+    @Override
+    public ApplicationView getView() {
+        return (ApplicationView) super.getView();
+    }
 
     /**
      * Get the combo box of the employee filter.
@@ -293,7 +314,8 @@ public class ApplicationViewController extends ViewController {
      * @param newClockingTimeList The new clocking time list.
      */
     public void setTableViewClockingTimes(ArrayList<ClockingTime> newClockingTimeList) {
-        this.tableViewClockingTimes.getItems().setAll(newClockingTimeList);
+        ObservableList<ClockingTime> list = FXCollections.observableArrayList(newClockingTimeList);
+        this.tableViewClockingTimes.setItems(list);
     }
 
     /**
@@ -325,7 +347,8 @@ public class ApplicationViewController extends ViewController {
      * @param newEmployeeList The new employee list.
      */
     public void setTableViewEmployeeList(ArrayList<Employee> newEmployeeList) {
-        this.tableViewEmployeeList.getItems().setAll(newEmployeeList);
+        ObservableList<Employee> data = FXCollections.observableArrayList(newEmployeeList);
+        this.tableViewEmployeeList.setItems(data);
     }
 
     /**
@@ -437,7 +460,8 @@ public class ApplicationViewController extends ViewController {
      * @param newWorkingDayList The new working day list.
      */
     public void setTableViewEmployeeSchedule(ArrayList<WorkingDay> newWorkingDayList) {
-        this.tableViewEmployeeSchedule.getItems().setAll(newWorkingDayList);
+        ObservableList<WorkingDay> list = FXCollections.observableArrayList(newWorkingDayList);
+        this.tableViewEmployeeSchedule.setItems(list);
     }
 
     /**

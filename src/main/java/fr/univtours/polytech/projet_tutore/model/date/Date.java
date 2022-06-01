@@ -1,5 +1,9 @@
 package fr.univtours.polytech.projet_tutore.model.date;
 
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Locale;
@@ -7,7 +11,7 @@ import java.util.Locale;
 /**
  * Class that represents and allows to edit a date.
  */
-public class Date {
+public class Date implements Externalizable {
      /**
      * Day (number of the month) of the date.
      */
@@ -200,5 +204,24 @@ public class Date {
         month = month.substring(0, 1).toUpperCase() + month.substring(1);
 
         return month + " " + getDay() + dayExtension + ", " + getYear();
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        if (this!=null){
+            out.writeObject(day);
+            out.writeObject(month);
+            out.writeObject(year);
+        }
+        else{
+            throw new IOException();
+        }
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        day = (int) in.readObject();
+        month =(Month) in.readObject();
+        year = (int) in.readObject();
     }
 }

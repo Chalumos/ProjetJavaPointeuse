@@ -59,6 +59,6 @@ public class EmployeeTest {
 
     @Test
     void testToString() {
-        Assertions.assertEquals(employee.toString(), "John Doe (" + employee.getId() + ")");
+        Assertions.assertEquals(employee.toString(), "John Doe");
     }
 }
