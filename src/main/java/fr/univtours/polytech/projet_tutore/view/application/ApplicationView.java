@@ -135,7 +135,7 @@ public class ApplicationView extends View {
                     }
                     case "clocking_times" -> {
                         // Update the list of clocking times.
-                        getViewController().setTableViewClockingTimes(Stub.getClockingTimeList());
+                        getViewController().setTableViewClockingTimes(getController().getClockingTimes());
 
                     }
                     case "employees" -> {

@@ -1,8 +1,5 @@
 package fr.univtours.polytech.projet_tutore.view.application;
 
-import fr.univtours.polytech.projet_tutore.controller.Observable;
-import fr.univtours.polytech.projet_tutore.controller.application.ApplicationController;
-import fr.univtours.polytech.projet_tutore.model.Stub;
 import fr.univtours.polytech.projet_tutore.model.company.Department;
 import fr.univtours.polytech.projet_tutore.model.date.Date;
 import fr.univtours.polytech.projet_tutore.model.date.WorkingDay;
@@ -14,7 +11,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import java.time.Clock;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -171,7 +167,7 @@ public class ApplicationViewController extends ViewController {
      */
     @FXML
     public void addClockingTimesFromFile() {
-
+        getView().getController().recoverClockingTimesFromFile();
     }
 
     @FXML
@@ -181,34 +177,10 @@ public class ApplicationViewController extends ViewController {
     }
 
     /**
-     * Update the current schedule with the previous week's schedule.
-     */
-    @FXML
-    public void updateScheduleWithPreviousWeek() {}
-
-    /**
-     * Update the current schedule with the next week's schedule.
-     */
-    @FXML
-    public void updateScheduleWithNextWeek() {}
-
-    /**
-     * Open a view to add a new schedule to the selected employee.
-     */
-    @FXML
-    public void newSchedule() {}
-
-    /**
      * Open a view to edit the current schedule of the selected employee.
      */
     @FXML
     public void editSchedule() {}
-
-    /**
-     * Remove the current schedule of the selected employee.
-     */
-    @FXML
-    public void removeSchedule() {}
 
     /**
      * Open a view to add a new employee to the company.
