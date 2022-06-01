@@ -1,47 +1,49 @@
-package fr.univtours.polytech.projet_tutore.controller.timetracker.setting;
+package fr.univtours.polytech.projet_tutore.controller.timetracker.settings;
 
 import fr.univtours.polytech.projet_tutore.controller.Controller;
 import fr.univtours.polytech.projet_tutore.model.data.SettingDataManager;
-import fr.univtours.polytech.projet_tutore.model.setting.Setting;
+import fr.univtours.polytech.projet_tutore.model.settings.Settings;
 
 import java.util.ArrayList;
 
-public class SettingController extends Controller {
+public class SettingsController extends Controller {
+    private Settings setting;
 
-    private Setting setting;
-
-    public SettingController() {
-        setting = new Setting();
+    public SettingsController() {
+        setting = null;
         initialize();
     }
 
     @Override
     public void initialize() {
-        ArrayList<Setting> settings = new ArrayList<Setting>();
+        ArrayList<Settings> settings = new ArrayList<Settings>();
 
         SettingDataManager settingDataManager = new SettingDataManager();
         try {
             settings = settingDataManager.parseSetting();
+
+            if (settings.size() > 0) {
+                setting = settings.get(0);
+            } else {
+                setting = new Settings();
+            }
+
+            String[] messages = {"ip","port"};
+            notifyObservers(messages);
         }
         catch (Exception exception) {
             exception.printStackTrace();
         }
-
-        setting.setIpAddress(settings.get(0).getIpAddress());
-        setting.setIpPort(settings.get(0).getIpPort());
-
-        String[] messages = {"ip","port"};
-        notifyObservers(messages);
     }
 
-    public Setting getSetting() {
+    public Settings getSetting() {
         return setting;
     }
 
-    public void setSetting(Setting newSetting) {
+    public void setSetting(Settings newSetting) {
         setting = newSetting;
 
-        ArrayList<Setting> settings = new ArrayList<Setting>();
+        ArrayList<Settings> settings = new ArrayList<Settings>();
         settings.add(setting);
 
         SettingDataManager settingDataManager = new SettingDataManager();

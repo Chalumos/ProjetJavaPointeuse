@@ -1,7 +1,6 @@
 package fr.univtours.polytech.projet_tutore.model.data;
 
-import fr.univtours.polytech.projet_tutore.model.employee.Employee;
-import fr.univtours.polytech.projet_tutore.model.setting.Setting;
+import fr.univtours.polytech.projet_tutore.model.settings.Settings;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,17 +25,17 @@ public class SettingDataManager extends DataManager {
                 File.separator;
 
 
-        String path = root.getAbsolutePath() + packages + "Setting.txt";
+        String path = root.getAbsolutePath() + packages + "Settings.txt";
 
         setFilePath(path);
 
     }
 
-    public void serializeSetting(ArrayList<Setting> settings) throws IOException {
+    public void serializeSetting(ArrayList<Settings> settings) throws IOException {
         super.serialize(settings);
     }
 
-    public ArrayList<Setting> parseSetting() throws IOException, ClassNotFoundException {
+    public ArrayList<Settings> parseSetting() throws IOException, ClassNotFoundException {
         return super.parse();
     }
 }

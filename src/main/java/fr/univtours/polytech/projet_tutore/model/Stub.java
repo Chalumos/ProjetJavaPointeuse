@@ -193,7 +193,6 @@ public class Stub {
                     numberOfTheDays++;
                 }
             }
-            System.out.println(clockingTimeList);
         } catch (Exception exception){
             exception.printStackTrace();
         }

@@ -1,7 +1,5 @@
 package fr.univtours.polytech.projet_tutore.model.data;
 
-import fr.univtours.polytech.projet_tutore.model.employee.Employee;
-
 import java.io.*;
 import java.util.ArrayList;
 

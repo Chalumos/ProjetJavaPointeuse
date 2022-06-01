@@ -28,10 +28,10 @@ module fr.univtours.polytech.projet_tutore {
     exports fr.univtours.polytech.projet_tutore.view.application;
     opens fr.univtours.polytech.projet_tutore.view.application to javafx.fxml;
 
-    exports fr.univtours.polytech.projet_tutore.view.timetracker.setting;
-    opens fr.univtours.polytech.projet_tutore.view.timetracker.setting to javafx.fxml;
-    exports fr.univtours.polytech.projet_tutore.controller.timetracker.setting;
-    opens fr.univtours.polytech.projet_tutore.controller.timetracker.setting to javafx.fxml;
+    exports fr.univtours.polytech.projet_tutore.view.timetracker.settings;
+    opens fr.univtours.polytech.projet_tutore.view.timetracker.settings to javafx.fxml;
+    exports fr.univtours.polytech.projet_tutore.controller.timetracker.settings;
+    opens fr.univtours.polytech.projet_tutore.controller.timetracker.settings to javafx.fxml;
 
     // Controller.
     exports fr.univtours.polytech.projet_tutore.controller;

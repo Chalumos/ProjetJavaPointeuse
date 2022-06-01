@@ -1,12 +1,12 @@
-package fr.univtours.polytech.projet_tutore.view.timetracker.setting;
+package fr.univtours.polytech.projet_tutore.view.timetracker.settings;
 
-import fr.univtours.polytech.projet_tutore.model.setting.Setting;
+import fr.univtours.polytech.projet_tutore.model.settings.Settings;
 import fr.univtours.polytech.projet_tutore.view.ViewController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class SettingViewController extends ViewController {
+public class SettingsViewController extends ViewController {
 
     @FXML
     private TextField ipAddressTextField;
@@ -21,13 +21,13 @@ public class SettingViewController extends ViewController {
     private Label errorPortLabel;
 
     @Override
-    public SettingView getView() {
-        return (SettingView) super.getView();
+    public SettingsView getView() {
+        return (SettingsView) super.getView();
     }
 
     @FXML
     public void confirmSettings() {
-        Setting setting = new Setting();
+        Settings setting = new Settings();
 
         try {
             setting.setIpAddress(ipAddressTextField.getText());

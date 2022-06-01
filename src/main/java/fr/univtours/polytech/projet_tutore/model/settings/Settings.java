@@ -1,4 +1,4 @@
-package fr.univtours.polytech.projet_tutore.model.setting;
+package fr.univtours.polytech.projet_tutore.model.settings;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -6,12 +6,12 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.regex.Pattern;
 
-public class Setting implements Externalizable {
+public class Settings implements Externalizable {
 
     private String ipAddress;
     private String ipPort;
 
-    public Setting(){
+    public Settings() {
         ipAddress = "192.168.0.0";
         ipPort = "8080";
     }
