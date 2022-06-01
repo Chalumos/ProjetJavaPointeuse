@@ -11,8 +11,8 @@ module fr.univtours.polytech.projet_tutore {
     opens fr.univtours.polytech.projet_tutore.model to javafx.fxml;
     exports fr.univtours.polytech.projet_tutore.model.company;
     opens fr.univtours.polytech.projet_tutore.model.company to javafx.fxml;
-    exports fr.univtours.polytech.projet_tutore.model.data;
-    opens fr.univtours.polytech.projet_tutore.model.data to javafx.fxml;
+    exports fr.univtours.polytech.projet_tutore.model.data_manager;
+    opens fr.univtours.polytech.projet_tutore.model.data_manager to javafx.fxml;
     exports fr.univtours.polytech.projet_tutore.model.date;
     opens fr.univtours.polytech.projet_tutore.model.date to javafx.fxml;
     exports fr.univtours.polytech.projet_tutore.model.employee;

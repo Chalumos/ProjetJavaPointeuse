@@ -94,6 +94,9 @@ public class SettingsView extends View {
         }
     }
 
+    /**
+     * Close the view.
+     */
     public void close () {
         stage.close();
     }

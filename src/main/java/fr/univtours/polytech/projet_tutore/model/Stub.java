@@ -203,6 +203,10 @@ public class Stub {
      * @return The clocking time list.
      */
     public static ArrayList<ClockingTime> getClockingTimeList() {
+        if (company == null) {
+            generateCompany();
+        }
+
         return clockingTimeList;
     }
 }
