@@ -78,14 +78,11 @@ public class Stub {
         try {
             // Create 3 schedules for 3 weeks.
             for (int week = 18; week < 21; week++) {
-                for (int numberSchedule = 1; numberSchedule < 4; numberSchedule++) {
+                for (int numberSchedule = 1; numberSchedule <= 15; numberSchedule++) {
                     Schedule scheduleWeek = new Schedule();
                     for (Days days : Days.values()) {
-
-                        // Choose if the day is a day off
-                        int nullOrNot = new Random().nextInt(3); // De 0 à 3
-                        // If the day is a day off
-                        if (nullOrNot == 0) {
+                        // If the day is a day off (weekEnd)
+                        if (days == Days.SATURDAY || days == Days.SUNDAY) {
                             scheduleWeek.setWorkingDay(new WorkingDay(days, null, null));
                         } else {
                             // Create a schedule with random hour and minute
@@ -110,21 +107,21 @@ public class Stub {
     private static void createEmployeeList(){
         try {
             // We work on a single week
-            employeeList.add(new Employee("Chris", "Simmons", scheduleList.get(6)));
-            employeeList.add(new Employee("Lila", "Mann", scheduleList.get(6)));
-            employeeList.add(new Employee("Pam", "Johnston", scheduleList.get(6)));
-            employeeList.add(new Employee("Merle", "Mccarthy", scheduleList.get(6)));
-            employeeList.add(new Employee("Jeffery", "Wong", scheduleList.get(6)));
-            employeeList.add(new Employee("Simon", "Morton", scheduleList.get(7)));
-            employeeList.add(new Employee("Nicolas", "Wilkins", scheduleList.get(7)));
+            employeeList.add(new Employee("Chris", "Simmons", scheduleList.get(0)));
+            employeeList.add(new Employee("Lila", "Mann", scheduleList.get(1)));
+            employeeList.add(new Employee("Pam", "Johnston", scheduleList.get(2)));
+            employeeList.add(new Employee("Merle", "Mccarthy", scheduleList.get(3)));
+            employeeList.add(new Employee("Jeffery", "Wong", scheduleList.get(4)));
+            employeeList.add(new Employee("Simon", "Morton", scheduleList.get(5)));
+            employeeList.add(new Employee("Nicolas", "Wilkins", scheduleList.get(6)));
             employeeList.add(new Employee("Howard", "Nguyen", scheduleList.get(7)));
-            employeeList.add(new Employee("Kyle", "Henry", scheduleList.get(7)));
-            employeeList.add(new Employee("Taylor", "Brewer", scheduleList.get(7)));
-            employeeList.add(new Employee("Faye", "Alvarez", scheduleList.get(8)));
-            employeeList.add(new Employee("Lori", "Shelton", scheduleList.get(8)));
-            employeeList.add(new Employee("Rogelio", "Jenkins", scheduleList.get(8)));
-            employeeList.add(new Employee("Kelvin", "Ortiz", scheduleList.get(8)));
-            employeeList.add(new Employee("Marvin", "Owen", scheduleList.get(8)));
+            employeeList.add(new Employee("Kyle", "Henry", scheduleList.get(8)));
+            employeeList.add(new Employee("Taylor", "Brewer", scheduleList.get(9)));
+            employeeList.add(new Employee("Faye", "Alvarez", scheduleList.get(10)));
+            employeeList.add(new Employee("Lori", "Shelton", scheduleList.get(11)));
+            employeeList.add(new Employee("Rogelio", "Jenkins", scheduleList.get(12)));
+            employeeList.add(new Employee("Kelvin", "Ortiz", scheduleList.get(13)));
+            employeeList.add(new Employee("Marvin", "Owen", scheduleList.get(14)));
 
             int counterEmployee = 0;
             for (Employee employee : employeeList) {
@@ -199,7 +196,6 @@ public class Stub {
                     numberOfTheDays++;
                 }
             }
-            System.out.println(clockingTimeList);
         } catch (Exception exception){
             exception.printStackTrace();
         }
