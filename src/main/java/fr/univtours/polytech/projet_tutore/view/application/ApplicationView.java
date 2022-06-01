@@ -120,11 +120,7 @@ public class ApplicationView extends View {
     @Override
     public void update(Observable observable, String[] messages) {
         Company company = getController().getCompany();
-        ArrayList<Employee> employees = new ArrayList<>();
-
-        for (Department department : company.getDepartments()) {
-            employees.addAll(department.getEmployees());
-        }
+        ArrayList<Employee> employees = company.getEmployees();
 
         try {
             for (String message : messages) {
@@ -161,7 +157,7 @@ public class ApplicationView extends View {
                         getViewController().setLabelEmployeeID(selectedEmployee.getId());
                         getViewController().setLabelEmployeeFirstname(selectedEmployee.getFirstName());
                         getViewController().setLabelEmployeeLastname(selectedEmployee.getLastName());
-//                        getViewController().setLabelEmployeeDepartment(selectedEmployee.get());
+                        getViewController().setLabelEmployeeDepartment(company.getDepartment(selectedEmployee).getName());
 
                         // Schedule.
                         String scheduleTitle = "Week " + schedule.getWeekNumber() + " (" + schedule.getWeekDate() + ")";

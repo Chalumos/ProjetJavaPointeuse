@@ -1,6 +1,10 @@
 package fr.univtours.polytech.projet_tutore.model.company;
 
+import fr.univtours.polytech.projet_tutore.model.employee.Employee;
+
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Company {
     /**
@@ -71,6 +75,34 @@ public class Company {
         }
 
         return flag;
+    }
+
+    /**
+     * Get the list of employee of the company.
+     * @return The list of employee of the company.
+     */
+    public ArrayList<Employee> getEmployees(){
+        ArrayList<Employee> employees = new ArrayList<Employee>();
+        for (Department department : departments) {
+            employees.addAll(department.getEmployees());
+        }
+
+        return employees;
+    }
+
+    /**
+     * Get the department of the employee.
+     * @param employee employee to search her department.
+     * @return The department of the employee.
+     */
+    public Department getDepartment(Employee employee) throws Exception {
+        for (Department department : departments) {
+            List<Employee> employeesFilter = department.getEmployees().stream().filter(employeeI -> employeeI == employee).toList();
+            if (! employeesFilter.isEmpty()) {
+                return department;
+            }
+        }
+        throw new Exception("Invalid employee");
     }
 
     /**

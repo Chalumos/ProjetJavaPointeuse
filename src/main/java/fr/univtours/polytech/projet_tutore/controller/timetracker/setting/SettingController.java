@@ -6,15 +6,27 @@ import fr.univtours.polytech.projet_tutore.model.setting.Setting;
 
 import java.util.ArrayList;
 
+/**
+ * Controller to manage the setting view.
+ */
 public class SettingController extends Controller {
 
+    /**
+     * Setting controlled by the controller.
+     */
     private Setting setting;
 
+    /**
+     * Create the controller.
+     */
     public SettingController() {
         setting = new Setting();
         initialize();
     }
 
+    /**
+     * initialise the setting with the setting file.
+     */
     @Override
     public void initialize() {
         ArrayList<Setting> settings = new ArrayList<Setting>();
@@ -34,10 +46,18 @@ public class SettingController extends Controller {
         notifyObservers(messages);
     }
 
+    /**
+     * Get the setting.
+     * @return The setting.
+     */
     public Setting getSetting() {
         return setting;
     }
 
+    /**
+     * Set the setting in the setting file.
+     * @param newSetting The new setting.
+     */
     public void setSetting(Setting newSetting) {
         setting = newSetting;
 
