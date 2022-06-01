@@ -162,7 +162,7 @@ public class ApplicationView extends View {
                             getViewController().setLabelEmployeeID(selectedEmployee.getId());
                             getViewController().setLabelEmployeeFirstname(selectedEmployee.getFirstName());
                             getViewController().setLabelEmployeeLastname(selectedEmployee.getLastName());
-                            //getViewController().setLabelEmployeeDepartment(company.getDepartments());
+                            getViewController().setLabelEmployeeDepartment(company.getDepartment(selectedEmployee).getName());
 
                             // Schedule.
                             getViewController().setTableViewEmployeeSchedule(workingDays);
@@ -173,7 +173,6 @@ public class ApplicationView extends View {
                             getViewController().setLabelEmployeeFirstname("Unknown");
                             getViewController().setLabelEmployeeLastname("Unknown");
                             getViewController().setLabelEmployeeDepartment("Unknown");
-
 
                             // Schedule.
                             getViewController().setTableViewEmployeeSchedule(workingDays);

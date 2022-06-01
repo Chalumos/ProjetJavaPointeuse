@@ -86,7 +86,7 @@ public class ApplicationController extends Controller {
     }
 
     /**
-     * remove employee selected
+     * remove employee selected and clocking times concerned
      */
     public void removeEmployee() {
         for (Department department : company.getDepartments()) {
@@ -95,9 +95,14 @@ public class ApplicationController extends Controller {
                     department.getEmployees().remove(i);
                 }
             }
+            for (int i=0;i<Stub.getClockingTimeList().size();i++){
+                if(Stub.getClockingTimeList().get(i).getEmployee().equals(selectedEmployee)){
+                    Stub.getClockingTimeList().remove(i);
+                }
+            }
         }
         selectedEmployee = null;
-        String[] messages = {"employees", "selected_employee"};
+        String[] messages = {"employees", "selected_employee", "employee_filter","clocking_times"};
         notifyObservers(messages);
     }
 
