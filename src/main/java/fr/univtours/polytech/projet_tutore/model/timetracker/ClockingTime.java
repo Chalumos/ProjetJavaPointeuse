@@ -129,14 +129,9 @@ public class ClockingTime implements Externalizable {
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        if (this!=null){
-            out.writeObject(employee);
-            out.writeObject(date);
-            out.writeObject(time);
-        }
-        else{
-            throw new IOException();
-        }
+        out.writeObject(employee);
+        out.writeObject(date);
+        out.writeObject(time);
     }
 
     @Override

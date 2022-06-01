@@ -21,6 +21,11 @@ public class ApplicationController extends Controller {
     private Company company;
 
     /**
+     * Clocking times of the employees of the company.
+     */
+    private ArrayList<ClockingTime> clockingTimes;
+
+    /**
      * The selected employee.
      */
     private Employee selectedEmployee;
@@ -37,6 +42,10 @@ public class ApplicationController extends Controller {
         do {
             try {
                 setCompany(Stub.generateCompany());
+                setClockingTimes(Stub.getClockingTimeList());
+
+                String[] messages = {"employee_filter", "department_filter", "clocking_times", "employees"};
+                notifyObservers(messages);
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -55,6 +64,44 @@ public class ApplicationController extends Controller {
     }
 
     /**
+     * Recover clocking times from a file.
+     */
+    public void recoverClockingTimesFromFile() {
+        ArrayList<ClockingTime> list = new ArrayList<ClockingTime>();
+        ClockingTimeDataManager manager = new ClockingTimeDataManager();
+
+        // TODO: Ouvrir une fenêtre pour que l'utilisateur puisse sélectionner le fichier de pointages à ajouter.
+
+        try {
+            list = manager.parseClockingTime();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        getClockingTimes().addAll(list);
+
+        String[] messages = {"clocking_times"};
+        notifyObservers(messages);
+    }
+
+    /**
+     * remove employee selected
+     */
+    public void removeEmployee() {
+        for (Department department : company.getDepartments()) {
+            for (int i = 0; i < department.getEmployees().size(); i++) {
+                if (getSelectedEmployee().getId().equals(department.getEmployees().get(i).getId())) {
+                    department.getEmployees().remove(i);
+                }
+            }
+        }
+        selectedEmployee = null;
+        String[] messages = {"employees", "selected_employee"};
+        notifyObservers(messages);
+    }
+
+    /**
      * Get the company.
      * @return The company.
      */
@@ -68,11 +115,6 @@ public class ApplicationController extends Controller {
      */
     public void setCompany(Company company) {
         this.company = company;
-
-        if (company != null) {
-            String[] messages = {"employee_filter", "department_filter", "clocking_times", "employees"};
-            notifyObservers(messages);
-        }
     }
 
     /**
@@ -84,38 +126,26 @@ public class ApplicationController extends Controller {
     }
 
     /**
-     * to recover clocking times which are not in the application
-     * @return a list of clocking times
+     * Get the clocking times.
+     * @return The clocking times.
      */
-    public void recoverClockingTime(){
-        ArrayList<ClockingTime> list=new ArrayList<ClockingTime>();
-        ClockingTimeDataManager manager = new ClockingTimeDataManager();
-        try{
-            list = manager.parseClockingTime();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
-
-       // clockingTimes.addAll(list);
-
-        String[] messages = {"clocking_times"};
-        notifyObservers(messages);
+    public ArrayList<ClockingTime> getClockingTimes() {
+        return clockingTimes;
     }
 
     /**
-     * remove employee selected
+     * Set the clocking times.
+     * @param clockingTimes The new clocking times.
      */
-    public void removeEmployee(){
-        for (Department department:company.getDepartments()) {
-            for(int i=0;i<department.getEmployees().size();i++){
-                if(selectedEmployee.getId().equals(department.getEmployees().get(i).getId())){
-                    department.getEmployees().remove(i);
-                }
+    public void setClockingTimes(ArrayList<ClockingTime> clockingTimes) {
+        if (this.clockingTimes != null) {
+            this.clockingTimes.clear();
+
+            if (clockingTimes != null && clockingTimes.size() > 0) {
+                this.clockingTimes.addAll(clockingTimes);
             }
+        } else {
+            this.clockingTimes = clockingTimes;
         }
-        selectedEmployee=null;
-        String[] messages = {"employees", "selected_employee"};
-        notifyObservers(messages);
     }
 }

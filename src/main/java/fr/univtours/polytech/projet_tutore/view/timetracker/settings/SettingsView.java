@@ -17,7 +17,7 @@ public class SettingsView extends View {
     /**
      * Settings page.
      */
-   private Stage settingsStage;
+   private Stage stage;
 
     /**
      * Initialize the controller to null.
@@ -37,8 +37,8 @@ public class SettingsView extends View {
         Platform.setImplicitExit(false);
         Platform.runLater(()->{
             try {
-                settingsStage = new Stage();
-                start(settingsStage);
+                stage = new Stage();
+                start(stage);
                 Platform.setImplicitExit(true);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -79,11 +79,11 @@ public class SettingsView extends View {
             for (String message : messages) {
                 switch (message) {
                     case "ip" -> {
-                        String ip = getController().getSetting().getIpAddress();
+                        String ip = getController().getSettings().getIpAddress();
                         getViewController().setIpAddressTextField(ip);
                     }
                     case "port" -> {
-                        String port = getController().getSetting().getIpPort();
+                        String port = getController().getSettings().getIpPort();
                         getViewController().setIpPortTextField(port);
                     }
                 }
@@ -95,8 +95,7 @@ public class SettingsView extends View {
     }
 
     public void close () {
-        settingsStage.close();
-
+        stage.close();
     }
 
     @Override

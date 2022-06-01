@@ -154,7 +154,7 @@
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
                               <Label text="ID">
@@ -202,7 +202,7 @@
                               <Insets bottom="15.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
                         </GridPane>
-                        <HBox alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="622.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="29.0" prefWidth="622.0">
                            <children>
                               <Label text="Schedule">
                                  <font>
@@ -211,12 +211,12 @@
                               </Label>
                            </children>
                            <VBox.margin>
-                              <Insets left="10.0" right="10.0" />
+                              <Insets left="10.0" right="10.0" top="20.0" />
                            </VBox.margin>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="278.0" prefWidth="642.0">
                            <children>
-                              <BorderPane prefHeight="270.0" prefWidth="422.0">
+                              <BorderPane maxHeight="-Infinity" prefHeight="200.0" prefWidth="422.0">
                                  <center>
                                     <TableView fx:id="tableViewEmployeeSchedule" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="194.0" prefWidth="360.0" BorderPane.alignment="CENTER">
                                       <columns>
@@ -233,58 +233,18 @@
                                     </TableView>
                                  </center>
                                  <top>
-                                    <HBox alignment="CENTER" BorderPane.alignment="CENTER">
-                                       <children>
-                                          <Button fx:id="buttonEmployeePreviousSchedule" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#updateScheduleWithPreviousWeek" text="&lt;">
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <font>
-                                                <Font name="Segoe UI Semibold" size="12.0" />
-                                             </font>
-                                          </Button>
-                                          <Label fx:id="labelEmployeeScheduleTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="217.0" text="No schedule" textAlignment="CENTER">
-                                             <font>
-                                                <Font name="Segoe UI Semibold" size="13.0" />
-                                             </font>
-                                          </Label>
-                                          <Button fx:id="buttonEmployeeNextSchedule" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#updateScheduleWithNextWeek" text="&gt;">
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <font>
-                                                <Font name="Segoe UI Semibold" size="12.0" />
-                                             </font>
-                                          </Button>
-                                       </children>
-                                    </HBox>
+                                    <HBox alignment="CENTER" BorderPane.alignment="CENTER" />
                                  </top>
                                  <padding>
-                                    <Insets bottom="20.0" left="20.0" right="20.0" top="5.0" />
+                                    <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
                                  </padding>
                                  <bottom>
                                     <HBox alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="291.0" BorderPane.alignment="CENTER">
                                        <children>
-                                          <Button fx:id="buttonEmployeeNewSchedule" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#newSchedule" text="New schedule" textAlignment="CENTER">
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <font>
-                                                <Font name="Segoe UI" size="12.0" />
-                                             </font>
-                                          </Button>
-                                          <Button fx:id="buttonEmployeeEditSchedule" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#editSchedule" prefHeight="16.0" prefWidth="65.0" text="Edit" textAlignment="CENTER">
+                                          <Button fx:id="buttonEmployeeEditSchedule" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#editSchedule" prefHeight="23.0" prefWidth="99.0" text="Edit schedule" textAlignment="CENTER">
                                              <HBox.margin>
-                                                <Insets left="5.0" right="5.0" />
+                                                <Insets />
                                              </HBox.margin>
-                                             <font>
-                                                <Font name="Segoe UI Bold" size="12.0" />
-                                             </font>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </Button>
-                                          <Button fx:id="buttonEmployeeRemoveSchedule" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#removeSchedule" prefWidth="65.0" style="-fx-background-color: #d63031;" text="Remove" textAlignment="CENTER" textFill="WHITE">
                                              <font>
                                                 <Font name="Segoe UI Bold" size="12.0" />
                                              </font>
