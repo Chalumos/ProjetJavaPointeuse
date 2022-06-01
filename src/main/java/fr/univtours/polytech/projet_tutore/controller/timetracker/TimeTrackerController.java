@@ -1,6 +1,7 @@
 package fr.univtours.polytech.projet_tutore.controller.timetracker;
 
 import fr.univtours.polytech.projet_tutore.controller.Controller;
+import fr.univtours.polytech.projet_tutore.model.Stub;
 import fr.univtours.polytech.projet_tutore.model.company.Company;
 import fr.univtours.polytech.projet_tutore.model.company.Department;
 import fr.univtours.polytech.projet_tutore.model.date.Date;
@@ -9,6 +10,7 @@ import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
 import fr.univtours.polytech.projet_tutore.model.timetracker.TimeTracker;
 
+import java.lang.annotation.Repeatable;
 import java.util.ArrayList;
 
 
@@ -22,24 +24,38 @@ public class TimeTrackerController extends Controller {
     private TimeTracker timeTracker;
 
     /**
-     * List of employee controlled by the controller.
+     * Clocking-times controlled by the controller.
      */
-    private ArrayList<Employee> employees;
+    private ArrayList<ClockingTime> clockingTimes;
 
     /**
      * Create the controller.
      */
     public TimeTrackerController() {
-        setTimeTracker(new TimeTracker());
+        setTimeTracker(null);
     }
 
     @Override
     public void initialize() {
-        updateTime();
+        Company company = Stub.generateCompany();
+        TimeTracker timeTracker = new TimeTracker();
+        ArrayList<Employee> employees = new ArrayList<>();
+
+        // Get the employees.
+        for(Department department : company.getDepartments()){
+            for (Employee employee : department.getEmployees()){
+                employees.add(employee);
+            }
+        }
 
         timeTracker.setEmployees(employees);
+        setTimeTracker(timeTracker);
 
-        String[] messages = {"date", "time", "employees"};
+        setClockingTimes(Stub.getClockingTimeList());
+
+        updateTime();
+
+        String[] messages = {"date", "time", "employees", "clockingTime"};
         notifyObservers(messages);
     }
 
@@ -49,6 +65,7 @@ public class TimeTrackerController extends Controller {
     public void checkEmployee(Employee employee) {
         try {
             ClockingTime clockingTime = new ClockingTime(employee, timeTracker.getCurrentDate(), timeTracker.getCurrentTime());
+            clockingTimes.add(clockingTime);
             System.out.println("Check employee: " + clockingTime);
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -83,11 +100,11 @@ public class TimeTrackerController extends Controller {
     }
 
     /**
-     * Get the list of employees.
-     * @return The list of employees.
+     * Get the Clocking-time.
+     * @return The clocking-time.
      */
-    public ArrayList<Employee> getEmployees() {
-        return employees;
+    public ArrayList<ClockingTime> getClockingTimes() {
+        return clockingTimes;
     }
 
     /**
@@ -99,10 +116,10 @@ public class TimeTrackerController extends Controller {
     }
 
     /**
-     * Set the list of employees.
-     * @param newEmployees The new employee list.
+     * Set the clocking-time.
+     * @param newClockingTimes The new clocking-time.
      */
-    public void setEmployees(ArrayList<Employee> newEmployees) {
-        this.employees = newEmployees;
+    public void setClockingTimes(ArrayList<ClockingTime> newClockingTimes) {
+        this.clockingTimes = newClockingTimes;
     }
 }

@@ -1,26 +1,23 @@
-package fr.univtours.polytech.projet_tutore.controller.timetracker.setting;
+package fr.univtours.polytech.projet_tutore.controller.timetracker.settings;
 
 import fr.univtours.polytech.projet_tutore.controller.Controller;
 import fr.univtours.polytech.projet_tutore.model.data.SettingDataManager;
-import fr.univtours.polytech.projet_tutore.model.setting.Setting;
+import fr.univtours.polytech.projet_tutore.model.settings.Settings;
 
 import java.util.ArrayList;
 
-/**
- * Controller to manage the setting view.
- */
-public class SettingController extends Controller {
+public class SettingsController extends Controller {
 
     /**
      * Setting controlled by the controller.
      */
-    private Setting setting;
+    private Settings setting;
 
     /**
-     * Create the controller.
+     * Controller to manage the setting view.
      */
-    public SettingController() {
-        setting = new Setting();
+    public SettingsController() {
+        setting = null;
         initialize();
     }
 
@@ -29,28 +26,31 @@ public class SettingController extends Controller {
      */
     @Override
     public void initialize() {
-        ArrayList<Setting> settings = new ArrayList<Setting>();
+        ArrayList<Settings> settings = new ArrayList<Settings>();
 
         SettingDataManager settingDataManager = new SettingDataManager();
         try {
             settings = settingDataManager.parseSetting();
+
+            if (settings.size() > 0) {
+                setting = settings.get(0);
+            } else {
+                setting = new Settings();
+            }
+
+            String[] messages = {"ip","port"};
+            notifyObservers(messages);
         }
         catch (Exception exception) {
             exception.printStackTrace();
         }
-
-        setting.setIpAddress(settings.get(0).getIpAddress());
-        setting.setIpPort(settings.get(0).getIpPort());
-
-        String[] messages = {"ip","port"};
-        notifyObservers(messages);
     }
 
     /**
      * Get the setting.
      * @return The setting.
      */
-    public Setting getSetting() {
+    public Settings getSetting() {
         return setting;
     }
 
@@ -58,10 +58,10 @@ public class SettingController extends Controller {
      * Set the setting in the setting file.
      * @param newSetting The new setting.
      */
-    public void setSetting(Setting newSetting) {
+    public void setSetting(Settings newSetting) {
         setting = newSetting;
 
-        ArrayList<Setting> settings = new ArrayList<Setting>();
+        ArrayList<Settings> settings = new ArrayList<Settings>();
         settings.add(setting);
 
         SettingDataManager settingDataManager = new SettingDataManager();
