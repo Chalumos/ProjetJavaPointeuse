@@ -166,8 +166,6 @@ public class ApplicationView extends View {
 //                        getViewController().setLabelEmployeeDepartment(selectedEmployee.get());
 
                             // Schedule.
-                            String scheduleTitle = "Week " + schedule.getWeekNumber() + " (" + schedule.getWeekDate() + ")";
-                            getViewController().setLabelEmployeeScheduleTitle(scheduleTitle);
                             getViewController().setTableViewEmployeeSchedule(workingDays);
                         }
                         else{
