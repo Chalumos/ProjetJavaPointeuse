@@ -92,8 +92,6 @@ public class Stub {
                         int randHour = -1 + new Random().nextInt(4); // De -1 à 2
                         scheduleWeek.setWorkingDay(new WorkingDay(days, new Time(8 + randHour, 15 * randMinute, 0), new Time(17 + randHour, 15 * randMinute, 0)));
                     }
-                    scheduleWeek.setWeekDate(new Date(2 + 7*(week%18), Month.MAY, 2022));
-                    scheduleWeek.setWeekNumber(week);
                 }
                 scheduleList.add(scheduleWeek);
             }
@@ -184,9 +182,9 @@ public class Stub {
                         endTimeClockingTime.setHour(endTimeClockingTime.getHour() + 1);
                     }
                 }
-                Date dateOfClockingTime = new Date(employee.getSchedule().getWeekDate().getDay() + numberOfTheDays, employee.getSchedule().getWeekDate().getMonth(), employee.getSchedule().getWeekDate().getYear());
+                /*Date dateOfClockingTime = new Date(employee.getSchedule().getWeekDate().getDay() + numberOfTheDays, employee.getSchedule().getWeekDate().getMonth(), employee.getSchedule().getWeekDate().getYear());
                 clockingTimeList.add(new ClockingTime(employee, dateOfClockingTime, startTimeClockingTime));
-                clockingTimeList.add(new ClockingTime(employee, dateOfClockingTime, endTimeClockingTime));
+                clockingTimeList.add(new ClockingTime(employee, dateOfClockingTime, endTimeClockingTime));*/
                 numberOfTheDays++;
             }
         }

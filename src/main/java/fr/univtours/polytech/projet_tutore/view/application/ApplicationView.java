@@ -151,9 +151,8 @@ public class ApplicationView extends View {
                         Employee selectedEmployee = getController().getSelectedEmployee();
                         Schedule schedule = selectedEmployee.getSchedule();
                         ArrayList<WorkingDay> workingDays = new ArrayList<>();
-                        Days[] days = {Days.MONDAY, Days.TUESDAY, Days.WEDNESDAY, Days.THURSDAY, Days.FRIDAY, Days.SATURDAY, Days.SUNDAY};
 
-                        for (Days day : days) {
+                        for (Days day : Schedule.getDaysOfWeek()) {
                             workingDays.add(selectedEmployee.getSchedule().getWorkingDay(day));
                         }
 
@@ -164,8 +163,6 @@ public class ApplicationView extends View {
 //                        getViewController().setLabelEmployeeDepartment(selectedEmployee.get());
 
                         // Schedule.
-                        String scheduleTitle = "Week " + schedule.getWeekNumber() + " (" + schedule.getWeekDate() + ")";
-                        getViewController().setLabelEmployeeScheduleTitle(scheduleTitle);
                         getViewController().setTableViewEmployeeSchedule(workingDays);
                     }
                 }
