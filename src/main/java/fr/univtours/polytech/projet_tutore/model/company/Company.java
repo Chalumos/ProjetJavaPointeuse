@@ -92,17 +92,20 @@ public class Company {
 
     /**
      * Get the department of the employee.
-     * @param employee employee to search her department.
+     * @param employee The employee for which search the department.
      * @return The department of the employee.
      */
-    public Department getDepartment(Employee employee) throws Exception {
+    public Department getDepartment(Employee employee) {
+        Department employeeDepartment = null;
+
         for (Department department : departments) {
             List<Employee> employeesFilter = department.getEmployees().stream().filter(employeeI -> employeeI == employee).toList();
-            if (! employeesFilter.isEmpty()) {
-                return department;
+            if (!employeesFilter.isEmpty()) {
+                employeeDepartment = department;
             }
         }
-        throw new Exception("Invalid employee");
+
+        return employeeDepartment;
     }
 
     /**
@@ -131,6 +134,6 @@ public class Company {
 
     @Override
     public String toString() {
-        return "Company: " + this.name;
+        return name;
     }
  }

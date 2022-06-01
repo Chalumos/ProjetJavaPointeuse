@@ -132,16 +132,10 @@ public class Employee implements Externalizable {
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        if (this!=null){
-            out.writeObject(id);
-            out.writeObject(firstName);
-            out.writeObject(lastName);
-            out.writeObject(schedule);
-        }
-        else{
-            throw new IOException();
-        }
-
+        out.writeObject(id);
+        out.writeObject(firstName);
+        out.writeObject(lastName);
+        out.writeObject(schedule);
     }
 
     @Override

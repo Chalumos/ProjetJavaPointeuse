@@ -49,7 +49,7 @@ public class TimeTrackerViewController extends ViewController {
      * Try to check an employee.
      */
     @FXML
-    void checkEmployee() {
+    public void checkEmployee() {
         Employee employee = employeeComboBox.getValue();
 
         if (employee == null) {
@@ -65,7 +65,7 @@ public class TimeTrackerViewController extends ViewController {
      * Show the Settings view.
      */
     @FXML
-    void showSettings() {
+    public void showSettings() {
         SettingsView settingsView = new SettingsView();
         settingsView.show();
     }

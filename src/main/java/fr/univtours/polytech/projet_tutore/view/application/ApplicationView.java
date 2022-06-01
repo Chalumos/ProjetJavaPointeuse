@@ -2,9 +2,7 @@ package fr.univtours.polytech.projet_tutore.view.application;
 
 import fr.univtours.polytech.projet_tutore.controller.Observable;
 import fr.univtours.polytech.projet_tutore.controller.application.ApplicationController;
-import fr.univtours.polytech.projet_tutore.model.Stub;
 import fr.univtours.polytech.projet_tutore.model.company.Company;
-import fr.univtours.polytech.projet_tutore.model.company.Department;
 import fr.univtours.polytech.projet_tutore.model.date.Days;
 import fr.univtours.polytech.projet_tutore.model.date.Schedule;
 import fr.univtours.polytech.projet_tutore.model.date.WorkingDay;

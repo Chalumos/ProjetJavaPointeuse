@@ -7,17 +7,16 @@ import fr.univtours.polytech.projet_tutore.model.settings.Settings;
 import java.util.ArrayList;
 
 public class SettingsController extends Controller {
-
     /**
      * Setting controlled by the controller.
      */
-    private Settings setting;
+    private Settings settings;
 
     /**
      * Controller to manage the setting view.
      */
     public SettingsController() {
-        setting = null;
+        settings = null;
         initialize();
     }
 
@@ -33,9 +32,9 @@ public class SettingsController extends Controller {
             settings = settingDataManager.parseSetting();
 
             if (settings.size() > 0) {
-                setting = settings.get(0);
+                this.settings = settings.get(0);
             } else {
-                setting = new Settings();
+                this.settings = new Settings();
             }
 
             String[] messages = {"ip","port"};
@@ -50,19 +49,19 @@ public class SettingsController extends Controller {
      * Get the setting.
      * @return The setting.
      */
-    public Settings getSetting() {
-        return setting;
+    public Settings getSettings() {
+        return settings;
     }
 
     /**
      * Set the setting in the setting file.
      * @param newSetting The new setting.
      */
-    public void setSetting(Settings newSetting) {
-        setting = newSetting;
+    public void setSettings(Settings newSetting) {
+        settings = newSetting;
 
         ArrayList<Settings> settings = new ArrayList<Settings>();
-        settings.add(setting);
+        settings.add(this.settings);
 
         SettingDataManager settingDataManager = new SettingDataManager();
         try {

@@ -64,30 +64,6 @@ public class ApplicationController extends Controller {
     }
 
     /**
-     * Get the company.
-     * @return The company.
-     */
-    public Company getCompany() {
-        return company;
-    }
-
-    /**
-     * Set the company.
-     * @param company The new company.
-     */
-    public void setCompany(Company company) {
-        this.company = company;
-    }
-
-    /**
-     * Get the selected employee.
-     * @return The selected employee.
-     */
-    public Employee getSelectedEmployee() {
-        return selectedEmployee;
-    }
-
-    /**
      * Recover clocking times from a file.
      */
     public void recoverClockingTimesFromFile() {
@@ -115,7 +91,7 @@ public class ApplicationController extends Controller {
     public void removeEmployee() {
         for (Department department : company.getDepartments()) {
             for (int i = 0; i < department.getEmployees().size(); i++) {
-                if (selectedEmployee.getId().equals(department.getEmployees().get(i).getId())) {
+                if (getSelectedEmployee().getId().equals(department.getEmployees().get(i).getId())) {
                     department.getEmployees().remove(i);
                 }
             }
@@ -123,6 +99,30 @@ public class ApplicationController extends Controller {
         selectedEmployee = null;
         String[] messages = {"employees", "selected_employee"};
         notifyObservers(messages);
+    }
+
+    /**
+     * Get the company.
+     * @return The company.
+     */
+    public Company getCompany() {
+        return company;
+    }
+
+    /**
+     * Set the company.
+     * @param company The new company.
+     */
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    /**
+     * Get the selected employee.
+     * @return The selected employee.
+     */
+    public Employee getSelectedEmployee() {
+        return selectedEmployee;
     }
 
     /**

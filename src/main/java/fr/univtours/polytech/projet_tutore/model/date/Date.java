@@ -208,20 +208,15 @@ public class Date implements Externalizable {
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        if (this!=null){
-            out.writeObject(day);
-            out.writeObject(month);
-            out.writeObject(year);
-        }
-        else{
-            throw new IOException();
-        }
+        out.writeObject(day);
+        out.writeObject(month);
+        out.writeObject(year);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         day = (int) in.readObject();
-        month =(Month) in.readObject();
+        month = (Month) in.readObject();
         year = (int) in.readObject();
     }
 }

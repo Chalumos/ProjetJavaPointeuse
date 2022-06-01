@@ -35,11 +35,6 @@ public class SettingsViewController extends ViewController {
     @FXML
     private Label errorPortLabel;
 
-    @Override
-    public SettingsView getView() {
-        return (SettingsView) super.getView();
-    }
-
     /**
      * Confirm and close the change of setting view.
      */
@@ -64,7 +59,7 @@ public class SettingsViewController extends ViewController {
         }
 
         if(errorAddressLabel.getText().equals("") && errorPortLabel.getText().equals("")){
-            getView().getController().setSetting(setting);
+            getView().getController().setSettings(setting);
             getView().close();
         }
     }
@@ -75,6 +70,11 @@ public class SettingsViewController extends ViewController {
     @FXML
     public void closeSettings() {
         getView().close();
+    }
+
+    @Override
+    public SettingsView getView() {
+        return (SettingsView) super.getView();
     }
 
     /**
