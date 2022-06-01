@@ -150,11 +150,10 @@ public class ApplicationView extends View {
                         // Update the information about the selected employee.
                         Employee selectedEmployee = getController().getSelectedEmployee();
                         ArrayList<WorkingDay> workingDays = new ArrayList<>();
-                        Days[] days = {Days.MONDAY, Days.TUESDAY, Days.WEDNESDAY, Days.THURSDAY, Days.FRIDAY, Days.SATURDAY, Days.SUNDAY};
+                        Schedule schedule=new Schedule();
                         if(selectedEmployee!=null) {
-
-                            Schedule schedule = selectedEmployee.getSchedule();
-
+                            schedule = selectedEmployee.getSchedule();
+                            Days[] days = {Days.MONDAY, Days.TUESDAY, Days.WEDNESDAY, Days.THURSDAY, Days.FRIDAY, Days.SATURDAY, Days.SUNDAY};
                             for (Days day : days) {
                                 workingDays.add(selectedEmployee.getSchedule().getWorkingDay(day));
                             }
@@ -177,7 +176,6 @@ public class ApplicationView extends View {
 
 
                             // Schedule.
-                            getViewController().setLabelEmployeeScheduleTitle("No schedule");
                             getViewController().setTableViewEmployeeSchedule(workingDays);
 
                         }
