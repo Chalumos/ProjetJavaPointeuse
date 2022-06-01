@@ -1,6 +1,8 @@
 package fr.univtours.polytech.projet_tutore.view.application;
 
 import fr.univtours.polytech.projet_tutore.controller.Observable;
+import fr.univtours.polytech.projet_tutore.controller.application.ApplicationController;
+import fr.univtours.polytech.projet_tutore.model.Stub;
 import fr.univtours.polytech.projet_tutore.model.company.Department;
 import fr.univtours.polytech.projet_tutore.model.date.Date;
 import fr.univtours.polytech.projet_tutore.model.date.WorkingDay;
@@ -169,7 +171,9 @@ public class ApplicationViewController extends ViewController {
      * Add new clocking times from a file.
      */
     @FXML
-    public void addClockingTimesFromFile() {}
+    public void addClockingTimesFromFile() {
+
+    }
 
     @FXML
     public void updateSelectedEmployee() {
@@ -223,7 +227,9 @@ public class ApplicationViewController extends ViewController {
      * Remove the selected employee.
      */
     @FXML
-    public void removeEmployee() {}
+    public void removeEmployee() {
+        getView().getController().removeEmployee();
+    }
 
     /**
      * Create a view controller without view.
