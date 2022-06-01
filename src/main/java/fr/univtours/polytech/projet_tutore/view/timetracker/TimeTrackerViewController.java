@@ -4,6 +4,7 @@ import fr.univtours.polytech.projet_tutore.model.date.Date;
 import fr.univtours.polytech.projet_tutore.model.date.Time;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 import fr.univtours.polytech.projet_tutore.view.ViewController;
+import fr.univtours.polytech.projet_tutore.view.timetracker.setting.SettingView;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -65,7 +66,8 @@ public class TimeTrackerViewController extends ViewController {
      */
     @FXML
     void showSettings() {
-        System.out.println("Show Settings view");
+        SettingView settingsView = new SettingView();
+        settingsView.show();
     }
 
     /**

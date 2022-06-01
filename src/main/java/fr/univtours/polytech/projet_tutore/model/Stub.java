@@ -77,24 +77,20 @@ public class Stub {
     private static void createScheduleList() {
         try {
             // Create 3 schedules for 3 weeks.
-            for (int week = 18; week < 21; week++) {
-                for (int numberSchedule = 1; numberSchedule <= 15; numberSchedule++) {
-                    Schedule scheduleWeek = new Schedule();
-                    for (Days days : Days.values()) {
-                        // If the day is a day off (weekEnd)
-                        if (days == Days.SATURDAY || days == Days.SUNDAY) {
-                            scheduleWeek.setWorkingDay(new WorkingDay(days, null, null));
-                        } else {
-                            // Create a schedule with random hour and minute
-                            int randMinute = new Random().nextInt(4); // De 0 à 3
-                            int randHour = -1 + new Random().nextInt(4); // De -1 à 2
-                            scheduleWeek.setWorkingDay(new WorkingDay(days, new Time(8 + randHour, 15 * randMinute, 0), new Time(17 + randHour, 15 * randMinute, 0)));
-                        }
-                        scheduleWeek.setWeekDate(new Date(2 + 7 * (week % 18), Month.MAY, 2022));
-                        scheduleWeek.setWeekNumber(week);
+            for (int numberSchedule = 1; numberSchedule <= 15; numberSchedule++) {
+                Schedule scheduleWeek = new Schedule();
+                for (Days days : Days.values()) {
+                    // If the day is a day off (weekEnd)
+                    if (days == Days.SATURDAY || days == Days.SUNDAY) {
+                        scheduleWeek.setWorkingDay(new WorkingDay(days, null, null));
+                    } else {
+                        // Create a schedule with random hour and minute
+                        int randMinute = new Random().nextInt(4); // De 0 à 3
+                        int randHour = -1 + new Random().nextInt(4); // De -1 à 2
+                        scheduleWeek.setWorkingDay(new WorkingDay(days, new Time(8 + randHour, 15 * randMinute, 0), new Time(17 + randHour, 15 * randMinute, 0)));
                     }
-                    scheduleList.add(scheduleWeek);
                 }
+                scheduleList.add(scheduleWeek);
             }
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -189,13 +185,15 @@ public class Stub {
                         }
                     }
                     if (startTimeClockingTime != null && endTimeClockingTime != null) {
-                        Date dateOfClockingTime = new Date(employee.getSchedule().getWeekDate().getDay() + numberOfTheDays, employee.getSchedule().getWeekDate().getMonth(), employee.getSchedule().getWeekDate().getYear());
+                        // Week of 2 May.
+                        Date dateOfClockingTime = new Date(2 + numberOfTheDays, Month.MAY, 2022);
                         clockingTimeList.add(new ClockingTime(employee, dateOfClockingTime, startTimeClockingTime));
                         clockingTimeList.add(new ClockingTime(employee, dateOfClockingTime, endTimeClockingTime));
                     }
                     numberOfTheDays++;
                 }
             }
+            System.out.println(clockingTimeList);
         } catch (Exception exception){
             exception.printStackTrace();
         }
