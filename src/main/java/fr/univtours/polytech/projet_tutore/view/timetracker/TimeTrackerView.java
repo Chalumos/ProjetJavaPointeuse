@@ -33,19 +33,7 @@ public class TimeTrackerView extends View {
 
     @Override
     public void initialize() {
-        try {
-            Company company = Stub.generateCompany();
-            ArrayList<Employee> employees = new ArrayList<>();
-            for(Department department : company.getDepartments()){
-                for (Employee employee : department.getEmployees()){
-                    employees.add(employee);
-                }
-            }
-            getController().setEmployees(employees);
-            getController().initialize();
-        } catch (Exception exception){
-            exception.printStackTrace();
-        }
+        getController().initialize();
     }
 
     @Override
