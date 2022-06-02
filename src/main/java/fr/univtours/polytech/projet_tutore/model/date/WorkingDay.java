@@ -1,9 +1,14 @@
 package fr.univtours.polytech.projet_tutore.model.date;
 
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+
 /**
  * Represents a working day in a schedule.
  */
-public class WorkingDay {
+public class WorkingDay implements Externalizable {
     /**
      * Day of work.
      */
@@ -105,5 +110,25 @@ public class WorkingDay {
         String endTime = getEndTime() != null ? getEndTime().toString() : "Unknown";
 
         return day + " (" + startTime + " - " + endTime + ")";
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        if (this!=null){
+            out.writeObject(day);
+            out.writeObject(startTime);
+            out.writeObject(endTime);
+        }
+        else{
+            throw new IOException();
+        }
+
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        day = (Days) in.readObject();
+        startTime =(Time) in.readObject();
+        endTime = (Time) in.readObject();
     }
 }

@@ -7,10 +7,10 @@ import fr.univtours.polytech.projet_tutore.model.company.Department;
 import fr.univtours.polytech.projet_tutore.model.date.Date;
 import fr.univtours.polytech.projet_tutore.model.date.Time;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
+import fr.univtours.polytech.projet_tutore.model.socket.Client;
 import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
 import fr.univtours.polytech.projet_tutore.model.timetracker.TimeTracker;
 
-import java.lang.annotation.Repeatable;
 import java.util.ArrayList;
 
 
@@ -24,7 +24,7 @@ public class TimeTrackerController extends Controller {
     private TimeTracker timeTracker;
 
     /**
-     * Clocking-times controlled by the controller.
+     * Clocking-times controlled which are not send by the controller.
      */
     private ArrayList<ClockingTime> clockingTimes;
 
@@ -65,7 +65,11 @@ public class TimeTrackerController extends Controller {
     public void checkEmployee(Employee employee) {
         try {
             ClockingTime clockingTime = new ClockingTime(employee, timeTracker.getCurrentDate(), timeTracker.getCurrentTime());
+
+            // Add clocking times to a list because if the connection failed,
+            // the list of clocking time is saved anyway.
             clockingTimes.add(clockingTime);
+            new Client(clockingTimes);
             System.out.println("Check employee: " + clockingTime);
         } catch (Exception exception) {
             exception.printStackTrace();
