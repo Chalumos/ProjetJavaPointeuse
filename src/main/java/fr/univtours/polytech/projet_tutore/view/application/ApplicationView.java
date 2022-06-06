@@ -206,18 +206,20 @@ public class ApplicationView extends View {
                     case "clocking_times" -> {
                         // Update the list of clocking times.
                         getViewController().setTableViewClockingTimes(Stub.getClockingTimeList());
-
+                        getViewController().getTableViewClockingTimes().refresh();
                     }
                     case "employees" -> {
                         // Update the list of employees.
                         getViewController().setTableViewEmployeeList(employees);
+                        getViewController().getTableViewEmployeeList().refresh();
                     }
                     case "selected_employee" -> {
                         // Update the information about the selected employee.
                         Employee selectedEmployee = getController().getSelectedEmployee();
                         ArrayList<WorkingDay> workingDays = new ArrayList<>();
-                        Schedule schedule=new Schedule();
-                        if(selectedEmployee!=null) {
+                        Schedule schedule = new Schedule();
+
+                        if (selectedEmployee!=null) {
                             schedule = selectedEmployee.getSchedule();
                             Days[] days = {Days.MONDAY, Days.TUESDAY, Days.WEDNESDAY, Days.THURSDAY, Days.FRIDAY, Days.SATURDAY, Days.SUNDAY};
                             for (Days day : days) {
@@ -229,21 +231,18 @@ public class ApplicationView extends View {
                             getViewController().setLabelEmployeeFirstname(selectedEmployee.getFirstName());
                             getViewController().setLabelEmployeeLastname(selectedEmployee.getLastName());
                             getViewController().setLabelEmployeeDepartment(company.getDepartment(selectedEmployee).getName());
-
-                            // Schedule.
-                            getViewController().setTableViewEmployeeSchedule(workingDays);
                         }
-                        else{
+                        else {
                             // Employee.
                             getViewController().setLabelEmployeeID("Unknown");
                             getViewController().setLabelEmployeeFirstname("Unknown");
                             getViewController().setLabelEmployeeLastname("Unknown");
                             getViewController().setLabelEmployeeDepartment("Unknown");
-
-                            // Schedule.
-                            getViewController().setTableViewEmployeeSchedule(workingDays);
-
                         }
+
+                        // Schedule.
+                        getViewController().setTableViewEmployeeSchedule(workingDays);
+                        getViewController().getTableViewEmployeeSchedule().refresh();
                     }
                 }
             }

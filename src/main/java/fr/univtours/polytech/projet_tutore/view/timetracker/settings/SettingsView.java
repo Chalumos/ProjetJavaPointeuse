@@ -23,17 +23,20 @@ public class SettingsView extends View {
      * Initialize the controller to null.
      */
     public SettingsView() {
-        setController(null);
+        setController(new SettingsController());
     }
 
     @Override
     public void initialize() {
+        // Initialize the controller of the view.
+        getController().initialize();
 
+        String[] messages = {"address", "port"};
+        getController().notifyObservers(messages);
     }
 
     @Override
     public void show() {
-
         Platform.setImplicitExit(false);
         Platform.runLater(()->{
             try {
@@ -44,7 +47,6 @@ public class SettingsView extends View {
                 e.printStackTrace();
             }
         });
-
     }
 
     @Override
@@ -64,10 +66,8 @@ public class SettingsView extends View {
         setViewController(fxmlLoader.getController());
         getViewController().setView(this);
 
-        // Get the controller of the view.
-        SettingsController controller = new SettingsController();
-        setController(controller);
-        getController().initialize();
+        // Initialize the controller.
+        initialize();
 
         // Show the view.
         stage.show();
@@ -75,22 +75,17 @@ public class SettingsView extends View {
 
     @Override
     public void update(Observable observable, String[] messages) {
-        try {
-            for (String message : messages) {
-                switch (message) {
-                    case "ip" -> {
-                        String ip = getController().getSettings().getIpAddress();
-                        getViewController().setIpAddressTextField(ip);
-                    }
-                    case "port" -> {
-                        String port = getController().getSettings().getIpPort();
-                        getViewController().setIpPortTextField(port);
-                    }
+        for (String message : messages) {
+            switch (message) {
+                case "address" -> {
+                    String ip = getController().getNetworkSettings().getIpAddress();
+                    getViewController().setIpAddressTextField(ip);
+                }
+                case "port" -> {
+                    String port = getController().getNetworkSettings().getIpPort();
+                    getViewController().setIpPortTextField(port);
                 }
             }
-        }
-        catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

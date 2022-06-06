@@ -1,6 +1,6 @@
 package fr.univtours.polytech.projet_tutore.view.timetracker.settings;
 
-import fr.univtours.polytech.projet_tutore.model.settings.Settings;
+import fr.univtours.polytech.projet_tutore.model.settings.NetworkSettings;
 import fr.univtours.polytech.projet_tutore.view.ViewController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -40,26 +40,32 @@ public class SettingsViewController extends ViewController {
      */
     @FXML
     public void confirmSettings() {
-        Settings setting = new Settings();
+        NetworkSettings networkSettings = getView().getController().getNetworkSettings();
+        boolean isOk = true;
 
+        // Edit the IP address.
         try {
-            setting.setIpAddress(ipAddressTextField.getText());
+            networkSettings.setIpAddress(ipAddressTextField.getText());
             errorAddressLabel.setText("");
         }
         catch (IllegalArgumentException exception){
             errorAddressLabel.setText(exception.getMessage());
+            isOk = false;
         }
 
+        // Edit the IP port.
         try {
-            setting.setIpPort(ipPortTextField.getText());
+            networkSettings.setIpPort(ipPortTextField.getText());
             errorPortLabel.setText("");
         }
         catch (IllegalArgumentException exception){
-            errorPortLabel.setText(exception.getMessage());
+            errorAddressLabel.setText(exception.getMessage());
+            isOk = false;
         }
 
-        if(errorAddressLabel.getText().equals("") && errorPortLabel.getText().equals("")){
-            getView().getController().setSettings(setting);
+        // If the settings are OK, close the view.
+        if(isOk) {
+            getView().getController().setNetworkSettings(networkSettings);
             getView().close();
         }
     }

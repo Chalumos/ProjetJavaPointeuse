@@ -1,9 +1,17 @@
 package fr.univtours.polytech.projet_tutore.controller.application;
 
 import fr.univtours.polytech.projet_tutore.controller.Controller;
+import fr.univtours.polytech.projet_tutore.model.company.Company;
+import fr.univtours.polytech.projet_tutore.model.company.Department;
+import fr.univtours.polytech.projet_tutore.model.date.Schedule;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 
 public class EditEmployeeController extends Controller {
+    /**
+     * Controller of the application.
+     */
+    private ApplicationController applicationController;
+
     /**
      * Whether the employee is in edition or not (in addition).
      */
@@ -15,17 +23,45 @@ public class EditEmployeeController extends Controller {
     private Employee employee;
 
     /**
-     * Set the mode to addition.
+     * Department of the employee.
+     */
+    private Department department;
+
+    /**
+     * Initialize the mode to addition.
      */
     public EditEmployeeController() {
-        setEditionMode(false);
+        editionMode = false;
+        employee = new Employee();
+    }
+
+    /**
+     * Initialize the mode to addition.
+     * @param applicationController The controller of the application.
+     * @param employee The employee to edit.
+     */
+    public EditEmployeeController(ApplicationController applicationController, Employee employee) {
+        this.applicationController = applicationController;
+        Company company = getApplicationController().getCompany();
+
+        // If the employee is not null, edition mode.
+        if (employee != null) {
+            this.employee = employee;
+            department = company.getDepartment(employee);
+            editionMode = true;
+        }
+        // Else, addition mode.
+        else {
+            this.employee = new Employee("", "", new Schedule());
+            department = company.getDepartments().get(0);
+            editionMode = false;
+        }
     }
 
     @Override
     public void initialize() {
-        if (!isEdition()) {
-            setEmployee(new Employee());
-        }
+        String[] messages = {"firstname", "lastname", "department"};
+        notifyObservers(messages);
     }
 
     /**
@@ -34,14 +70,6 @@ public class EditEmployeeController extends Controller {
      */
     public boolean isEdition() {
         return editionMode;
-    }
-
-    /**
-     * Set the mode to addition or edition.
-     * @param isEdition Whether the new mode is edition or not.
-     */
-    public void setEditionMode(boolean isEdition) {
-        editionMode = isEdition;
     }
 
     /**
@@ -58,5 +86,32 @@ public class EditEmployeeController extends Controller {
      */
     public void setEmployee(Employee employee) {
         this.employee = employee;
+
+        String[] messages = {"firstname", "lastname", "department"};
+        notifyObservers(messages);
+    }
+
+    /**
+     * Get the controller of the application.
+     * @return The controller of the application.
+     */
+    public ApplicationController getApplicationController() {
+        return applicationController;
+    }
+
+    /**
+     * Get the department of the employee.
+     * @return The department of the employee.
+     */
+    public Department getDepartment() {
+        return department;
+    }
+
+    /**
+     * Set the department of the employee.
+     * @param department The new department of the employee.
+     */
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 }
