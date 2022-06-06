@@ -1,7 +1,7 @@
 package fr.univtours.polytech.projet_tutore.controller.timetracker.settings;
 
 import fr.univtours.polytech.projet_tutore.controller.Controller;
-import fr.univtours.polytech.projet_tutore.model.data.SettingDataManager;
+import fr.univtours.polytech.projet_tutore.model.data_manager.SettingDataManager;
 import fr.univtours.polytech.projet_tutore.model.settings.Settings;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class SettingsController extends Controller {
 
         SettingDataManager settingDataManager = new SettingDataManager();
         try {
-            settings = settingDataManager.parseSetting();
+            settings = settingDataManager.parse();
 
             if (settings.size() > 0) {
                 this.settings = settings.get(0);
@@ -65,7 +65,7 @@ public class SettingsController extends Controller {
 
         SettingDataManager settingDataManager = new SettingDataManager();
         try {
-            settingDataManager.serializeSetting(settings);
+            settingDataManager.serialize(settings);
         }
         catch (Exception exception) {
             exception.printStackTrace();

@@ -1,11 +1,18 @@
 package fr.univtours.polytech.projet_tutore.model.date;
 
+import fr.univtours.polytech.projet_tutore.model.employee.Employee;
+
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * Class that represents a schedule.
  */
-public class Schedule {
+public class Schedule implements Externalizable {
     /**
      * Working days of the week.
      */
@@ -62,5 +69,15 @@ public class Schedule {
         } else {
             throw new Exception("The working day can't be null.");
         }
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeObject(workingDays);
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        workingDays = (HashMap<Days, WorkingDay>) in.readObject();
     }
 }

@@ -4,7 +4,7 @@ import fr.univtours.polytech.projet_tutore.controller.Controller;
 import fr.univtours.polytech.projet_tutore.model.Stub;
 import fr.univtours.polytech.projet_tutore.model.company.Company;
 import fr.univtours.polytech.projet_tutore.model.company.Department;
-import fr.univtours.polytech.projet_tutore.model.data.ClockingTimeDataManager;
+import fr.univtours.polytech.projet_tutore.model.data_manager.ClockingTimeDataManager;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
 import javafx.scene.control.TableView;
@@ -82,7 +82,7 @@ public class ApplicationController extends Controller {
         // TODO: Ouvrir une fenêtre pour que l'utilisateur puisse sélectionner le fichier de pointages à ajouter.
 
         try {
-            list = manager.parseClockingTime();
+            list = manager.parse();
         }
         catch(Exception e) {
             e.printStackTrace();
@@ -95,7 +95,7 @@ public class ApplicationController extends Controller {
     }
 
     /**
-     * remove employee selected
+     * remove employee selected and clocking times concerned
      */
     public void removeEmployee() {
         for (Department department : company.getDepartments()) {
@@ -104,9 +104,14 @@ public class ApplicationController extends Controller {
                     department.getEmployees().remove(i);
                 }
             }
+            for (int i=0;i<Stub.getClockingTimeList().size();i++){
+                if(Stub.getClockingTimeList().get(i).getEmployee().equals(selectedEmployee)){
+                    Stub.getClockingTimeList().remove(i);
+                }
+            }
         }
         selectedEmployee = null;
-        String[] messages = {"employees", "selected_employee"};
+        String[] messages = {"employees", "selected_employee", "employee_filter","clocking_times"};
         notifyObservers(messages);
     }
 

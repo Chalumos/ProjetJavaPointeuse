@@ -1,8 +1,11 @@
-package fr.univtours.polytech.projet_tutore.model.data;
+package fr.univtours.polytech.projet_tutore.model.data_manager;
 
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Allows to serialize a model class.
+ */
 public abstract class DataManager {
     /**
      * The path of the file in which serialize or parse the objects.
@@ -22,13 +25,25 @@ public abstract class DataManager {
     public abstract void initialize();
 
     /**
-     * Serialize an object.
+     * Serialize objects.
      * @param objects The objects to serialize.
      */
     public <T> void serialize(ArrayList<T> objects) throws IOException {
-        FileOutputStream file = new FileOutputStream(getFilePath());
-        BufferedOutputStream buffer = new BufferedOutputStream(file);
-        DataOutputStream outputStream = new DataOutputStream(buffer);
+        File file = new File(getFilePath());
+
+        // Create the folder if it doesn't exist.
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdir();
+        }
+
+        // Create the file if it doesn't exist.
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+
+        FileOutputStream outputFile = new FileOutputStream(getFilePath());
+        BufferedOutputStream outputBuffer = new BufferedOutputStream(outputFile);
+        DataOutputStream outputStream = new DataOutputStream(outputBuffer);
         ObjectOutputStream objectOutput = new ObjectOutputStream(outputStream);
 
         objectOutput.writeObject(objects);
@@ -41,25 +56,27 @@ public abstract class DataManager {
      */
     public <T> ArrayList<T> parse() throws IOException, ClassNotFoundException {
         FileInputStream file = new FileInputStream(getFilePath());
-        BufferedInputStream buffer = new BufferedInputStream(file);
-        DataInputStream inputStream = new DataInputStream(buffer);
-
-        ArrayList<T> theList = new ArrayList<T>(1);
+        BufferedInputStream inputBuffer = new BufferedInputStream(file);
+        DataInputStream inputStream = new DataInputStream(inputBuffer);
+        ArrayList<T> objectList = new ArrayList<T>(1);
         T t;
 
-        try{
+        try {
             ObjectInputStream objectInput = new ObjectInputStream(inputStream);
 
             t = (T) objectInput.readObject();
 
-            theList.addAll((ArrayList) t);
+            if (t != null) {
+                objectList.addAll((ArrayList<T>) t);
+            }
+
             inputStream.close();
         }
         catch(EOFException e){
-            return theList;
+            e.printStackTrace();
         }
 
-        return theList;
+        return objectList;
     }
 
     /**

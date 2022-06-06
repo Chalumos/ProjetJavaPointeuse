@@ -91,24 +91,6 @@ public class ApplicationViewController extends ViewController {
     private Label labelEmployeeDepartment;
 
     /**
-     * Button to display the schedule of the previous week of the current one.
-     */
-    @FXML
-    private Button buttonEmployeePreviousSchedule;
-
-    /**
-     * Title of the selected schedule.
-     */
-    @FXML
-    private Label labelEmployeeScheduleTitle;
-
-    /**
-     * Button to display the schedule of the next week of the current one.
-     */
-    @FXML
-    private Button buttonEmployeeNextSchedule;
-
-    /**
      * List of working days of the current schedule.
      */
     @FXML
@@ -422,38 +404,6 @@ public class ApplicationViewController extends ViewController {
      */
     public void setLabelEmployeeDepartment(String newEmployeeDepartment) {
         this.labelEmployeeDepartment.setText(newEmployeeDepartment);
-    }
-
-    /**
-     * Get the button to display the schedule of the previous week.
-     * @return The button to display the schedule of the previous week.
-     */
-    public Button getButtonEmployeePreviousSchedule() {
-        return buttonEmployeePreviousSchedule;
-    }
-
-    /**
-     * Get the label of the title of the schedule.
-     * @return The label of the title of the schedule.
-     */
-    public Label getLabelEmployeeScheduleTitle() {
-        return labelEmployeeScheduleTitle;
-    }
-
-    /**
-     * Set the title of the schedule.
-     * @param newScheduleTitle The new schedule title.
-     */
-    public void setLabelEmployeeScheduleTitle(String newScheduleTitle) {
-        this.labelEmployeeScheduleTitle.setText(newScheduleTitle);
-    }
-
-    /**
-     * Get the button to display the schedule of the next week.
-     * @return The button to display the schedule of the next week.
-     */
-    public Button getButtonEmployeeNextSchedule() {
-        return buttonEmployeeNextSchedule;
     }
 
     /**
