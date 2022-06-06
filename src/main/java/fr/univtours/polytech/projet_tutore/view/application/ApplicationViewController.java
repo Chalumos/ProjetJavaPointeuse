@@ -150,11 +150,43 @@ public class ApplicationViewController extends ViewController {
     @FXML
     private Button buttonRemoveEmployee;
 
+
     /**
      * Update the list of clocking times.
      */
     @FXML
-    public void updateClockingTimeList() {}
+    public void updateClockingTimeList() {
+
+        Employee employee = null;
+        Department department = null;
+        System.out.println("filter 1");
+
+        employee = getComboBoxEmployeeFilters().getValue();
+        department = getComboBoxDepartmentFilters().getValue();
+        //getComboBoxEmployeeFilters().setOnAction((event) -> updateClockingTimeList());
+
+        //System.out.println("Employee: " + employee);
+
+
+
+        getView().getController().filterEmployee(employee, department);
+    }
+
+    @FXML
+    public void updateClockingTimeList2() {
+
+        Employee employee = null;
+        Department department = null;
+        System.out.println("filter 2");
+
+        department = getComboBoxDepartmentFilters().getValue();
+
+        System.out.println("Department: " + department);
+
+
+
+        // getView().getController().filterEmployee(employee, department);
+    }
 
     /**
      * Add a new clocking time manually.

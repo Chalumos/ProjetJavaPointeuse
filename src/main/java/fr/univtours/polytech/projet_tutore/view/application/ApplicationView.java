@@ -113,6 +113,9 @@ public class ApplicationView extends View {
         // Get the controller of the view.
         initialize();
 
+        getViewController().getComboBoxEmployeeFilters().setOnAction((event) -> getViewController().updateClockingTimeList());
+        getViewController().getComboBoxDepartmentFilters().setOnAction((event) -> getViewController().updateClockingTimeList());
+
         // Show the view.
         stage.show();
     }
@@ -135,13 +138,22 @@ public class ApplicationView extends View {
                     }
                     case "department_filter" -> {
                         // Update of the department list in the filters.
+                        System.out.println("update depatement");
                         getViewController().setComboBoxDepartmentFilters(company.getDepartments());
                     }
                     case "clocking_times" -> {
                         // Update the list of clocking times.
-                        getViewController().setTableViewClockingTimes(Stub.getClockingTimeList());
+                        //getViewController().setTableViewClockingTimes(Stub.getClockingTimeList());
+                        getViewController().setTableViewClockingTimes(getController().getFilteredClockingTimes());
 
                     }
+                    /*
+                    case "clocking_times_filtered" -> {
+                        // Update the list of clocking times filtered.
+                        getViewController().setTableViewClockingTimes(getController().getFilteredClockingTimes());
+
+                    }
+                     */
                     case "employees" -> {
                         // Update the list of employees.
                         getViewController().setTableViewEmployeeList(employees);

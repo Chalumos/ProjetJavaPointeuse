@@ -7,8 +7,10 @@ import fr.univtours.polytech.projet_tutore.model.company.Department;
 import fr.univtours.polytech.projet_tutore.model.data.ClockingTimeDataManager;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
+import javafx.scene.control.TableView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -31,6 +33,10 @@ public class ApplicationController extends Controller {
     private Employee selectedEmployee;
 
     /**
+     * Clocking times of the employees of the company filtered.
+     */
+    private ArrayList<ClockingTime> filteredClockingTimes;
+    /**
      * Create the company.
      */
     public ApplicationController() {
@@ -43,6 +49,9 @@ public class ApplicationController extends Controller {
             try {
                 setCompany(Stub.generateCompany());
                 setClockingTimes(Stub.getClockingTimeList());
+
+                filteredClockingTimes = new ArrayList<>();
+                filteredClockingTimes.addAll(clockingTimes);
 
                 String[] messages = {"employee_filter", "department_filter", "clocking_times", "employees"};
                 notifyObservers(messages);
@@ -147,5 +156,52 @@ public class ApplicationController extends Controller {
         } else {
             this.clockingTimes = clockingTimes;
         }
+    }
+
+    /**
+     * Get the clocking times filtered.
+     * @return The clocking times filtered.
+     */
+    public ArrayList<ClockingTime> getFilteredClockingTimes() {
+        return filteredClockingTimes;
+    }
+
+    /**
+     * Set the clocking times filtered.
+     * @param filteredClockingTimes The new clocking times filtered.
+     */
+    public void setFilteredClockingTimes(ArrayList<ClockingTime> filteredClockingTimes) {
+        if (this.filteredClockingTimes != null) {
+            this.filteredClockingTimes.clear();
+
+            if (filteredClockingTimes != null && filteredClockingTimes.size() > 0) {
+                this.filteredClockingTimes.addAll(filteredClockingTimes);
+            }
+        } else {
+            this.filteredClockingTimes = filteredClockingTimes;
+        }
+    }
+    public void filterEmployee(Employee employee, Department department){
+        filteredClockingTimes.addAll(clockingTimes);
+        List<ClockingTime> employeesFilter = new ArrayList<ClockingTime>();
+
+        if (employee != null) {
+            System.out.println("employe");
+            employeesFilter = filteredClockingTimes.stream().filter(clockingTime -> clockingTime.getEmployee() == employee).toList();
+        }
+
+            if (department != null) {
+            System.out.println("department");
+            employeesFilter = filteredClockingTimes.stream().filter(clockingTime -> getCompany().getDepartment(clockingTime.getEmployee()).equals(department)).toList();
+
+        }
+
+        if (!employeesFilter.isEmpty()) {
+            getFilteredClockingTimes().clear();
+            getFilteredClockingTimes().addAll(employeesFilter);
+        }
+
+        String[] messages = {"clocking_times"};
+        notifyObservers(messages);
     }
 }
