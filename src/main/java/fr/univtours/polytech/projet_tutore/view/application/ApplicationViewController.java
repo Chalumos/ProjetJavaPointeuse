@@ -139,35 +139,12 @@ public class ApplicationViewController extends ViewController {
     @FXML
     public void updateClockingTimeList() {
 
-        Employee employee = null;
-        Department department = null;
-        System.out.println("filter 1");
+        Employee  employee = getComboBoxEmployeeFilters().getValue();
+        Department department = getComboBoxDepartmentFilters().getValue();
+        LocalDate fromDate = datePickerFromFilters.getValue();
+        LocalDate toDate = datePickerToFilters.getValue();
 
-        employee = getComboBoxEmployeeFilters().getValue();
-        department = getComboBoxDepartmentFilters().getValue();
-        //getComboBoxEmployeeFilters().setOnAction((event) -> updateClockingTimeList());
-
-        //System.out.println("Employee: " + employee);
-
-
-
-        getView().getController().filterEmployee(employee, department);
-    }
-
-    @FXML
-    public void updateClockingTimeList2() {
-
-        Employee employee = null;
-        Department department = null;
-        System.out.println("filter 2");
-
-        department = getComboBoxDepartmentFilters().getValue();
-
-        System.out.println("Department: " + department);
-
-
-
-        // getView().getController().filterEmployee(employee, department);
+        getView().getController().filters(employee, department, fromDate, toDate);
     }
 
     /**
