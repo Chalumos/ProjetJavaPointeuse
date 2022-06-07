@@ -6,6 +6,9 @@ import fr.univtours.polytech.projet_tutore.model.company.Department;
 import fr.univtours.polytech.projet_tutore.model.date.Schedule;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 
+/**
+ * Controller of the view to add or edit an employee.
+ */
 public class EditEmployeeController extends Controller {
     /**
      * Controller of the application.
@@ -31,6 +34,7 @@ public class EditEmployeeController extends Controller {
      * Initialize the mode to addition.
      */
     public EditEmployeeController() {
+        applicationController = new ApplicationController();
         editionMode = false;
         employee = new Employee();
     }
