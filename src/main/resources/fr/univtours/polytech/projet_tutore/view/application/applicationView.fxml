@@ -37,7 +37,7 @@
                                     <Font name="Segoe UI" size="12.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="comboBoxEmployeeFilters" editable="true" prefWidth="150.0" promptText="Select an employee" />
+                              <ComboBox fx:id="comboBoxEmployeeFilters" onAction="#updateClockingTimeList" prefWidth="150.0" promptText="Select an employee" />
                               <Label text="Department">
                                  <HBox.margin>
                                     <Insets left="10.0" right="6.0" />
@@ -46,7 +46,7 @@
                                     <Font name="Segoe UI" size="12.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="comboBoxDepartmentFilters" editable="true" prefWidth="150.0" promptText="Select a department" />
+                              <ComboBox fx:id="comboBoxDepartmentFilters" onAction="#updateClockingTimeList" prefWidth="150.0" promptText="Select a department" />
                               <Label text="From">
                                  <HBox.margin>
                                     <Insets left="10.0" right="6.0" />
@@ -55,7 +55,7 @@
                                     <Font name="Segoe UI" size="12.0" />
                                  </font>
                               </Label>
-                              <DatePicker fx:id="datePickerFromFilters" prefHeight="25.0" prefWidth="110.0" />
+                              <DatePicker fx:id="datePickerFromFilters" onAction="#updateClockingTimeList" prefHeight="25.0" prefWidth="110.0" />
                               <Label text="To">
                                  <HBox.margin>
                                     <Insets left="10.0" right="6.0" />
@@ -64,8 +64,8 @@
                                     <Font name="Segoe UI" size="12.0" />
                                  </font>
                               </Label>
-                              <DatePicker fx:id="datePickerToFilters" prefHeight="25.0" prefWidth="110.0" />
-                              <Button maxWidth="-Infinity" mnemonicParsing="false" onAction="#updateClockingTimeList" prefWidth="100.0" text="Apply filters">
+                              <DatePicker fx:id="datePickerToFilters" onAction="#updateClockingTimeList" prefHeight="25.0" prefWidth="110.0" />
+                              <Button maxWidth="-Infinity" mnemonicParsing="false" onAction="#clearClockingTimeList" prefWidth="60.0" text="Clear">
                                  <font>
                                     <Font name="Segoe UI Semibold" size="12.0" />
                                  </font>
@@ -73,7 +73,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                                  <HBox.margin>
-                                    <Insets left="10.0" />
+                                    <Insets left="20.0" />
                                  </HBox.margin>
                               </Button>
                            </children>
@@ -138,7 +138,7 @@
          <content>
             <HBox prefHeight="450.0" prefWidth="777.0">
                <children>
-                  <TableView fx:id="tableViewEmployeeList" minWidth="-Infinity" onMouseClicked="#updateSelectedEmployee" prefHeight="450.0" prefWidth="220.0">
+                  <TableView fx:id="tableViewEmployeeList" minWidth="-Infinity" onKeyPressed="#updateSelectedEmployee" onMouseClicked="#updateSelectedEmployee" prefHeight="450.0" prefWidth="220.0">
                     <columns>
                       <TableColumn editable="false" prefWidth="110.0" resizable="false" text="First name" />
                         <TableColumn prefWidth="110.0" text="Last name" />
