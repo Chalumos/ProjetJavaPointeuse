@@ -179,6 +179,10 @@ public class ApplicationView extends View {
         // Get the controller of the view.
         initialize();
 
+        stage.setOnCloseRequest((event) -> {
+            System.out.println("Fermerture");
+        });
+
         // Show the view.
         stage.show();
     }

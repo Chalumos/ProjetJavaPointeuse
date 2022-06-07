@@ -138,7 +138,7 @@
          <content>
             <HBox prefHeight="450.0" prefWidth="777.0">
                <children>
-                  <TableView fx:id="tableViewEmployeeList" minWidth="-Infinity" onMouseClicked="#updateSelectedEmployee" prefHeight="450.0" prefWidth="220.0">
+                  <TableView fx:id="tableViewEmployeeList" minWidth="-Infinity" onKeyPressed="#updateSelectedEmployee" onMouseClicked="#updateSelectedEmployee" prefHeight="450.0" prefWidth="220.0">
                     <columns>
                       <TableColumn editable="false" prefWidth="110.0" resizable="false" text="First name" />
                         <TableColumn prefWidth="110.0" text="Last name" />
