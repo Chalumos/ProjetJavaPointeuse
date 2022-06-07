@@ -2,14 +2,10 @@ package fr.univtours.polytech.projet_tutore.controller.application;
 
 import fr.univtours.polytech.projet_tutore.controller.Controller;
 import fr.univtours.polytech.projet_tutore.model.company.Company;
-import fr.univtours.polytech.projet_tutore.model.company.Department;
 import fr.univtours.polytech.projet_tutore.model.date.Date;
-import fr.univtours.polytech.projet_tutore.model.date.Schedule;
 import fr.univtours.polytech.projet_tutore.model.date.Time;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
-
-import java.time.Clock;
 
 /**
  * Controller of the view to add or edit a clocking time.

@@ -114,9 +114,14 @@ public class WorkingDay implements Externalizable {
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(day);
-        out.writeObject(startTime);
-        out.writeObject(endTime);
+        if (this!=null){
+            out.writeObject(day);
+            out.writeObject(startTime);
+            out.writeObject(endTime);
+        }
+        else{
+            throw new IOException();
+        }
     }
 
     @Override

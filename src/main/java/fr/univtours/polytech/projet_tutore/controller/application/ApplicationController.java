@@ -6,10 +6,12 @@ import fr.univtours.polytech.projet_tutore.model.company.Company;
 import fr.univtours.polytech.projet_tutore.model.company.Department;
 import fr.univtours.polytech.projet_tutore.model.data_manager.ClockingTimeDataManager;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
+import fr.univtours.polytech.projet_tutore.model.socket.ServerMultiThread;
 import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
 
 import java.time.LocalDate;
 import java.time.chrono.ChronoLocalDate;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +36,11 @@ public class ApplicationController extends Controller {
     private Employee selectedEmployee;
 
     /**
+     * The server of the application.
+     */
+    private ServerMultiThread serverMultiThread;
+
+    /**
      * Clocking times of the employees of the company filtered.
      */
     private ArrayList<ClockingTime> filteredClockingTimes;
@@ -47,6 +54,14 @@ public class ApplicationController extends Controller {
 
     @Override
     public void initialize() {
+        serverMultiThread = new ServerMultiThread((clockingTimes) -> {
+            getClockingTimes().addAll((ArrayList<ClockingTime>) clockingTimes);
+            String[] messages = {"clocking_times"};
+            notifyObservers(messages);
+            return null;
+        });
+
+        serverMultiThread.start();
         do {
             try {
                 setCompany(Stub.generateCompany());
@@ -90,9 +105,12 @@ public class ApplicationController extends Controller {
         ArrayList<ClockingTime> list = new ArrayList<ClockingTime>();
         ClockingTimeDataManager manager = new ClockingTimeDataManager();
 
-        // TODO: Ouvrir une fenêtre pour que l'utilisateur puisse sélectionner le fichier de pointages à ajouter.
-
         try {
+            FileDialog fileDialog = new FileDialog(new Frame(),"chose a file");
+            fileDialog.setDirectory("C:\\");
+            fileDialog.setFile("*.txt");
+            fileDialog.setVisible(true);
+            manager.setFilePath(fileDialog.getDirectory() + fileDialog.getFile());
             list = manager.parse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -176,6 +194,14 @@ public class ApplicationController extends Controller {
      */
     public ArrayList<ClockingTime> getClockingTimes() {
         return clockingTimes;
+    }
+
+    /**
+     * Return the current application server.
+     * @return the current application server.
+     */
+    public ServerMultiThread getServerMultiThread() {
+        return serverMultiThread;
     }
 
     /**

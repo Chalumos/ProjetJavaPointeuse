@@ -5,16 +5,13 @@ import fr.univtours.polytech.projet_tutore.model.date.Schedule;
 import fr.univtours.polytech.projet_tutore.model.date.Time;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 
-import java.io.Externalizable;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
+import java.io.*;
 import java.time.LocalDate;
 
 /**
  * Class that represents and allows to edit a ClockingTime.
  */
-public class ClockingTime implements Externalizable {
+public class ClockingTime implements Externalizable, Serializable {
     /**
      * Employee who is reporting.
      */

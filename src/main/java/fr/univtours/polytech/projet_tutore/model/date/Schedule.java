@@ -1,12 +1,9 @@
 package fr.univtours.polytech.projet_tutore.model.date;
 
-import fr.univtours.polytech.projet_tutore.model.employee.Employee;
-
 import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -73,7 +70,12 @@ public class Schedule implements Externalizable {
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(workingDays);
+        if (this!=null){
+            out.writeObject(workingDays);
+        }
+        else{
+            throw new IOException();
+        }
     }
 
     @Override

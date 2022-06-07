@@ -148,6 +148,12 @@ public class ApplicationViewController extends ViewController {
     }
 
     /**
+     * Clear the clocking times filters.
+     */
+    @FXML
+    public void clearClockingTimeList() {}
+
+    /**
      * Add a new clocking time manually.
      */
     @FXML
