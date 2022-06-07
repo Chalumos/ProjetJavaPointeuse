@@ -1,6 +1,8 @@
 package fr.univtours.polytech.projet_tutore.model.socket;
 
 import fr.univtours.polytech.projet_tutore.model.data_manager.ClockingTimeDataManager;
+import fr.univtours.polytech.projet_tutore.model.data_manager.NetworkSettingsDataManager;
+import fr.univtours.polytech.projet_tutore.model.settings.NetworkSettings;
 import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
 
 import java.io.*;
@@ -8,13 +10,12 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class Client {
-    private static int PORT = 9521;
-
     /**
      * If employee check, send a socket to the server
      */
     public Client(ArrayList<ClockingTime> clockingTimes) throws IOException {
         ClockingTimeDataManager clockingTimeDataManager = new ClockingTimeDataManager();
+        NetworkSettingsDataManager networkSettingsDataManager = new NetworkSettingsDataManager();
 
         // Get the project root path.
         File root = new File("");
@@ -30,11 +31,15 @@ public class Client {
                 File.separator + "data" +
                 File.separator;
 
-        String path = root.getAbsolutePath() + packages + "ClockingTimeTimeTracker.txt";
-        clockingTimeDataManager.setFilePath(path);
+        String pathClockingTime = root.getAbsolutePath() + packages + "ClockingTimeTimeTracker.txt";
+        clockingTimeDataManager.setFilePath(pathClockingTime);
+
         try {
+            ArrayList<NetworkSettings> settings = networkSettingsDataManager.parse();
+            NetworkSettings networkSettings = settings.get(0);
+
             // If the server is not reachable : make an Exception
-            Socket socket = new Socket("localhost", PORT);
+            Socket socket = new Socket("localhost", Integer.parseInt(networkSettings.getIpPort()));
 
             // Init
             InputStream is = socket.getInputStream(); // get byte.

@@ -1,8 +1,6 @@
 package fr.univtours.polytech.projet_tutore.view.application;
 
 import fr.univtours.polytech.projet_tutore.controller.application.ApplicationController;
-import fr.univtours.polytech.projet_tutore.model.company.Company;
-import fr.univtours.polytech.projet_tutore.model.company.Department;
 import fr.univtours.polytech.projet_tutore.model.date.Date;
 import fr.univtours.polytech.projet_tutore.model.date.Time;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;

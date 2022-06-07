@@ -1,8 +1,5 @@
 package fr.univtours.polytech.projet_tutore.model.socket;
 
-import fr.univtours.polytech.projet_tutore.controller.application.ApplicationController;
-import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
-
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;

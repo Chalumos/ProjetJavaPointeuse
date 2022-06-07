@@ -179,6 +179,11 @@ public class ApplicationView extends View {
         // Get the controller of the view.
         initialize();
 
+        // Close the server when the app is close.
+        stage.setOnCloseRequest((event)->{
+            getController().getServerMultiThread().setServerOn(false);
+        });
+
         // Show the view.
         stage.show();
     }

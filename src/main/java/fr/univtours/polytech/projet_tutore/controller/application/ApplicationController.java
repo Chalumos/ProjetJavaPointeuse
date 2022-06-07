@@ -32,6 +32,11 @@ public class ApplicationController extends Controller {
     private Employee selectedEmployee;
 
     /**
+     * The server of the application.
+     */
+    private ServerMultiThread serverMultiThread;
+
+    /**
      * Create the company.
      */
     public ApplicationController() {
@@ -40,7 +45,7 @@ public class ApplicationController extends Controller {
 
     @Override
     public void initialize() {
-        ServerMultiThread serverMultiThread = new ServerMultiThread((clockingTimes) -> {
+        serverMultiThread = new ServerMultiThread((clockingTimes) -> {
             getClockingTimes().addAll((ArrayList<ClockingTime>) clockingTimes);
             String[] messages = {"clocking_times"};
             notifyObservers(messages);
@@ -178,18 +183,26 @@ public class ApplicationController extends Controller {
     }
 
     /**
+     * Return the current application server.
+     * @return the current application server.
+     */
+    public ServerMultiThread getServerMultiThread() {
+        return serverMultiThread;
+    }
+
+    /**
      * Set the clocking times.
      * @param clockingTimes The new clocking times.
      */
-    public static void setClockingTimes(ArrayList<ClockingTime> clockingTimes) {
-        if (clockingTimes != null) {
-            clockingTimes.clear();
+    public void setClockingTimes(ArrayList<ClockingTime> clockingTimes) {
+        if (this.clockingTimes != null) {
+            this.clockingTimes.clear();
 
             if (clockingTimes != null && clockingTimes.size() > 0) {
-                clockingTimes.addAll(clockingTimes);
+                this.clockingTimes.addAll(clockingTimes);
             }
         } else {
-            clockingTimes = clockingTimes;
+            this.clockingTimes = clockingTimes;
         }
     }
 }
