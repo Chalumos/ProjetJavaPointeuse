@@ -1,8 +1,16 @@
 package fr.univtours.polytech.projet_tutore.model.company;
 
-import java.util.ArrayList;
+import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 
-public class Company {
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Company implements Externalizable {
     /**
      * Company name.
      */
@@ -74,6 +82,37 @@ public class Company {
     }
 
     /**
+     * Get the list of employee of the company.
+     * @return The list of employee of the company.
+     */
+    public ArrayList<Employee> getEmployees(){
+        ArrayList<Employee> employees = new ArrayList<Employee>();
+        for (Department department : departments) {
+            employees.addAll(department.getEmployees());
+        }
+
+        return employees;
+    }
+
+    /**
+     * Get the department of the employee.
+     * @param employee The employee for which search the department.
+     * @return The department of the employee.
+     */
+    public Department getDepartment(Employee employee) {
+        Department employeeDepartment = null;
+
+        for (Department department : departments) {
+            List<Employee> employeesFilter = department.getEmployees().stream().filter(employeeI -> employeeI == employee).toList();
+            if (!employeesFilter.isEmpty()) {
+                employeeDepartment = department;
+            }
+        }
+
+        return employeeDepartment;
+    }
+
+    /**
      * Get the name of the company.
      * @return The name of the company.
      */
@@ -99,6 +138,18 @@ public class Company {
 
     @Override
     public String toString() {
-        return "Company: " + this.name;
+        return name;
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeObject(name);
+        out.writeObject(departments);
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        name = (String) in.readObject();
+        departments =(ArrayList<Department>) in.readObject();
     }
  }

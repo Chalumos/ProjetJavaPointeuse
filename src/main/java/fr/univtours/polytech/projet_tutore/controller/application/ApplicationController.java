@@ -3,7 +3,13 @@ package fr.univtours.polytech.projet_tutore.controller.application;
 import fr.univtours.polytech.projet_tutore.controller.Controller;
 import fr.univtours.polytech.projet_tutore.model.Stub;
 import fr.univtours.polytech.projet_tutore.model.company.Company;
+import fr.univtours.polytech.projet_tutore.model.company.Department;
+import fr.univtours.polytech.projet_tutore.model.data_manager.ClockingTimeDataManager;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
+import fr.univtours.polytech.projet_tutore.model.socket.ServerMultiThread;
+import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
+
+import java.util.ArrayList;
 
 
 /**
@@ -14,6 +20,11 @@ public class ApplicationController extends Controller {
      * Company that the application is monitoring.
      */
     private Company company;
+
+    /**
+     * Clocking times of the employees of the company.
+     */
+    private ArrayList<ClockingTime> clockingTimes;
 
     /**
      * The selected employee.
@@ -29,9 +40,21 @@ public class ApplicationController extends Controller {
 
     @Override
     public void initialize() {
+        ServerMultiThread serverMultiThread = new ServerMultiThread((clockingTimes) -> {
+            getClockingTimes().addAll((ArrayList<ClockingTime>) clockingTimes);
+            String[] messages = {"clocking_times"};
+            notifyObservers(messages);
+            return null;
+        });
+
+        serverMultiThread.start();
         do {
             try {
                 setCompany(Stub.generateCompany());
+                setClockingTimes(Stub.getClockingTimeList());
+
+                String[] messages = {"employee_filter", "department_filter", "clocking_times", "employees"};
+                notifyObservers(messages);
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -50,6 +73,49 @@ public class ApplicationController extends Controller {
     }
 
     /**
+     * Recover clocking times from a file.
+     */
+    public void recoverClockingTimesFromFile() {
+        ArrayList<ClockingTime> list = new ArrayList<ClockingTime>();
+        ClockingTimeDataManager manager = new ClockingTimeDataManager();
+
+        // TODO: Ouvrir une fenêtre pour que l'utilisateur puisse sélectionner le fichier de pointages à ajouter.
+
+        try {
+            list = manager.parse();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        getClockingTimes().addAll(list);
+
+        String[] messages = {"clocking_times"};
+        notifyObservers(messages);
+    }
+
+    /**
+     * remove employee selected and clocking times concerned
+     */
+    public void removeEmployee() {
+        for (Department department : company.getDepartments()) {
+            for (int i = 0; i < department.getEmployees().size(); i++) {
+                if (getSelectedEmployee().getId().equals(department.getEmployees().get(i).getId())) {
+                    department.getEmployees().remove(i);
+                }
+            }
+            for (int i=0;i<Stub.getClockingTimeList().size();i++){
+                if(Stub.getClockingTimeList().get(i).getEmployee().equals(selectedEmployee)){
+                    Stub.getClockingTimeList().remove(i);
+                }
+            }
+        }
+        selectedEmployee = null;
+        String[] messages = {"employees", "selected_employee", "employee_filter","clocking_times"};
+        notifyObservers(messages);
+    }
+
+    /**
      * Get the company.
      * @return The company.
      */
@@ -63,11 +129,6 @@ public class ApplicationController extends Controller {
      */
     public void setCompany(Company company) {
         this.company = company;
-
-        if (company != null) {
-            String[] messages = {"employee_filter", "department_filter", "clocking_time", "employees"};
-            notifyObservers(messages);
-        }
     }
 
     /**
@@ -76,5 +137,29 @@ public class ApplicationController extends Controller {
      */
     public Employee getSelectedEmployee() {
         return selectedEmployee;
+    }
+
+    /**
+     * Get the clocking times.
+     * @return The clocking times.
+     */
+    public ArrayList<ClockingTime> getClockingTimes() {
+        return clockingTimes;
+    }
+
+    /**
+     * Set the clocking times.
+     * @param clockingTimes The new clocking times.
+     */
+    public static void setClockingTimes(ArrayList<ClockingTime> clockingTimes) {
+        if (clockingTimes != null) {
+            clockingTimes.clear();
+
+            if (clockingTimes != null && clockingTimes.size() > 0) {
+                clockingTimes.addAll(clockingTimes);
+            }
+        } else {
+            clockingTimes = clockingTimes;
+        }
     }
 }

@@ -137,7 +137,7 @@ public class ApplicationView extends View {
                         // Update of the department list in the filters.
                         getViewController().setComboBoxDepartmentFilters(company.getDepartments());
                     }
-                    case "clocking_time" -> {
+                    case "clocking_times" -> {
                         // Update the list of clocking times.
                         getViewController().setTableViewClockingTimes(Stub.getClockingTimeList());
 
@@ -149,21 +149,35 @@ public class ApplicationView extends View {
                     case "selected_employee" -> {
                         // Update the information about the selected employee.
                         Employee selectedEmployee = getController().getSelectedEmployee();
-                        Schedule schedule = selectedEmployee.getSchedule();
                         ArrayList<WorkingDay> workingDays = new ArrayList<>();
+                        Schedule schedule=new Schedule();
+                        if(selectedEmployee!=null) {
+                            schedule = selectedEmployee.getSchedule();
+                            Days[] days = {Days.MONDAY, Days.TUESDAY, Days.WEDNESDAY, Days.THURSDAY, Days.FRIDAY, Days.SATURDAY, Days.SUNDAY};
+                            for (Days day : days) {
+                                workingDays.add(selectedEmployee.getSchedule().getWorkingDay(day));
+                            }
 
-                        for (Days day : Schedule.getDaysOfWeek()) {
-                            workingDays.add(selectedEmployee.getSchedule().getWorkingDay(day));
+                            // Employee.
+                            getViewController().setLabelEmployeeID(selectedEmployee.getId());
+                            getViewController().setLabelEmployeeFirstname(selectedEmployee.getFirstName());
+                            getViewController().setLabelEmployeeLastname(selectedEmployee.getLastName());
+                            getViewController().setLabelEmployeeDepartment(company.getDepartment(selectedEmployee).getName());
+
+                            // Schedule.
+                            getViewController().setTableViewEmployeeSchedule(workingDays);
                         }
+                        else{
+                            // Employee.
+                            getViewController().setLabelEmployeeID("Unknown");
+                            getViewController().setLabelEmployeeFirstname("Unknown");
+                            getViewController().setLabelEmployeeLastname("Unknown");
+                            getViewController().setLabelEmployeeDepartment("Unknown");
 
-                        // Employee.
-                        getViewController().setLabelEmployeeID(selectedEmployee.getId());
-                        getViewController().setLabelEmployeeFirstname(selectedEmployee.getFirstName());
-                        getViewController().setLabelEmployeeLastname(selectedEmployee.getLastName());
-//                        getViewController().setLabelEmployeeDepartment(selectedEmployee.get());
+                            // Schedule.
+                            getViewController().setTableViewEmployeeSchedule(workingDays);
 
-                        // Schedule.
-                        getViewController().setTableViewEmployeeSchedule(workingDays);
+                        }
                     }
                 }
             }

@@ -4,6 +4,7 @@ import fr.univtours.polytech.projet_tutore.controller.Controller;
 import fr.univtours.polytech.projet_tutore.model.Stub;
 import fr.univtours.polytech.projet_tutore.model.company.Company;
 import fr.univtours.polytech.projet_tutore.model.company.Department;
+import fr.univtours.polytech.projet_tutore.model.data_manager.ClockingTimeDataManager;
 import fr.univtours.polytech.projet_tutore.model.date.Date;
 import fr.univtours.polytech.projet_tutore.model.date.Time;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
@@ -11,6 +12,7 @@ import fr.univtours.polytech.projet_tutore.model.socket.Client;
 import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
 import fr.univtours.polytech.projet_tutore.model.timetracker.TimeTracker;
 
+import java.io.File;
 import java.util.ArrayList;
 
 
@@ -69,7 +71,34 @@ public class TimeTrackerController extends Controller {
             // Add clocking times to a list because if the connection failed,
             // the list of clocking time is saved anyway.
             clockingTimes.add(clockingTime);
+
+            // Parse(read) the file
+            ClockingTimeDataManager clockingTimeDataManager = new ClockingTimeDataManager();
+            // Get the project root path.
+            File root = new File("");
+
+            // Create the path for the packages.
+            String packages = File.separator + "src" +
+                    File.separator + "main" +
+                    File.separator + "resources" +
+                    File.separator + "fr" +
+                    File.separator + "univtours" +
+                    File.separator + "polytech" +
+                    File.separator + "projet_tutore" +
+                    File.separator + "data" +
+                    File.separator;
+
+            String path = root.getAbsolutePath() + File.separator + "ClockingTimeTimeTracker.txt";
+            clockingTimeDataManager.setFilePath(path);
+
+            ArrayList<ClockingTime> fileClockingTimes = clockingTimeDataManager.parse();
+
+            // List composed by the current clocking-time and all the clocking-time in the file
+            clockingTimes.addAll(fileClockingTimes);
+
+            // Try to send the list of clocking-time to the application
             new Client(clockingTimes);
+
             System.out.println("Check employee: " + clockingTime);
         } catch (Exception exception) {
             exception.printStackTrace();

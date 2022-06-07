@@ -1,6 +1,6 @@
-package fr.univtours.polytech.projet_tutore.view.timetracker.setting;
+package fr.univtours.polytech.projet_tutore.view.timetracker.settings;
 
-import fr.univtours.polytech.projet_tutore.controller.timetracker.setting.SettingController;
+import fr.univtours.polytech.projet_tutore.controller.timetracker.settings.SettingsController;
 import fr.univtours.polytech.projet_tutore.controller.Observable;
 import fr.univtours.polytech.projet_tutore.view.View;
 import javafx.application.Platform;
@@ -13,14 +13,16 @@ import java.io.IOException;
 /**
  * View of the settings.
  */
-public class SettingView extends View {
-
-   private Stage settingsStage;
+public class SettingsView extends View {
+    /**
+     * Settings page.
+     */
+   private Stage stage;
 
     /**
      * Initialize the controller to null.
      */
-    public SettingView() {
+    public SettingsView() {
         setController(null);
     }
 
@@ -35,8 +37,8 @@ public class SettingView extends View {
         Platform.setImplicitExit(false);
         Platform.runLater(()->{
             try {
-                settingsStage = new Stage();
-                start(settingsStage);
+                stage = new Stage();
+                start(stage);
                 Platform.setImplicitExit(true);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -49,8 +51,8 @@ public class SettingView extends View {
     public void start(Stage stage) throws IOException {
         // In the case of the separator for the resources, it's the same for every OS: '/'.
         // So there is no need to use File.separator.
-        String fileName = "/fr/univtours/polytech/projet_tutore/view/timetracker/setting/settingsView.fxml";
-        FXMLLoader fxmlLoader = new FXMLLoader(SettingView.class.getResource(fileName));
+        String fileName = "/fr/univtours/polytech/projet_tutore/view/timetracker/settings/settingsView.fxml";
+        FXMLLoader fxmlLoader = new FXMLLoader(SettingsView.class.getResource(fileName));
 
         // Creation of the scene.
         Scene scene = new Scene(fxmlLoader.load());
@@ -63,7 +65,7 @@ public class SettingView extends View {
         getViewController().setView(this);
 
         // Get the controller of the view.
-        SettingController controller = new SettingController();
+        SettingsController controller = new SettingsController();
         setController(controller);
         getController().initialize();
 
@@ -77,11 +79,11 @@ public class SettingView extends View {
             for (String message : messages) {
                 switch (message) {
                     case "ip" -> {
-                        String ip = getController().getSetting().getIpAddress();
+                        String ip = getController().getSettings().getIpAddress();
                         getViewController().setIpAddressTextField(ip);
                     }
                     case "port" -> {
-                        String port = getController().getSetting().getIpPort();
+                        String port = getController().getSettings().getIpPort();
                         getViewController().setIpPortTextField(port);
                     }
                 }
@@ -92,18 +94,20 @@ public class SettingView extends View {
         }
     }
 
+    /**
+     * Close the view.
+     */
     public void close () {
-        settingsStage.close();
-
+        stage.close();
     }
 
     @Override
-    public SettingViewController getViewController() {
-        return (SettingViewController) super.getViewController();
+    public SettingsViewController getViewController() {
+        return (SettingsViewController) super.getViewController();
     }
 
     @Override
-    public SettingController getController() {
-        return (SettingController) super.getController();
+    public SettingsController getController() {
+        return (SettingsController) super.getController();
     }
 }

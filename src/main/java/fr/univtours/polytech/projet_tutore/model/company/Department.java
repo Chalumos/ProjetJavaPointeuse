@@ -2,9 +2,13 @@ package fr.univtours.polytech.projet_tutore.model.company;
 
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.ArrayList;
 
-public class Department {
+public class Department implements Externalizable {
     /**
      * Department name.
      */
@@ -102,5 +106,17 @@ public class Department {
     @Override
     public String toString() {
         return this.name;
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeObject(name);
+        out.writeObject(employees);
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        name = (String) in.readObject();
+        employees =(ArrayList<Employee>) in.readObject();
     }
 }

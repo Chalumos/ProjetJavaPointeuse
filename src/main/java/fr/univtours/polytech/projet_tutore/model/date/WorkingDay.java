@@ -122,13 +122,12 @@ public class WorkingDay implements Externalizable {
         else{
             throw new IOException();
         }
-
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         day = (Days) in.readObject();
-        startTime =(Time) in.readObject();
+        startTime = (Time) in.readObject();
         endTime = (Time) in.readObject();
     }
 }

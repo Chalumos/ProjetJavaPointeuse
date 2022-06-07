@@ -1,19 +1,16 @@
 package fr.univtours.polytech.projet_tutore.view.application;
 
-import fr.univtours.polytech.projet_tutore.controller.Observable;
 import fr.univtours.polytech.projet_tutore.model.company.Department;
 import fr.univtours.polytech.projet_tutore.model.date.Date;
 import fr.univtours.polytech.projet_tutore.model.date.WorkingDay;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
 import fr.univtours.polytech.projet_tutore.view.ViewController;
-import fr.univtours.polytech.projet_tutore.view.timetracker.TimeTrackerView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import java.time.Clock;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -94,24 +91,6 @@ public class ApplicationViewController extends ViewController {
     private Label labelEmployeeDepartment;
 
     /**
-     * Button to display the schedule of the previous week of the current one.
-     */
-    @FXML
-    private Button buttonEmployeePreviousSchedule;
-
-    /**
-     * Title of the selected schedule.
-     */
-    @FXML
-    private Label labelEmployeeScheduleTitle;
-
-    /**
-     * Button to display the schedule of the next week of the current one.
-     */
-    @FXML
-    private Button buttonEmployeeNextSchedule;
-
-    /**
      * List of working days of the current schedule.
      */
     @FXML
@@ -169,7 +148,9 @@ public class ApplicationViewController extends ViewController {
      * Add new clocking times from a file.
      */
     @FXML
-    public void addClockingTimesFromFile() {}
+    public void addClockingTimesFromFile() {
+        getView().getController().recoverClockingTimesFromFile();
+    }
 
     @FXML
     public void updateSelectedEmployee() {
@@ -178,34 +159,10 @@ public class ApplicationViewController extends ViewController {
     }
 
     /**
-     * Update the current schedule with the previous week's schedule.
-     */
-    @FXML
-    public void updateScheduleWithPreviousWeek() {}
-
-    /**
-     * Update the current schedule with the next week's schedule.
-     */
-    @FXML
-    public void updateScheduleWithNextWeek() {}
-
-    /**
-     * Open a view to add a new schedule to the selected employee.
-     */
-    @FXML
-    public void newSchedule() {}
-
-    /**
      * Open a view to edit the current schedule of the selected employee.
      */
     @FXML
     public void editSchedule() {}
-
-    /**
-     * Remove the current schedule of the selected employee.
-     */
-    @FXML
-    public void removeSchedule() {}
 
     /**
      * Open a view to add a new employee to the company.
@@ -223,7 +180,9 @@ public class ApplicationViewController extends ViewController {
      * Remove the selected employee.
      */
     @FXML
-    public void removeEmployee() {}
+    public void removeEmployee() {
+        getView().getController().removeEmployee();
+    }
 
     /**
      * Create a view controller without view.
@@ -413,38 +372,6 @@ public class ApplicationViewController extends ViewController {
      */
     public void setLabelEmployeeDepartment(String newEmployeeDepartment) {
         this.labelEmployeeDepartment.setText(newEmployeeDepartment);
-    }
-
-    /**
-     * Get the button to display the schedule of the previous week.
-     * @return The button to display the schedule of the previous week.
-     */
-    public Button getButtonEmployeePreviousSchedule() {
-        return buttonEmployeePreviousSchedule;
-    }
-
-    /**
-     * Get the label of the title of the schedule.
-     * @return The label of the title of the schedule.
-     */
-    public Label getLabelEmployeeScheduleTitle() {
-        return labelEmployeeScheduleTitle;
-    }
-
-    /**
-     * Set the title of the schedule.
-     * @param newScheduleTitle The new schedule title.
-     */
-    public void setLabelEmployeeScheduleTitle(String newScheduleTitle) {
-        this.labelEmployeeScheduleTitle.setText(newScheduleTitle);
-    }
-
-    /**
-     * Get the button to display the schedule of the next week.
-     * @return The button to display the schedule of the next week.
-     */
-    public Button getButtonEmployeeNextSchedule() {
-        return buttonEmployeeNextSchedule;
     }
 
     /**

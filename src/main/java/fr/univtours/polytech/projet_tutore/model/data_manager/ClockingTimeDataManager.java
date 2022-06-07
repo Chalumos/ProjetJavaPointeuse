@@ -1,11 +1,6 @@
-package fr.univtours.polytech.projet_tutore.model.data;
-
-import fr.univtours.polytech.projet_tutore.model.employee.Employee;
-import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
+package fr.univtours.polytech.projet_tutore.model.data_manager;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class ClockingTimeDataManager extends DataManager{
     public ClockingTimeDataManager(){super();}
@@ -29,13 +24,4 @@ public class ClockingTimeDataManager extends DataManager{
         String path = root.getAbsolutePath() + packages + "ClockingTime.txt";
         setFilePath(path);
     }
-
-    public void serializeClockingTime(ArrayList<ClockingTime> clockingTime) throws IOException {
-        super.serialize(clockingTime);
-    }
-
-    public ArrayList<ClockingTime> parseClockingTime() throws IOException, ClassNotFoundException {
-        return super.parse();
-    }
-
 }

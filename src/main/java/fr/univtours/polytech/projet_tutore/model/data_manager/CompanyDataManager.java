@@ -1,13 +1,10 @@
-package fr.univtours.polytech.projet_tutore.model.data;
-
-import fr.univtours.polytech.projet_tutore.model.employee.Employee;
+package fr.univtours.polytech.projet_tutore.model.data_manager;
 
 import java.io.*;
-import java.util.ArrayList;
 
-public class EmployeeDataManager extends DataManager {
+public class CompanyDataManager extends DataManager {
 
-    public EmployeeDataManager(){
+    public CompanyDataManager(){
         super();
     }
 
@@ -27,15 +24,7 @@ public class EmployeeDataManager extends DataManager {
                 File.separator + "data" +
                 File.separator;
 
-        String path = root.getAbsolutePath() + packages + "Employee.txt";
+        String path = root.getAbsolutePath() + packages + "Company.txt";
         setFilePath(path);
-    }
-
-    public void serializeEmployees(ArrayList<Employee> employees) throws IOException {
-        super.serialize(employees);
-    }
-
-    public ArrayList<Employee> parseEmployees() throws IOException, ClassNotFoundException {
-        return super.parse();
     }
 }

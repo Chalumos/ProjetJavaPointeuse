@@ -1,8 +1,9 @@
 package fr.univtours.polytech.projet_tutore.model.date;
 
-import java.io.*;
-import java.security.SecureRandomParameters;
-import java.util.ArrayList;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.HashMap;
 
 /**
@@ -75,7 +76,6 @@ public class Schedule implements Externalizable {
         else{
             throw new IOException();
         }
-
     }
 
     @Override

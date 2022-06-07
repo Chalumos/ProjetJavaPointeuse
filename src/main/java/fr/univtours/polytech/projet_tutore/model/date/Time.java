@@ -232,14 +232,9 @@ public class Time implements Comparable<Time>, Externalizable {
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        if (this!=null){
-            out.writeObject(hour);
-            out.writeObject(minute);
-            out.writeObject(second);
-        }
-        else{
-            throw new IOException();
-        }
+        out.writeObject(hour);
+        out.writeObject(minute);
+        out.writeObject(second);
     }
 
     @Override

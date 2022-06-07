@@ -4,7 +4,7 @@ import fr.univtours.polytech.projet_tutore.model.date.Date;
 import fr.univtours.polytech.projet_tutore.model.date.Time;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 import fr.univtours.polytech.projet_tutore.view.ViewController;
-import fr.univtours.polytech.projet_tutore.view.timetracker.setting.SettingView;
+import fr.univtours.polytech.projet_tutore.view.timetracker.settings.SettingsView;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -49,7 +49,7 @@ public class TimeTrackerViewController extends ViewController {
      * Try to check an employee.
      */
     @FXML
-    void checkEmployee() {
+    public void checkEmployee() {
         Employee employee = employeeComboBox.getValue();
 
         if (employee == null) {
@@ -65,8 +65,8 @@ public class TimeTrackerViewController extends ViewController {
      * Show the Settings view.
      */
     @FXML
-    void showSettings() {
-        SettingView settingsView = new SettingView();
+    public void showSettings() {
+        SettingsView settingsView = new SettingsView();
         settingsView.show();
     }
 
