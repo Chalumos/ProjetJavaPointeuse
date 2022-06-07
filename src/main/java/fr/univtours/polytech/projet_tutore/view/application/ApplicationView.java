@@ -2,7 +2,6 @@ package fr.univtours.polytech.projet_tutore.view.application;
 
 import fr.univtours.polytech.projet_tutore.controller.Observable;
 import fr.univtours.polytech.projet_tutore.controller.application.ApplicationController;
-import fr.univtours.polytech.projet_tutore.model.Stub;
 import fr.univtours.polytech.projet_tutore.model.company.Company;
 import fr.univtours.polytech.projet_tutore.model.company.Department;
 import fr.univtours.polytech.projet_tutore.model.date.Days;
@@ -90,12 +89,13 @@ public class ApplicationView extends View {
         columnTime.setCellValueFactory(new PropertyValueFactory<>("time"));
 
         Callback<TableColumn<ClockingTime, Void>, TableCell<ClockingTime, Void>> editButton = getTableViewButton("Edit", (clockingTime) -> {
-            System.out.println("Clocking time edit: " + clockingTime);
+            EditClockingTimeView view = new EditClockingTimeView(getController(), clockingTime);
+            view.show();
             return null;
         });
 
         Callback<TableColumn<ClockingTime, Void>, TableCell<ClockingTime, Void>> removeButton = getTableViewButton("Remove", (clockingTime) -> {
-            System.out.println("Clocking time remove: " + clockingTime);
+            getController().removeClockingTime(clockingTime);
             return null;
         });
 
@@ -205,7 +205,7 @@ public class ApplicationView extends View {
                     }
                     case "clocking_times" -> {
                         // Update the list of clocking times.
-                        getViewController().setTableViewClockingTimes(Stub.getClockingTimeList());
+                        getViewController().setTableViewClockingTimes(getController().getClockingTimes());
                         getViewController().getTableViewClockingTimes().refresh();
                     }
                     case "employees" -> {

@@ -142,7 +142,10 @@ public class ApplicationViewController extends ViewController {
      * Add a new clocking time manually.
      */
     @FXML
-    public void addClockingTime() {}
+    public void addClockingTime() {
+        EditClockingTimeView view = new EditClockingTimeView(getView().getController(), null);
+        view.show();
+    }
 
     /**
      * Add new clocking times from a file.
