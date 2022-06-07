@@ -11,13 +11,20 @@ import fr.univtours.polytech.projet_tutore.model.date.WorkingDay;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
 import fr.univtours.polytech.projet_tutore.view.View;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.util.ArrayList;
+import java.util.function.Function;
 
 public class ApplicationView extends View {
     /**
@@ -28,20 +35,79 @@ public class ApplicationView extends View {
     }
 
     /**
+     * Get a button to insert into a column of a table view.
+     * @param text The text of the button.
+     * @param onClick The function called when the button is clicked.
+     * @return The button.
+     */
+    private Callback<TableColumn<ClockingTime, Void>, TableCell<ClockingTime, Void>> getTableViewButton(String text, Function<ClockingTime, Void> onClick) {
+        return new Callback<>() {
+            @Override
+            public TableCell<ClockingTime, Void> call(TableColumn<ClockingTime, Void> clockingTimeVoidTableColumn) {
+                final TableCell<ClockingTime, Void> cell = new TableCell<>() {
+                    private final Button button = new Button(text);
+                    {
+                        button.setOnAction((ActionEvent event) -> {
+                            ClockingTime clockingTime = getTableView().getItems().get(getIndex());
+                            onClick.apply(clockingTime);
+                        });
+
+                        button.setCursor(Cursor.HAND);
+                        button.setMinWidth(70);
+                        button.setPadding(new Insets(2, 5, 2, 5));
+                        if (text.equalsIgnoreCase("remove")) {
+                            button.setStyle("-fx-background-color: #d63031; -fx-text-fill: white");
+                        }
+                    }
+
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(button);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+    }
+
+    /**
      * Initialize the table view of clocking times.
      */
     private void initializeTableViewClockingTimes() {
         TableColumn<ClockingTime, String> columnEmployee = new TableColumn<>("Employee");
         TableColumn<ClockingTime, String> columnDate = new TableColumn<>("Date");
         TableColumn<ClockingTime, String> columnTime = new TableColumn<>("Time");
-        TableColumn<ClockingTime, String> columnEdit = new TableColumn<>("Edit");
-        TableColumn<ClockingTime, String> columnRemove = new TableColumn<>("Remove");
+        TableColumn<ClockingTime, Void> columnEdit = new TableColumn<>("Edition");
+        TableColumn<ClockingTime, Void> columnRemove = new TableColumn<>("Deletion");
 
         columnEmployee.setCellValueFactory(new PropertyValueFactory<>("employee"));
         columnDate.setCellValueFactory(new PropertyValueFactory<>("date"));
         columnTime.setCellValueFactory(new PropertyValueFactory<>("time"));
-        /*columnEdit.setCellValueFactory(new PropertyValueFactory<>("date"));
-        columnRemove.setCellValueFactory(new PropertyValueFactory<>("time"));*/
+
+        Callback<TableColumn<ClockingTime, Void>, TableCell<ClockingTime, Void>> editButton = getTableViewButton("Edit", (clockingTime) -> {
+            System.out.println("Clocking time edit: " + clockingTime);
+            return null;
+        });
+
+        Callback<TableColumn<ClockingTime, Void>, TableCell<ClockingTime, Void>> removeButton = getTableViewButton("Remove", (clockingTime) -> {
+            System.out.println("Clocking time remove: " + clockingTime);
+            return null;
+        });
+
+        columnEmployee.setStyle("-fx-alignment: CENTER-LEFT");
+        columnDate.setStyle("-fx-alignment: CENTER-LEFT");
+        columnTime.setStyle("-fx-alignment: CENTER-LEFT");
+
+        columnEdit.setCellFactory(editButton);
+        columnEdit.setStyle("-fx-alignment: CENTER");
+
+        columnRemove.setCellFactory(removeButton);
+        columnRemove.setStyle("-fx-alignment: CENTER");
 
         getViewController().getTableViewClockingTimes().getColumns().setAll(
                 columnEmployee, columnDate, columnTime, columnEdit, columnRemove);
@@ -140,18 +206,20 @@ public class ApplicationView extends View {
                     case "clocking_times" -> {
                         // Update the list of clocking times.
                         getViewController().setTableViewClockingTimes(Stub.getClockingTimeList());
-
+                        getViewController().getTableViewClockingTimes().refresh();
                     }
                     case "employees" -> {
                         // Update the list of employees.
                         getViewController().setTableViewEmployeeList(employees);
+                        getViewController().getTableViewEmployeeList().refresh();
                     }
                     case "selected_employee" -> {
                         // Update the information about the selected employee.
                         Employee selectedEmployee = getController().getSelectedEmployee();
                         ArrayList<WorkingDay> workingDays = new ArrayList<>();
-                        Schedule schedule=new Schedule();
-                        if(selectedEmployee!=null) {
+                        Schedule schedule = new Schedule();
+
+                        if (selectedEmployee!=null) {
                             schedule = selectedEmployee.getSchedule();
                             Days[] days = {Days.MONDAY, Days.TUESDAY, Days.WEDNESDAY, Days.THURSDAY, Days.FRIDAY, Days.SATURDAY, Days.SUNDAY};
                             for (Days day : days) {
@@ -163,21 +231,18 @@ public class ApplicationView extends View {
                             getViewController().setLabelEmployeeFirstname(selectedEmployee.getFirstName());
                             getViewController().setLabelEmployeeLastname(selectedEmployee.getLastName());
                             getViewController().setLabelEmployeeDepartment(company.getDepartment(selectedEmployee).getName());
-
-                            // Schedule.
-                            getViewController().setTableViewEmployeeSchedule(workingDays);
                         }
-                        else{
+                        else {
                             // Employee.
                             getViewController().setLabelEmployeeID("Unknown");
                             getViewController().setLabelEmployeeFirstname("Unknown");
                             getViewController().setLabelEmployeeLastname("Unknown");
                             getViewController().setLabelEmployeeDepartment("Unknown");
-
-                            // Schedule.
-                            getViewController().setTableViewEmployeeSchedule(workingDays);
-
                         }
+
+                        // Schedule.
+                        getViewController().setTableViewEmployeeSchedule(workingDays);
+                        getViewController().getTableViewEmployeeSchedule().refresh();
                     }
                 }
             }

@@ -2,7 +2,7 @@ package fr.univtours.polytech.projet_tutore.model.data_manager;
 
 import java.io.File;
 
-public class SettingDataManager extends DataManager {
+public class NetworkSettingsDataManager extends DataManager {
 
     @Override
     public void initialize() {
@@ -21,9 +21,8 @@ public class SettingDataManager extends DataManager {
                 File.separator;
 
 
-        String path = root.getAbsolutePath() + packages + "Settings.txt";
+        String path = root.getAbsolutePath() + packages + "NetworkSettings.txt";
 
         setFilePath(path);
-
     }
 }

@@ -1,77 +1,78 @@
 package fr.univtours.polytech.projet_tutore.controller.timetracker.settings;
 
 import fr.univtours.polytech.projet_tutore.controller.Controller;
-import fr.univtours.polytech.projet_tutore.model.data_manager.SettingDataManager;
-import fr.univtours.polytech.projet_tutore.model.settings.Settings;
+import fr.univtours.polytech.projet_tutore.model.data_manager.NetworkSettingsDataManager;
+import fr.univtours.polytech.projet_tutore.model.settings.NetworkSettings;
 
 import java.util.ArrayList;
 
+/**
+ * Controller to manage the settings view.
+ */
 public class SettingsController extends Controller {
     /**
-     * Setting controlled by the controller.
+     * Network settings controlled by the controller.
      */
-    private Settings settings;
+    private NetworkSettings networkSettings;
 
     /**
-     * Controller to manage the setting view.
+     * Initialize the network settings with the localhost address.
      */
     public SettingsController() {
-        settings = null;
-        initialize();
+        networkSettings = new NetworkSettings();
     }
 
     /**
-     * initialise the setting with the setting file.
+     * initialise the settings with the settings file.
      */
     @Override
     public void initialize() {
-        ArrayList<Settings> settings = new ArrayList<Settings>();
+        NetworkSettingsDataManager networkSettingsDataManager = new NetworkSettingsDataManager();
 
-        SettingDataManager settingDataManager = new SettingDataManager();
         try {
-            settings = settingDataManager.parse();
+            ArrayList<NetworkSettings> settings = networkSettingsDataManager.parse();
 
+            // If settings were serialized.
             if (settings.size() > 0) {
-                this.settings = settings.get(0);
-            } else {
-                this.settings = new Settings();
+                networkSettings = settings.get(0);
             }
-
-            String[] messages = {"ip","port"};
-            notifyObservers(messages);
         }
         catch (Exception exception) {
             exception.printStackTrace();
         }
+
+        String[] messages = {"address", "port"};
+        notifyObservers(messages);
     }
 
     /**
      * Get the setting.
      * @return The setting.
      */
-    public Settings getSettings() {
-        return settings;
+    public NetworkSettings getNetworkSettings() {
+        return networkSettings;
     }
 
     /**
      * Set the setting in the setting file.
-     * @param newSetting The new setting.
+     * @param newSettings The new setting.
      */
-    public void setSettings(Settings newSetting) {
-        settings = newSetting;
+    public void setNetworkSettings(NetworkSettings newSettings) {
+        networkSettings = newSettings;
 
-        ArrayList<Settings> settings = new ArrayList<Settings>();
-        settings.add(this.settings);
+        // Write the new settings in a data file.
+        ArrayList<NetworkSettings> settings = new ArrayList<>();
+        settings.add(getNetworkSettings());
 
-        SettingDataManager settingDataManager = new SettingDataManager();
+        NetworkSettingsDataManager networkSettingsDataManager = new NetworkSettingsDataManager();
         try {
-            settingDataManager.serialize(settings);
+            networkSettingsDataManager.serialize(settings);
         }
         catch (Exception exception) {
             exception.printStackTrace();
         }
 
-        String[] messages = {"ip","port"};
+        String[] messages = {"address", "port"};
         notifyObservers(messages);
     }
 }

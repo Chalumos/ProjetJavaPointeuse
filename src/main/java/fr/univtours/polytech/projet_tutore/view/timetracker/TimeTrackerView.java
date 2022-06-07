@@ -2,12 +2,8 @@ package fr.univtours.polytech.projet_tutore.view.timetracker;
 
 import fr.univtours.polytech.projet_tutore.controller.timetracker.TimeTrackerController;
 import fr.univtours.polytech.projet_tutore.controller.Observable;
-import fr.univtours.polytech.projet_tutore.model.Stub;
-import fr.univtours.polytech.projet_tutore.model.company.Company;
-import fr.univtours.polytech.projet_tutore.model.company.Department;
 import fr.univtours.polytech.projet_tutore.model.date.Date;
 import fr.univtours.polytech.projet_tutore.model.date.Time;
-import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 import fr.univtours.polytech.projet_tutore.view.View;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -17,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.util.ArrayList;
 
 /**
  * View of the time-tracker.

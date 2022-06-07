@@ -30,7 +30,7 @@ public class Client {
                 File.separator + "data" +
                 File.separator;
 
-        String path = root.getAbsolutePath() + File.separator + "ClockingTimeTimeTracker.txt";
+        String path = root.getAbsolutePath() + packages + "ClockingTimeTimeTracker.txt";
         clockingTimeDataManager.setFilePath(path);
         try {
             // If the server is not reachable : make an Exception

@@ -88,7 +88,7 @@ public class TimeTrackerController extends Controller {
                     File.separator + "data" +
                     File.separator;
 
-            String path = root.getAbsolutePath() + File.separator + "ClockingTimeTimeTracker.txt";
+            String path = root.getAbsolutePath() + packages + "ClockingTimeTimeTracker.txt";
             clockingTimeDataManager.setFilePath(path);
 
             ArrayList<ClockingTime> fileClockingTimes = clockingTimeDataManager.parse();
