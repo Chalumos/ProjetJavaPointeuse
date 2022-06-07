@@ -89,27 +89,34 @@ public class ApplicationController extends Controller {
 
     /**
      * Recover clocking times from a file.
+     * @return Whether the operation succeed or failed.
      */
-    public void recoverClockingTimesFromFile() {
+    public int recoverClockingTimesFromFile() {
         ArrayList<ClockingTime> list = new ArrayList<ClockingTime>();
         ClockingTimeDataManager manager = new ClockingTimeDataManager();
+        int information = 0;
 
         try {
-            FileDialog fileDialog = new FileDialog(new Frame(),"chose a file");
+            FileDialog fileDialog = new FileDialog(new Frame(),"Chose a file");
             fileDialog.setDirectory("C:\\");
             fileDialog.setFile("*.txt");
             fileDialog.setVisible(true);
+
             manager.setFilePath(fileDialog.getDirectory() + fileDialog.getFile());
             list = manager.parse();
+
+            getClockingTimes().addAll(list);
+
+            String[] messages = {"clocking_times"};
+            notifyObservers(messages);
+            information = list.size();
         }
         catch(Exception e) {
             e.printStackTrace();
+            information = -1;
         }
 
-        getClockingTimes().addAll(list);
-
-        String[] messages = {"clocking_times"};
-        notifyObservers(messages);
+        return information;
     }
 
     /**

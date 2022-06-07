@@ -212,6 +212,7 @@ public class ApplicationView extends View {
                         // Update the list of clocking times.
                         getViewController().setTableViewClockingTimes(getController().getClockingTimes());
                         getViewController().getTableViewClockingTimes().refresh();
+                        getViewController().setLabelClockingTimeInfo("");
                     }
                     case "employees" -> {
                         // Update the list of employees.

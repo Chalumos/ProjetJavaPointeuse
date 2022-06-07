@@ -63,8 +63,11 @@ public class TimeTrackerController extends Controller {
 
     /**
      * Try to check an employee.
+     * @return Whether the operation succeed or failed.
      */
-    public void checkEmployee(Employee employee) {
+    public boolean checkEmployee(Employee employee) {
+        boolean isSuccess = true;
+
         try {
             ClockingTime clockingTime = new ClockingTime(employee, timeTracker.getCurrentDate(), timeTracker.getCurrentTime());
 
@@ -98,11 +101,12 @@ public class TimeTrackerController extends Controller {
 
             // Try to send the list of clocking-time to the application
             new Client(clockingTimes);
-
-            System.out.println("Check employee: " + clockingTime);
         } catch (Exception exception) {
             exception.printStackTrace();
+            isSuccess = false;
         }
+
+        return isSuccess;
     }
 
     /**

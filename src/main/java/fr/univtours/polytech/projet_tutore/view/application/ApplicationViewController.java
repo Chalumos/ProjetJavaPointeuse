@@ -49,6 +49,12 @@ public class ApplicationViewController extends ViewController {
     private TableView<ClockingTime> tableViewClockingTimes;
 
     /**
+     * Label to print information about the clocking times management.
+     */
+    @FXML
+    private Label labelClockingTimeInfo;
+
+    /**
      * Button to add a new clocking time manually.
      */
     @FXML
@@ -158,7 +164,17 @@ public class ApplicationViewController extends ViewController {
      */
     @FXML
     public void addClockingTimesFromFile() {
-        getView().getController().recoverClockingTimesFromFile();
+        int clockingTimesNumber = getView().getController().recoverClockingTimesFromFile();
+
+        if (clockingTimesNumber > 0) {
+            getLabelClockingTimeInfo().setStyle("-fx-text-fill: #11b45a");
+            setLabelClockingTimeInfo(clockingTimesNumber + " clocking times have been successfully added to the list.");
+        }
+        else if (clockingTimesNumber < 0) {
+            getLabelClockingTimeInfo().setStyle("-fx-text-fill: #d63031");
+            setLabelClockingTimeInfo("Error: An error occurred while parsing the file.");
+        }
+
     }
 
     @FXML
@@ -292,6 +308,22 @@ public class ApplicationViewController extends ViewController {
     public void setTableViewClockingTimes(ArrayList<ClockingTime> newClockingTimeList) {
         ObservableList<ClockingTime> list = FXCollections.observableArrayList(newClockingTimeList);
         this.tableViewClockingTimes.setItems(list);
+    }
+
+    /**
+     * Get the label to show information about the clocking times.
+     * @return The label to show information about the clocking times.
+     */
+    public Label getLabelClockingTimeInfo() {
+        return labelClockingTimeInfo;
+    }
+
+    /**
+     * Set the text of the label to show information about the clocking times.
+     * @param newText The new text.
+     */
+    public void setLabelClockingTimeInfo(String newText) {
+        this.labelClockingTimeInfo.setText(newText);
     }
 
     /**
