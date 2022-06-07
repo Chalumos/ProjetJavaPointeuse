@@ -151,7 +151,10 @@ public class ApplicationViewController extends ViewController {
      * Add a new clocking time manually.
      */
     @FXML
-    public void addClockingTime() {}
+    public void addClockingTime() {
+        EditClockingTimeView view = new EditClockingTimeView(getView().getController(), null);
+        view.show();
+    }
 
     /**
      * Add new clocking times from a file.
@@ -177,13 +180,21 @@ public class ApplicationViewController extends ViewController {
      * Open a view to add a new employee to the company.
      */
     @FXML
-    public void newEmployee() {}
+    public void newEmployee() {
+        EditEmployeeView view = new EditEmployeeView(getView().getController(), null);
+        view.show();
+    }
 
     /**
      * Open a view to edit the selected employee.
      */
     @FXML
-    public void editEmployee() {}
+    public void editEmployee() {
+        Employee selectedEmployee = getTableViewEmployeeList().getFocusModel().getFocusedItem();
+
+        EditEmployeeView view = new EditEmployeeView(getView().getController(), selectedEmployee);
+        view.show();
+    }
 
     /**
      * Remove the selected employee.

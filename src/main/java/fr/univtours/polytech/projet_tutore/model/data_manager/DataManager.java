@@ -55,25 +55,30 @@ public abstract class DataManager {
      * Parse a file to get objects.
      */
     public <T> ArrayList<T> parse() throws IOException, ClassNotFoundException {
-        FileInputStream file = new FileInputStream(getFilePath());
-        BufferedInputStream inputBuffer = new BufferedInputStream(file);
-        DataInputStream inputStream = new DataInputStream(inputBuffer);
+        File file = new File(getFilePath());
         ArrayList<T> objectList = new ArrayList<T>(1);
-        T t;
 
-        try {
-            ObjectInputStream objectInput = new ObjectInputStream(inputStream);
+        // Check that the file exists to parse it.
+        if (file.exists()) {
+            FileInputStream inputFile = new FileInputStream(file.getPath());
+            BufferedInputStream inputBuffer = new BufferedInputStream(inputFile);
+            DataInputStream inputStream = new DataInputStream(inputBuffer);
 
-            t = (T) objectInput.readObject();
+            try {
+                ObjectInputStream objectInput = new ObjectInputStream(inputStream);
 
-            if (t != null) {
-                objectList.addAll((ArrayList<T>) t);
+                ArrayList<T> list = (ArrayList<T>) objectInput.readObject();
+
+                if (list != null) {
+                    objectList.addAll(list);
+                }
+
+                inputStream.close();
+            } catch (EOFException e) {
+                e.printStackTrace();
             }
-
-            inputStream.close();
-        }
-        catch(EOFException e){
-            e.printStackTrace();
+        } else {
+            System.out.println("The file '" + getFilePath() + "' doesn't exist");
         }
 
         return objectList;

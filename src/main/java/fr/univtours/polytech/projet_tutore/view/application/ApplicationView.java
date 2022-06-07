@@ -2,7 +2,6 @@ package fr.univtours.polytech.projet_tutore.view.application;
 
 import fr.univtours.polytech.projet_tutore.controller.Observable;
 import fr.univtours.polytech.projet_tutore.controller.application.ApplicationController;
-import fr.univtours.polytech.projet_tutore.model.Stub;
 import fr.univtours.polytech.projet_tutore.model.company.Company;
 import fr.univtours.polytech.projet_tutore.model.company.Department;
 import fr.univtours.polytech.projet_tutore.model.date.Days;
@@ -90,12 +89,13 @@ public class ApplicationView extends View {
         columnTime.setCellValueFactory(new PropertyValueFactory<>("time"));
 
         Callback<TableColumn<ClockingTime, Void>, TableCell<ClockingTime, Void>> editButton = getTableViewButton("Edit", (clockingTime) -> {
-            System.out.println("Clocking time edit: " + clockingTime);
+            EditClockingTimeView view = new EditClockingTimeView(getController(), clockingTime);
+            view.show();
             return null;
         });
 
         Callback<TableColumn<ClockingTime, Void>, TableCell<ClockingTime, Void>> removeButton = getTableViewButton("Remove", (clockingTime) -> {
-            System.out.println("Clocking time remove: " + clockingTime);
+            getController().removeClockingTime(clockingTime);
             return null;
         });
 
@@ -212,17 +212,21 @@ public class ApplicationView extends View {
                         //getViewController().setTableViewClockingTimes(Stub.getClockingTimeList());
                         getViewController().setTableViewClockingTimes(getController().getFilteredClockingTimes());
 
+                        getViewController().setTableViewClockingTimes(getController().getClockingTimes());
+                        getViewController().getTableViewClockingTimes().refresh();
                     }
                     case "employees" -> {
                         // Update the list of employees.
                         getViewController().setTableViewEmployeeList(employees);
+                        getViewController().getTableViewEmployeeList().refresh();
                     }
                     case "selected_employee" -> {
                         // Update the information about the selected employee.
                         Employee selectedEmployee = getController().getSelectedEmployee();
                         ArrayList<WorkingDay> workingDays = new ArrayList<>();
-                        Schedule schedule=new Schedule();
-                        if(selectedEmployee!=null) {
+                        Schedule schedule = new Schedule();
+
+                        if (selectedEmployee!=null) {
                             schedule = selectedEmployee.getSchedule();
                             Days[] days = {Days.MONDAY, Days.TUESDAY, Days.WEDNESDAY, Days.THURSDAY, Days.FRIDAY, Days.SATURDAY, Days.SUNDAY};
                             for (Days day : days) {
@@ -234,21 +238,18 @@ public class ApplicationView extends View {
                             getViewController().setLabelEmployeeFirstname(selectedEmployee.getFirstName());
                             getViewController().setLabelEmployeeLastname(selectedEmployee.getLastName());
                             getViewController().setLabelEmployeeDepartment(company.getDepartment(selectedEmployee).getName());
-
-                            // Schedule.
-                            getViewController().setTableViewEmployeeSchedule(workingDays);
                         }
-                        else{
+                        else {
                             // Employee.
                             getViewController().setLabelEmployeeID("Unknown");
                             getViewController().setLabelEmployeeFirstname("Unknown");
                             getViewController().setLabelEmployeeLastname("Unknown");
                             getViewController().setLabelEmployeeDepartment("Unknown");
-
-                            // Schedule.
-                            getViewController().setTableViewEmployeeSchedule(workingDays);
-
                         }
+
+                        // Schedule.
+                        getViewController().setTableViewEmployeeSchedule(workingDays);
+                        getViewController().getTableViewEmployeeSchedule().refresh();
                     }
                 }
             }

@@ -57,8 +57,9 @@ public class Employee implements Externalizable {
      */
     public Employee(String firstName, String lastName, Schedule schedule) {
         generateID();
-        this.firstName = firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase();
-        this.lastName = lastName.substring(0, 1).toUpperCase() + lastName.substring(1).toLowerCase();
+
+        setFirstName(firstName);
+        setLastName(lastName);
         this.schedule = schedule;
     }
 
@@ -106,7 +107,13 @@ public class Employee implements Externalizable {
      * @param firstName The new first name of the employee.
      */
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        if (firstName != null) {
+            String firstLetter = firstName.length() > 0 ? firstName.substring(0, 1).toUpperCase() : "";
+            String otherLetters = firstName.length() > 1 ? firstName.substring(1).toLowerCase() : "";
+            this.firstName = firstLetter + otherLetters;
+        } else {
+            this.firstName = null;
+        }
     }
 
     /**
@@ -114,7 +121,13 @@ public class Employee implements Externalizable {
      * @param lastName The new last name of the employee.
      */
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        if (lastName != null) {
+            String firstLetter = lastName.length() > 0 ? lastName.substring(0, 1).toUpperCase() : "";
+            String otherLetters = lastName.length() > 1 ? lastName.substring(1).toLowerCase() : "";
+            this.lastName = firstLetter + otherLetters;
+        } else {
+            this.lastName = null;
+        }
     }
 
     /**

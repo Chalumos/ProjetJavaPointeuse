@@ -1,6 +1,9 @@
 package fr.univtours.polytech.projet_tutore.view.application;
 
+import fr.univtours.polytech.projet_tutore.controller.application.ApplicationController;
+import fr.univtours.polytech.projet_tutore.model.company.Company;
 import fr.univtours.polytech.projet_tutore.model.company.Department;
+import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 import fr.univtours.polytech.projet_tutore.view.ViewController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,6 +11,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+/**
+ * Controller of the components of the view to add or edit an employee.
+ */
 public class EditEmployeeViewController extends ViewController {
     /**
      * Title of the view.
@@ -55,13 +61,85 @@ public class EditEmployeeViewController extends ViewController {
      * Close the view and cancel the addition or edition of the employee.
      */
     @FXML
-    public void closeView() {}
+    public void closeView() {
+        getView().close();
+    }
 
     /**
      * Add a new employee or edit the employee in edition.
      */
     @FXML
-    public void editEmployee() {}
+    public void editEmployee() {
+        Employee employee = getView().getController().getEmployee();
+        String firstName = getTextFieldFirstName().getText();
+        String lastName = getTextFieldLastName().getText();
+        Department department = getComboBoxDepartment().getValue();
+        boolean areTextFieldsFilled = true;
+
+        // Check if the text fields are filled.
+        if (firstName.length() == 0) {
+            setLabelFirstNameError("Please enter a first name");
+            areTextFieldsFilled = false;
+        } else {
+            setLabelFirstNameError("");
+            employee.setFirstName(firstName);
+        }
+
+        if (lastName.length() == 0) {
+            setLabelLastNameError("Please enter a last name");
+            areTextFieldsFilled = false;
+        } else {
+            setLabelLastNameError("");
+            employee.setLastName(lastName);
+        }
+
+        if (areTextFieldsFilled == true) {
+            ApplicationController applicationController = getView().getController().getApplicationController();
+            Company company = applicationController.getCompany();
+            int departmentIndex = 0;
+
+            getView().getController().setEmployee(employee);
+
+            // Get the index of the department.
+            for (int i = 0; i < company.getDepartments().size(); i++) {
+                Department d = company.getDepartments().get(i);
+                if (d == department) departmentIndex = i;
+            }
+
+            // Edition of the employee.
+            if (getView().getController().isEdition()) {
+                Department oldDepartment = company.getDepartment(employee);
+
+                if (department != oldDepartment) {
+                    try {
+                        oldDepartment.deleteEmployee(employee);
+                        department.addEmployee(employee);
+                    } catch (Exception exception) {
+                        exception.printStackTrace();
+                    }
+                }
+            }
+            // Addition of the employee.
+            else {
+                try {
+                    department.addEmployee(getView().getController().getEmployee());
+                    applicationController.getCompany().getDepartments().set(departmentIndex, department);
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+            }
+
+            getView().close();
+
+            String[] messages = {"employees", "selected_employee"};
+            applicationController.notifyObservers(messages);
+        }
+    }
+
+    @Override
+    public EditEmployeeView getView() {
+        return (EditEmployeeView) super.getView();
+    }
 
     /**
      * Set the text of the tile label.
@@ -107,7 +185,7 @@ public class EditEmployeeViewController extends ViewController {
      * Get the text field to enter the last name of the employee.
      * @return The text field to enter the last name of the employee.
      */
-    public TextField getTextFieldlastName() {
+    public TextField getTextFieldLastName() {
         return textFieldLastName;
     }
 

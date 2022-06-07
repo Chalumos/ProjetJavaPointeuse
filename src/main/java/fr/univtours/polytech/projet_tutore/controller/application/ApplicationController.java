@@ -64,14 +64,22 @@ public class ApplicationController extends Controller {
     }
 
     /**
-     * Update the selected employee.
-     *
-     * @param newSelectedEmployee The new selected employee.
+     * Remove a clocking time.
      */
-    public void updateSelectedEmployee(Employee newSelectedEmployee) {
-        selectedEmployee = newSelectedEmployee;
+    public void removeClockingTime(ClockingTime clockingTime) {
+        ArrayList<ClockingTime> clockingTimes = getClockingTimes();
 
-        String[] messages = {"selected_employee"};
+        // Remove the clocking time.
+        for (int i = 0; i < clockingTimes.size(); i++) {
+            ClockingTime c = clockingTimes.get(i);
+
+            if (c.equals(clockingTime)) {
+                clockingTimes.remove(i);
+            }
+        }
+
+        selectedEmployee = null;
+        String[] messages = {"clocking_times"};
         notifyObservers(messages);
     }
 
@@ -97,21 +105,42 @@ public class ApplicationController extends Controller {
     }
 
     /**
+     * Update the selected employee.
+     * @param newSelectedEmployee The new selected employee.
+     */
+    public void updateSelectedEmployee(Employee newSelectedEmployee) {
+        selectedEmployee = newSelectedEmployee;
+
+        String[] messages = {"selected_employee"};
+        notifyObservers(messages);
+    }
+
+    /**
      * remove employee selected and clocking times concerned
      */
     public void removeEmployee() {
-        for (Department department : company.getDepartments()) {
-            for (int i = 0; i < department.getEmployees().size(); i++) {
-                if (getSelectedEmployee().getId().equals(department.getEmployees().get(i).getId())) {
-                    department.getEmployees().remove(i);
-                }
-            }
-            for (int i = 0; i < Stub.getClockingTimeList().size(); i++) {
-                if (Stub.getClockingTimeList().get(i).getEmployee().equals(selectedEmployee)) {
-                    Stub.getClockingTimeList().remove(i);
-                }
+        ArrayList<Employee> employees = company.getEmployees();
+
+        // Remove the employee.
+        for (int i = 0; i < employees.size(); i++) {
+            Employee employee = employees.get(i);
+
+            if (getSelectedEmployee().getId().equals(employee.getId())) {
+                Department department = company.getDepartment(employee);
+                department.getEmployees().remove(i);
             }
         }
+
+        // Remove the clocking times of the employee.
+        for (int i = getClockingTimes().size() - 1; i >= 0; i--) {
+            ClockingTime clockingTime = getClockingTimes().get(i);
+
+            if (getSelectedEmployee().getId().equals(clockingTime.getEmployee().getId())) {
+                getClockingTimes().remove(i);
+                System.out.println("Test");
+            }
+        }
+
         selectedEmployee = null;
         String[] messages = {"employees", "selected_employee", "employee_filter", "clocking_times"};
         notifyObservers(messages);
@@ -119,7 +148,6 @@ public class ApplicationController extends Controller {
 
     /**
      * Get the company.
-     *
      * @return The company.
      */
     public Company getCompany() {
@@ -128,7 +156,6 @@ public class ApplicationController extends Controller {
 
     /**
      * Set the company.
-     *
      * @param company The new company.
      */
     public void setCompany(Company company) {
@@ -137,7 +164,6 @@ public class ApplicationController extends Controller {
 
     /**
      * Get the selected employee.
-     *
      * @return The selected employee.
      */
     public Employee getSelectedEmployee() {
@@ -146,7 +172,6 @@ public class ApplicationController extends Controller {
 
     /**
      * Get the clocking times.
-     *
      * @return The clocking times.
      */
     public ArrayList<ClockingTime> getClockingTimes() {
@@ -155,7 +180,6 @@ public class ApplicationController extends Controller {
 
     /**
      * Set the clocking times.
-     *
      * @param clockingTimes The new clocking times.
      */
     public void setClockingTimes(ArrayList<ClockingTime> clockingTimes) {
