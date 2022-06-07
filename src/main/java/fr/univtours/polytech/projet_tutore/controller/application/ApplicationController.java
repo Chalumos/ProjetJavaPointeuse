@@ -8,6 +8,7 @@ import fr.univtours.polytech.projet_tutore.model.data_manager.ClockingTimeDataMa
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 
@@ -70,9 +71,12 @@ public class ApplicationController extends Controller {
         ArrayList<ClockingTime> list = new ArrayList<ClockingTime>();
         ClockingTimeDataManager manager = new ClockingTimeDataManager();
 
-        // TODO: Ouvrir une fenêtre pour que l'utilisateur puisse sélectionner le fichier de pointages à ajouter.
-
         try {
+            FileDialog fileDialog = new FileDialog(new Frame(),"chose a file");
+            fileDialog.setDirectory("C:\\");
+            fileDialog.setFile("*.txt");
+            fileDialog.setVisible(true);
+            manager.setFilePath(fileDialog.getDirectory() + fileDialog.getFile());
             list = manager.parse();
         }
         catch(Exception e) {
