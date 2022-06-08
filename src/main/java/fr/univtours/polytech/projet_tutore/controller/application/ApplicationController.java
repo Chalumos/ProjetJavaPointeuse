@@ -6,7 +6,7 @@ import fr.univtours.polytech.projet_tutore.model.company.Company;
 import fr.univtours.polytech.projet_tutore.model.company.Department;
 import fr.univtours.polytech.projet_tutore.model.data_manager.ClockingTimeDataManager;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
-import fr.univtours.polytech.projet_tutore.model.socket.ServerMultiThread;
+import fr.univtours.polytech.projet_tutore.model.socket.MultiThreadedServer;
 import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
 
 import java.awt.*;
@@ -36,7 +36,7 @@ public class ApplicationController extends Controller {
     /**
      * The server of the application.
      */
-    private ServerMultiThread serverMultiThread;
+    private MultiThreadedServer serverMultiThread;
 
     /**
      * Clocking times of the employees of the company filtered.
@@ -52,7 +52,7 @@ public class ApplicationController extends Controller {
 
     @Override
     public void initialize() {
-        serverMultiThread = new ServerMultiThread((clockingTimes) -> {
+        serverMultiThread = new MultiThreadedServer((clockingTimes) -> {
             getClockingTimes().addAll((ArrayList<ClockingTime>) clockingTimes);
             getFilteredClockingTimes().addAll((ArrayList<ClockingTime>) clockingTimes);
 
@@ -232,7 +232,7 @@ public class ApplicationController extends Controller {
      * Return the current application server.
      * @return the current application server.
      */
-    public ServerMultiThread getServerMultiThread() {
+    public MultiThreadedServer getServerMultiThread() {
         return serverMultiThread;
     }
 
