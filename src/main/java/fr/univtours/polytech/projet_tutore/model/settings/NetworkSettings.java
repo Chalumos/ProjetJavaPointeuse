@@ -29,6 +29,14 @@ public class NetworkSettings implements Externalizable {
     }
 
     /**
+     * Initialize the attributes with the arguments.
+     */
+    public NetworkSettings(String ipAddress, String ipPort) {
+        setIpAddress(ipAddress);
+        setIpPort(ipPort);
+    }
+
+    /**
      * Get the IP address.
      * @return The IP address;
      */

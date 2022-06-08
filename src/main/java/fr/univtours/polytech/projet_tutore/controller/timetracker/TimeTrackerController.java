@@ -5,9 +5,11 @@ import fr.univtours.polytech.projet_tutore.model.Stub;
 import fr.univtours.polytech.projet_tutore.model.company.Company;
 import fr.univtours.polytech.projet_tutore.model.company.Department;
 import fr.univtours.polytech.projet_tutore.model.data_manager.ClockingTimeDataManager;
+import fr.univtours.polytech.projet_tutore.model.data_manager.NetworkSettingsDataManager;
 import fr.univtours.polytech.projet_tutore.model.date.Date;
 import fr.univtours.polytech.projet_tutore.model.date.Time;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
+import fr.univtours.polytech.projet_tutore.model.settings.NetworkSettings;
 import fr.univtours.polytech.projet_tutore.model.socket.Client;
 import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
 import fr.univtours.polytech.projet_tutore.model.timetracker.TimeTracker;
@@ -96,11 +98,27 @@ public class TimeTrackerController extends Controller {
 
             ArrayList<ClockingTime> fileClockingTimes = clockingTimeDataManager.parse();
 
-            // List composed by the current clocking-time and all the clocking-time in the file
+            // List composed of the current clocking-time and all the clocking-times in the file.
             clockingTimes.addAll(fileClockingTimes);
 
             // Try to send the list of clocking-time to the application
-            new Client(clockingTimes);
+            // new Client(clockingTimes);
+
+            NetworkSettingsDataManager networkSettingsDataManager = new NetworkSettingsDataManager();
+            ArrayList<NetworkSettings> networkSettings = networkSettingsDataManager.parse();
+            NetworkSettings networkSetting = (networkSettings.size() > 0) ? networkSettings.get(0) : new NetworkSettings();
+
+            // Success of the sending.
+            if (Client.sendData(clockingTimes, networkSetting)) {
+                // Clear the file.
+                clockingTimeDataManager.serialize(new ArrayList<>());
+            }
+            // If the sending failed, we stock the no sent clocking times.
+            else {
+                clockingTimeDataManager.serialize(clockingTimes);
+            }
+
+            clockingTimes.clear();
         } catch (Exception exception) {
             exception.printStackTrace();
             isSuccess = false;
