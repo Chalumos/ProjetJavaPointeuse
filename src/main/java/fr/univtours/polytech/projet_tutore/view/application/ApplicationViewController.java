@@ -148,7 +148,7 @@ public class ApplicationViewController extends ViewController {
      */
     @FXML
     public void clearClockingTimeList() {
-        getView().getController().clearFilters();
+        getView().getController().filters(null, null, null, null);
         getComboBoxEmployeeFilters().valueProperty().setValue(null);
         getComboBoxDepartmentFilters().valueProperty().setValue(null);
         getDatePickerFromFilters().valueProperty().setValue(null);
