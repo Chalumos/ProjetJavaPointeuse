@@ -1,11 +1,12 @@
-package fr.univtours.polytech.projet_tutore.view.application;
+package fr.univtours.polytech.projet_tutore.view.application.edit;
 
 import fr.univtours.polytech.projet_tutore.controller.Observable;
 import fr.univtours.polytech.projet_tutore.controller.application.ApplicationController;
-import fr.univtours.polytech.projet_tutore.controller.application.EditClockingTimeController;
-import fr.univtours.polytech.projet_tutore.controller.application.EditWorkingDayController;
+import fr.univtours.polytech.projet_tutore.controller.application.edit.EditClockingTimeController;
+import fr.univtours.polytech.projet_tutore.controller.application.edit.EditWorkingDayController;
 import fr.univtours.polytech.projet_tutore.model.date.WorkingDay;
 import fr.univtours.polytech.projet_tutore.view.View;
+import fr.univtours.polytech.projet_tutore.view.application.ApplicationView;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

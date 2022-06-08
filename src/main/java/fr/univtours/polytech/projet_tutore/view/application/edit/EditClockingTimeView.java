@@ -1,21 +1,22 @@
-package fr.univtours.polytech.projet_tutore.view.application;
+package fr.univtours.polytech.projet_tutore.view.application.edit;
 
 import fr.univtours.polytech.projet_tutore.controller.Observable;
 import fr.univtours.polytech.projet_tutore.controller.application.ApplicationController;
-import fr.univtours.polytech.projet_tutore.controller.application.EditEmployeeController;
+import fr.univtours.polytech.projet_tutore.controller.application.edit.EditClockingTimeController;
 import fr.univtours.polytech.projet_tutore.model.company.Company;
-import fr.univtours.polytech.projet_tutore.model.company.Department;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
+import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
 import fr.univtours.polytech.projet_tutore.view.View;
+import fr.univtours.polytech.projet_tutore.view.application.ApplicationView;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * View to add or edit an employee.
+ * View to add or edit a clocking time.
  */
-public class EditEmployeeView extends View {
+public class EditClockingTimeView extends View {
     /**
      * Stage of the page.
      */
@@ -24,29 +25,29 @@ public class EditEmployeeView extends View {
     /**
      * Initialize the controller in addition mode without reference to the controller of the application.
      */
-    public EditEmployeeView() {
-        setController(new EditEmployeeController(new ApplicationController(), null));
+    public EditClockingTimeView() {
+        setController(new EditClockingTimeController(new ApplicationController(), null));
     }
 
     /**
      * Initialize the controller in addition mode with a reference to the controller of the application.
      * @param applicationController The controller of the application.
-     * @param employee The employee to edit.
+     * @param clockingTime The clocking time to edit.
      */
-    public EditEmployeeView(ApplicationController applicationController, Employee employee) {
-        setController(new EditEmployeeController(applicationController, employee));
+    public EditClockingTimeView(ApplicationController applicationController, ClockingTime clockingTime) {
+        setController(new EditClockingTimeController(applicationController, clockingTime));
     }
 
     @Override
     public void initialize() {
         getController().initialize();
 
-        getViewController().setLabelTitle(getController().isEdition() ? "Employee edition" : "New employee");
-        getViewController().setButtonEditEmployee(getController().isEdition() ? "Edit employee" : "Add employee");
+        getViewController().setLabelTitle(getController().isEdition() ? "Clocking time edition" : "New clocking time");
+        getViewController().setButtonEditClockingTime(getController().isEdition() ? "Edit clocking time" : "Add clocking time");
 
         Company company = getController().getApplicationController().getCompany();
-        getViewController().getComboBoxDepartment().getItems().setAll(company.getDepartments());
-        getViewController().getComboBoxDepartment().setValue(getController().getDepartment());
+        getViewController().getComboBoxEmployee().getItems().setAll(company.getEmployees());
+        getViewController().getComboBoxEmployee().setValue(getController().getClockingTime().getEmployee());
     }
 
     @Override
@@ -67,7 +68,7 @@ public class EditEmployeeView extends View {
     public void start(Stage stage) throws Exception {
         // In the case of the separator for the resources, it's the same for every OS: '/'.
         // So there is no need to use File.separator.
-        String fileName = "/fr/univtours/polytech/projet_tutore/view/application/editEmployeeView.fxml";
+        String fileName = "/fr/univtours/polytech/projet_tutore/view/application/editClockingTime.fxml";
         FXMLLoader fxmlLoader = new FXMLLoader(ApplicationView.class.getResource(fileName));
 
         // Creation of the scene.
@@ -83,22 +84,21 @@ public class EditEmployeeView extends View {
         initialize();
 
         // Show the view.
-        stage.setTitle(getController().isEdition() ? "Edit employee" : "New employee");
+        stage.setTitle(getController().isEdition() ? "Edit clocking time" : "New clocking time");
         stage.show();
     }
 
     @Override
     public void update(Observable observable, String[] messages) {
-        Company company = getController().getApplicationController().getCompany();
-        Employee employee = getController().getEmployee();
+        ClockingTime clockingTime = getController().getClockingTime();
 
         for (String message : messages) {
             switch (message) {
-                case "firstname" -> getViewController().setTextFieldFirstName(employee.getFirstName());
-                case "lastname" -> getViewController().setTextFieldLastName(employee.getLastName());
-                case "department" -> {
-                    Department department = company.getDepartment(employee);
-                    getViewController().getComboBoxDepartment().setValue(department);
+                case "date" -> getViewController().setDatePickerDate(clockingTime.getDate());
+                case "time" -> getViewController().setTextFieldTime(clockingTime.getTime());
+                case "employee" -> {
+                    Employee employee = clockingTime.getEmployee();
+                    getViewController().getComboBoxEmployee().setValue(employee);
                 }
             }
         }
@@ -112,12 +112,12 @@ public class EditEmployeeView extends View {
     }
 
     @Override
-    public EditEmployeeController getController() {
-        return (EditEmployeeController) super.getController();
+    public EditClockingTimeController getController() {
+        return (EditClockingTimeController) super.getController();
     }
 
     @Override
-    public EditEmployeeViewController getViewController() {
-        return (EditEmployeeViewController) super.getViewController();
+    public EditClockingTimeViewController getViewController() {
+        return (EditClockingTimeViewController) super.getViewController();
     }
 }

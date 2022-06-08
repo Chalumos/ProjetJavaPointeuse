@@ -1,4 +1,4 @@
-package fr.univtours.polytech.projet_tutore.view.application;
+package fr.univtours.polytech.projet_tutore.view.application.edit;
 
 import fr.univtours.polytech.projet_tutore.controller.application.ApplicationController;
 import fr.univtours.polytech.projet_tutore.model.date.Time;

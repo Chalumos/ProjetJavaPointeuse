@@ -2,17 +2,19 @@ package fr.univtours.polytech.projet_tutore.view.application;
 
 import fr.univtours.polytech.projet_tutore.model.company.Department;
 import fr.univtours.polytech.projet_tutore.model.date.Date;
-import fr.univtours.polytech.projet_tutore.model.date.Days;
-import fr.univtours.polytech.projet_tutore.model.date.Time;
 import fr.univtours.polytech.projet_tutore.model.date.WorkingDay;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
 import fr.univtours.polytech.projet_tutore.view.ViewController;
+import fr.univtours.polytech.projet_tutore.view.application.edit.EditClockingTimeView;
+import fr.univtours.polytech.projet_tutore.view.application.edit.EditEmployeeView;
+import fr.univtours.polytech.projet_tutore.view.application.edit.EditWorkingDayView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.time.Clock;
 import java.time.LocalDate;
 import java.util.ArrayList;
 

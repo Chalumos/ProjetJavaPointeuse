@@ -27,6 +27,8 @@ module fr.univtours.polytech.projet_tutore {
     opens fr.univtours.polytech.projet_tutore.view.timetracker to javafx.fxml;
     exports fr.univtours.polytech.projet_tutore.view.application;
     opens fr.univtours.polytech.projet_tutore.view.application to javafx.fxml;
+    exports fr.univtours.polytech.projet_tutore.view.application.edit;
+    opens fr.univtours.polytech.projet_tutore.view.application.edit to javafx.fxml;
 
     exports fr.univtours.polytech.projet_tutore.view.timetracker.settings;
     opens fr.univtours.polytech.projet_tutore.view.timetracker.settings to javafx.fxml;
@@ -40,4 +42,6 @@ module fr.univtours.polytech.projet_tutore {
     opens fr.univtours.polytech.projet_tutore.controller.timetracker to javafx.fxml;
     exports fr.univtours.polytech.projet_tutore.controller.application;
     opens fr.univtours.polytech.projet_tutore.controller.application to javafx.fxml;
+    exports fr.univtours.polytech.projet_tutore.controller.application.edit;
+    opens fr.univtours.polytech.projet_tutore.controller.application.edit to javafx.fxml;
 }

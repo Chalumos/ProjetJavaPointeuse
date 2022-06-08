@@ -1,6 +1,7 @@
-package fr.univtours.polytech.projet_tutore.controller.application;
+package fr.univtours.polytech.projet_tutore.controller.application.edit;
 
 import fr.univtours.polytech.projet_tutore.controller.Controller;
+import fr.univtours.polytech.projet_tutore.controller.application.ApplicationController;
 import fr.univtours.polytech.projet_tutore.model.company.Company;
 import fr.univtours.polytech.projet_tutore.model.date.Date;
 import fr.univtours.polytech.projet_tutore.model.date.Time;
@@ -51,7 +52,8 @@ public class EditClockingTimeController extends Controller {
         }
         // Else, addition mode.
         else {
-            this.clockingTime = new ClockingTime(company.getEmployees().get(0), new Date(), new Time());
+            Date date = Date.getCurrentDate();
+            this.clockingTime = new ClockingTime(company.getEmployees().get(0), date, new Time());
             editionMode = false;
         }
     }
