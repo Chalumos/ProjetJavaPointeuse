@@ -188,10 +188,6 @@ public class ApplicationView extends View {
             getController().getServerMultiThread().setServerOn(false);
         });
 
-        // Set comboxBox not editable
-        getViewController().getComboBoxDepartmentFilters().setEditable(false);
-        getViewController().getComboBoxEmployeeFilters().setEditable(false);
-
         // Show the view.
         stage.show();
     }
@@ -199,7 +195,6 @@ public class ApplicationView extends View {
     @Override
     public void update(Observable observable, String[] messages) {
         Company company = getController().getCompany();
-
         ArrayList<Employee> employees = new ArrayList<>(company.getEmployees());
 /*
         for (Department department : company.getDepartments()) {

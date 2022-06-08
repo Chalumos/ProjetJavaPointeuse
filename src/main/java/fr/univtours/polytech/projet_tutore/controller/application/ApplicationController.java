@@ -340,12 +340,16 @@ public class ApplicationController extends Controller {
         notifyObservers(messages);
     }
 
+    /**
+     * Clear the filters
+     */
     public void clearFilters() {
-
+        System.out.println("Ancien: " + filteredClockingTimes.size());
         getFilteredClockingTimes().clear();
         getFilteredClockingTimes().addAll(clockingTimes);
+        System.out.println("New: " + filteredClockingTimes.size());
 
-        String[] messages = {"employee_filter", "department_filter", "clocking_times"};
+        String[] messages = {"clocking_times"};
         notifyObservers(messages);
     }
 }
