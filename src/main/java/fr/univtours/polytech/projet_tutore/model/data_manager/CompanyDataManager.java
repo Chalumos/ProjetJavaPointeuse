@@ -1,6 +1,6 @@
 package fr.univtours.polytech.projet_tutore.model.data_manager;
 
-import java.io.*;
+import java.io.File;
 
 public class CompanyDataManager extends DataManager {
 

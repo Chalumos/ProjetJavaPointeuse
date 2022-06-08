@@ -2,9 +2,7 @@ package fr.univtours.polytech.projet_tutore.view.application;
 
 import fr.univtours.polytech.projet_tutore.controller.Observable;
 import fr.univtours.polytech.projet_tutore.controller.application.ApplicationController;
-import fr.univtours.polytech.projet_tutore.model.Stub;
 import fr.univtours.polytech.projet_tutore.model.company.Company;
-import fr.univtours.polytech.projet_tutore.model.company.Department;
 import fr.univtours.polytech.projet_tutore.model.date.Days;
 import fr.univtours.polytech.projet_tutore.model.date.Schedule;
 import fr.univtours.polytech.projet_tutore.model.date.WorkingDay;
@@ -21,7 +19,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -186,6 +183,7 @@ public class ApplicationView extends View {
         // Close the server when the app is close.
         stage.setOnCloseRequest((event)->{
             getController().getServerMultiThread().setServerOn(false);
+            System.exit(0);
         });
 
         // Set comboxBox not editable

@@ -9,11 +9,9 @@ import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 import fr.univtours.polytech.projet_tutore.model.socket.ServerMultiThread;
 import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
 
-import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
 import java.awt.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -56,6 +54,8 @@ public class ApplicationController extends Controller {
     public void initialize() {
         serverMultiThread = new ServerMultiThread((clockingTimes) -> {
             getClockingTimes().addAll((ArrayList<ClockingTime>) clockingTimes);
+            getFilteredClockingTimes().addAll((ArrayList<ClockingTime>) clockingTimes);
+
             String[] messages = {"clocking_times"};
             notifyObservers(messages);
             return null;
@@ -90,6 +90,14 @@ public class ApplicationController extends Controller {
 
             if (c.equals(clockingTime)) {
                 clockingTimes.remove(i);
+            }
+        }
+
+        for (int i = 0; i < filteredClockingTimes.size(); i++) {
+            ClockingTime c = filteredClockingTimes.get(i);
+
+            if (c.equals(clockingTime)) {
+                filteredClockingTimes.remove(i);
             }
         }
 
@@ -151,9 +159,15 @@ public class ApplicationController extends Controller {
         for (int i = 0; i < employees.size(); i++) {
             Employee employee = employees.get(i);
 
+            // If the employee is found.
             if (getSelectedEmployee().getId().equals(employee.getId())) {
                 Department department = company.getDepartment(employee);
-                department.getEmployees().remove(i);
+
+                for (int j = 0; j < department.getEmployees().size(); j++) {
+                    if (getSelectedEmployee().getId().equals(employee.getId())) {
+                        department.getEmployees().remove(j);
+                    }
+                }
             }
         }
 
@@ -163,7 +177,15 @@ public class ApplicationController extends Controller {
 
             if (getSelectedEmployee().getId().equals(clockingTime.getEmployee().getId())) {
                 getClockingTimes().remove(i);
-                System.out.println("Test");
+            }
+        }
+
+        // Remove the filtered clocking times of the employee.
+        for (int i = getFilteredClockingTimes().size() - 1; i >= 0; i--) {
+            ClockingTime clockingTime = getFilteredClockingTimes().get(i);
+
+            if (getSelectedEmployee().getId().equals(clockingTime.getEmployee().getId())) {
+                getFilteredClockingTimes().remove(i);
             }
         }
 

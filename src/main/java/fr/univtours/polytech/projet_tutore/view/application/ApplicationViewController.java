@@ -14,7 +14,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import java.time.Clock;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -237,7 +236,9 @@ public class ApplicationViewController extends ViewController {
      */
     @FXML
     public void removeEmployee() {
-        getView().getController().removeEmployee();
+        if (getView().getController().getSelectedEmployee() != null) {
+            getView().getController().removeEmployee();
+        }
     }
 
     /**

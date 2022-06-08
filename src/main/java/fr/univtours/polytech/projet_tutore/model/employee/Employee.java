@@ -154,7 +154,7 @@ public class Employee implements Externalizable {
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         id = (String) in.readObject();
-        firstName =(String) in.readObject();
+        firstName = (String) in.readObject();
         lastName = (String) in.readObject();
         schedule = (Schedule) in.readObject();
     }

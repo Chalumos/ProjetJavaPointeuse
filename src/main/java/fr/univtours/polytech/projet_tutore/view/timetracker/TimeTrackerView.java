@@ -1,7 +1,7 @@
 package fr.univtours.polytech.projet_tutore.view.timetracker;
 
-import fr.univtours.polytech.projet_tutore.controller.timetracker.TimeTrackerController;
 import fr.univtours.polytech.projet_tutore.controller.Observable;
+import fr.univtours.polytech.projet_tutore.controller.timetracker.TimeTrackerController;
 import fr.univtours.polytech.projet_tutore.model.date.Date;
 import fr.univtours.polytech.projet_tutore.model.date.Time;
 import fr.univtours.polytech.projet_tutore.view.View;

@@ -1,18 +1,12 @@
 package fr.univtours.polytech.projet_tutore.model.data_manager;
 
 import fr.univtours.polytech.projet_tutore.model.Stub;
-import fr.univtours.polytech.projet_tutore.model.company.Company;
-import fr.univtours.polytech.projet_tutore.model.date.Date;
-import fr.univtours.polytech.projet_tutore.model.date.Time;
-import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.time.Clock;
 import java.util.ArrayList;
 
 public class ClockingTimeDataManagerTest {

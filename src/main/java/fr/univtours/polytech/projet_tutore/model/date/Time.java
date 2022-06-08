@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.time.LocalTime;
-import java.time.Month;
 
 /**
  * Class that represents and allows to edit a time.

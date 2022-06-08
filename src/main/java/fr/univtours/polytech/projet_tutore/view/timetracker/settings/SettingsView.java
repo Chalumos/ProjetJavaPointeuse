@@ -1,7 +1,7 @@
 package fr.univtours.polytech.projet_tutore.view.timetracker.settings;
 
-import fr.univtours.polytech.projet_tutore.controller.timetracker.settings.SettingsController;
 import fr.univtours.polytech.projet_tutore.controller.Observable;
+import fr.univtours.polytech.projet_tutore.controller.timetracker.settings.SettingsController;
 import fr.univtours.polytech.projet_tutore.view.View;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;

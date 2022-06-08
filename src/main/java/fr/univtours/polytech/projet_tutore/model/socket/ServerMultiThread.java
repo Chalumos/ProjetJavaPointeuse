@@ -77,8 +77,6 @@ public class ServerMultiThread<T> extends Thread {
      */
     public void setNetworkSettings(NetworkSettings networkSettings) {
         this.networkSettings = networkSettings;
-
-        // TODO: Stop and launch back the server with the new settings.
     }
 
     /**

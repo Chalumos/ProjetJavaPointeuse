@@ -1,7 +1,6 @@
 package fr.univtours.polytech.projet_tutore.model.timetracker;
 
 import fr.univtours.polytech.projet_tutore.model.date.Date;
-import fr.univtours.polytech.projet_tutore.model.date.Schedule;
 import fr.univtours.polytech.projet_tutore.model.date.Time;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 
