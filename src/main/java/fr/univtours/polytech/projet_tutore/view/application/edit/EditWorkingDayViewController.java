@@ -96,7 +96,7 @@ public class EditWorkingDayViewController extends ViewController {
                     setLabelStartingTimeError("");
                     workingDay.setStartTime(time);
                 } catch (Exception exception) {
-                    setLabelStartingTimeError("Please enter a time like hh:mm");
+                    setLabelStartingTimeError("Please enter a valid time");
                     areTextFieldsFilled = false;
                 }
             }
@@ -116,7 +116,7 @@ public class EditWorkingDayViewController extends ViewController {
                     setLabelEndingTimeError("");
                     workingDay.setEndTime(time);
                 } catch (Exception exception) {
-                    setLabelEndingTimeError("Please enter a time like hh:mm");
+                    setLabelEndingTimeError("Please enter a valid time");
                     areTextFieldsFilled = false;
                 }
             }

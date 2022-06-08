@@ -70,7 +70,7 @@ public class ApplicationController extends Controller {
                 filteredClockingTimes = new ArrayList<>();
                 filteredClockingTimes.addAll(clockingTimes);
 
-                String[] messages = {"employee_filter", "department_filter", "clocking_times", "employees"};
+                String[] messages = {"employee_filter", "department_filter", "clocking_times", "employees", "selected_employee"};
                 notifyObservers(messages);
             } catch (Exception exception) {
                 exception.printStackTrace();

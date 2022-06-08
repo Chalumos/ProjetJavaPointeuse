@@ -225,10 +225,8 @@ public class ApplicationView extends View {
                         // Update the information about the selected employee.
                         Employee selectedEmployee = getController().getSelectedEmployee();
                         ArrayList<WorkingDay> workingDays = new ArrayList<>();
-                        Schedule schedule = new Schedule();
 
-                        if (selectedEmployee!=null) {
-                            schedule = selectedEmployee.getSchedule();
+                        if (selectedEmployee != null) {
                             Days[] days = {Days.MONDAY, Days.TUESDAY, Days.WEDNESDAY, Days.THURSDAY, Days.FRIDAY, Days.SATURDAY, Days.SUNDAY};
                             for (Days day : days) {
                                 workingDays.add(selectedEmployee.getSchedule().getWorkingDay(day));
@@ -239,6 +237,10 @@ public class ApplicationView extends View {
                             getViewController().setLabelEmployeeFirstname(selectedEmployee.getFirstName());
                             getViewController().setLabelEmployeeLastname(selectedEmployee.getLastName());
                             getViewController().setLabelEmployeeDepartment(company.getDepartment(selectedEmployee).getName());
+
+                            getViewController().getButtonEmployeeEditSchedule().setDisable(false);
+                            getViewController().getButtonEditEmployee().setDisable(false);
+                            getViewController().getButtonRemoveEmployee().setDisable(false);
                         }
                         else {
                             // Employee.
@@ -246,6 +248,10 @@ public class ApplicationView extends View {
                             getViewController().setLabelEmployeeFirstname("Unknown");
                             getViewController().setLabelEmployeeLastname("Unknown");
                             getViewController().setLabelEmployeeDepartment("Unknown");
+
+                            getViewController().getButtonEmployeeEditSchedule().setDisable(true);
+                            getViewController().getButtonEditEmployee().setDisable(true);
+                            getViewController().getButtonRemoveEmployee().setDisable(true);
                         }
 
                         // Schedule.
