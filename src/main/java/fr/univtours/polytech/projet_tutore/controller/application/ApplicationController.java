@@ -100,7 +100,6 @@ public class ApplicationController extends Controller {
 
     /**
      * Recover clocking times from a file.
-     *
      * @return Whether the operation succeed or failed.
      */
     public int recoverClockingTimesFromFile() {
@@ -113,18 +112,21 @@ public class ApplicationController extends Controller {
             fileDialog.setDirectory("C:\\");
             fileDialog.setFile("*.txt");
             fileDialog.setVisible(true);
+            if(fileDialog.getFile()!=null){
+                manager.setFilePath(fileDialog.getDirectory() + fileDialog.getFile());
+                list = manager.parse();
 
-            manager.setFilePath(fileDialog.getDirectory() + fileDialog.getFile());
-            list = manager.parse();
+                getClockingTimes().addAll(list);
 
-            getClockingTimes().addAll(list);
+                String[] messages = {"clocking_times"};
+                notifyObservers(messages);
 
-            String[] messages = {"clocking_times"};
-            notifyObservers(messages);
-            information = list.size();
-        } catch (Exception e) {
-            e.printStackTrace();
+                information = list.size();
+            }
+        }
+        catch(Exception e) {
             information = -1;
+            e.printStackTrace();
         }
 
         return information;
@@ -132,7 +134,6 @@ public class ApplicationController extends Controller {
 
     /**
      * Update the selected employee.
-     *
      * @param newSelectedEmployee The new selected employee.
      */
     public void updateSelectedEmployee(Employee newSelectedEmployee) {
@@ -175,7 +176,6 @@ public class ApplicationController extends Controller {
 
     /**
      * Get the company.
-     *
      * @return The company.
      */
     public Company getCompany() {
@@ -184,7 +184,6 @@ public class ApplicationController extends Controller {
 
     /**
      * Set the company.
-     *
      * @param company The new company.
      */
     public void setCompany(Company company) {
@@ -193,7 +192,6 @@ public class ApplicationController extends Controller {
 
     /**
      * Get the selected employee.
-     *
      * @return The selected employee.
      */
     public Employee getSelectedEmployee() {
@@ -202,7 +200,6 @@ public class ApplicationController extends Controller {
 
     /**
      * Get the clocking times.
-     *
      * @return The clocking times.
      */
     public ArrayList<ClockingTime> getClockingTimes() {
@@ -211,7 +208,6 @@ public class ApplicationController extends Controller {
 
     /**
      * Return the current application server.
-     *
      * @return the current application server.
      */
     public ServerMultiThread getServerMultiThread() {
@@ -220,7 +216,6 @@ public class ApplicationController extends Controller {
 
     /**
      * Set the clocking times.
-     *
      * @param clockingTimes The new clocking times.
      */
     public void setClockingTimes(ArrayList<ClockingTime> clockingTimes) {
