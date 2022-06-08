@@ -30,6 +30,7 @@ public class NetworkSettings implements Externalizable {
 
     /**
      * Get the IP address.
+     *
      * @return The IP address;
      */
     public String getIpAddress() {
@@ -38,6 +39,7 @@ public class NetworkSettings implements Externalizable {
 
     /**
      * Set the IP address.
+     *
      * @param ipAddress The new IP address.
      */
     public void setIpAddress(String ipAddress) throws IllegalArgumentException {
@@ -46,15 +48,24 @@ public class NetworkSettings implements Externalizable {
 
         // If the IP address format is correct.
         if (formatIP) {
+            // Split the IP address to each .
+            String[] checkIpAdress = ipAddress.split("\\.");
+            // Checks if each part of the IP address is valid
+            for (String ipAddressPart : checkIpAdress) {
+                int checkIpAddressNumber = Integer.parseInt(ipAddressPart);
+                if (checkIpAddressNumber > 255) {
+                    throw new IllegalArgumentException("Invalid IP address");
+                }
+            }
             this.ipAddress = ipAddress;
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Invalid IP address");
         }
     }
 
     /**
      * Get the IP port.
+     *
      * @return The IP port;
      */
     public String getIpPort() {
@@ -63,17 +74,23 @@ public class NetworkSettings implements Externalizable {
 
     /**
      * Set the IP port.
+     *
      * @param ipPort The new IP port.
      */
-    public void setIpPort(String ipPort) throws IllegalArgumentException{
+    public void setIpPort(String ipPort) throws IllegalArgumentException {
         // Check the format of the IP port.
-        boolean formatPort = Pattern.matches("\\d{2,4}", ipPort);
+        boolean formatPort = Pattern.matches("\\d{1,5}", ipPort);
 
         // If the IP port format is correct.
-        if(formatPort) {
+        if (formatPort) {
+            // Checks if the IP port is valid
+            int checkIpPort = Integer.parseInt(ipPort);
+            if ((checkIpPort < 1) || (checkIpPort > 65535)) {
+                throw new IllegalArgumentException("Invalid IP port");
+            }
+
             this.ipPort = ipPort;
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Invalid IP port.");
         }
     }
