@@ -100,6 +100,7 @@ public class ApplicationController extends Controller {
 
     /**
      * Recover clocking times from a file.
+     *
      * @return Whether the operation succeed or failed.
      */
     public int recoverClockingTimesFromFile() {
@@ -108,7 +109,7 @@ public class ApplicationController extends Controller {
         int information = 0;
 
         try {
-            FileDialog fileDialog = new FileDialog(new Frame(),"Chose a file");
+            FileDialog fileDialog = new FileDialog(new Frame(), "Chose a file");
             fileDialog.setDirectory("C:\\");
             fileDialog.setFile("*.txt");
             fileDialog.setVisible(true);
@@ -121,8 +122,7 @@ public class ApplicationController extends Controller {
             String[] messages = {"clocking_times"};
             notifyObservers(messages);
             information = list.size();
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             information = -1;
         }
@@ -132,6 +132,7 @@ public class ApplicationController extends Controller {
 
     /**
      * Update the selected employee.
+     *
      * @param newSelectedEmployee The new selected employee.
      */
     public void updateSelectedEmployee(Employee newSelectedEmployee) {
@@ -174,6 +175,7 @@ public class ApplicationController extends Controller {
 
     /**
      * Get the company.
+     *
      * @return The company.
      */
     public Company getCompany() {
@@ -182,6 +184,7 @@ public class ApplicationController extends Controller {
 
     /**
      * Set the company.
+     *
      * @param company The new company.
      */
     public void setCompany(Company company) {
@@ -190,6 +193,7 @@ public class ApplicationController extends Controller {
 
     /**
      * Get the selected employee.
+     *
      * @return The selected employee.
      */
     public Employee getSelectedEmployee() {
@@ -198,6 +202,7 @@ public class ApplicationController extends Controller {
 
     /**
      * Get the clocking times.
+     *
      * @return The clocking times.
      */
     public ArrayList<ClockingTime> getClockingTimes() {
@@ -206,6 +211,7 @@ public class ApplicationController extends Controller {
 
     /**
      * Return the current application server.
+     *
      * @return the current application server.
      */
     public ServerMultiThread getServerMultiThread() {
@@ -214,6 +220,7 @@ public class ApplicationController extends Controller {
 
     /**
      * Set the clocking times.
+     *
      * @param clockingTimes The new clocking times.
      */
     public void setClockingTimes(ArrayList<ClockingTime> clockingTimes) {
@@ -265,10 +272,8 @@ public class ApplicationController extends Controller {
     public void filters(Employee employee, Department department, LocalDate fromDate, LocalDate toDate) {
         ArrayList<ClockingTime> employeesFilter = new ArrayList<ClockingTime>();
 
-        // if the last call of filters have retun a empty list reset the list of clocking times
-        if (filteredClockingTimes.isEmpty()) {
-            filteredClockingTimes.addAll(clockingTimes);
-        }
+        filteredClockingTimes.clear();
+        filteredClockingTimes.addAll(clockingTimes);
 
         if (employee != null) {
             // search the clooking time equal to the employee filter
@@ -342,10 +347,8 @@ public class ApplicationController extends Controller {
      * Clear the filters
      */
     public void clearFilters() {
-        System.out.println("Ancien: " + filteredClockingTimes.size());
         getFilteredClockingTimes().clear();
         getFilteredClockingTimes().addAll(clockingTimes);
-        System.out.println("New: " + filteredClockingTimes.size());
 
         String[] messages = {"clocking_times"};
         notifyObservers(messages);
