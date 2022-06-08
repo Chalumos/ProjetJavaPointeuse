@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import javax.swing.*;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -191,6 +192,10 @@ public class ApplicationViewController extends ViewController {
         else if (clockingTimesNumber < 0) {
             getLabelClockingTimeInfo().setStyle("-fx-text-fill: #d63031");
             setLabelClockingTimeInfo("Error: An error occurred while parsing the file.");
+        }
+        else{
+            getLabelClockingTimeInfo().setStyle(null);
+            setLabelClockingTimeInfo(null);
         }
 
     }

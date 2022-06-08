@@ -112,19 +112,21 @@ public class ApplicationController extends Controller {
             fileDialog.setDirectory("C:\\");
             fileDialog.setFile("*.txt");
             fileDialog.setVisible(true);
+            if(fileDialog.getFile()!=null){
+                manager.setFilePath(fileDialog.getDirectory() + fileDialog.getFile());
+                list = manager.parse();
 
-            manager.setFilePath(fileDialog.getDirectory() + fileDialog.getFile());
-            list = manager.parse();
+                getClockingTimes().addAll(list);
 
-            getClockingTimes().addAll(list);
+                String[] messages = {"clocking_times"};
+                notifyObservers(messages);
 
-            String[] messages = {"clocking_times"};
-            notifyObservers(messages);
-            information = list.size();
+                information = list.size();
+            }
         }
         catch(Exception e) {
-            e.printStackTrace();
             information = -1;
+            e.printStackTrace();
         }
 
         return information;
