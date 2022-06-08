@@ -59,7 +59,7 @@ public class SettingsViewController extends ViewController {
             errorPortLabel.setText("");
         }
         catch (IllegalArgumentException exception){
-            errorAddressLabel.setText(exception.getMessage());
+            errorPortLabel.setText(exception.getMessage());
             isOk = false;
         }
 
