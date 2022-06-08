@@ -1,6 +1,7 @@
-package fr.univtours.polytech.projet_tutore.controller.application;
+package fr.univtours.polytech.projet_tutore.controller.application.edit;
 
 import fr.univtours.polytech.projet_tutore.controller.Controller;
+import fr.univtours.polytech.projet_tutore.controller.application.ApplicationController;
 import fr.univtours.polytech.projet_tutore.model.company.Company;
 import fr.univtours.polytech.projet_tutore.model.company.Department;
 import fr.univtours.polytech.projet_tutore.model.date.Schedule;

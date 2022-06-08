@@ -102,7 +102,7 @@
                      <children>
                         <Button fx:id="buttonAddClockingTimesFromFile" mnemonicParsing="false" onAction="#addClockingTimesFromFile" text="Add clocking times from file">
                            <HBox.margin>
-                              <Insets right="10.0" />
+                              <Insets />
                            </HBox.margin>
                            <font>
                               <Font name="Segoe UI" size="13.0" />
@@ -118,7 +118,15 @@
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
+                           <HBox.margin>
+                              <Insets left="10.0" right="20.0" />
+                           </HBox.margin>
                         </Button>
+                        <Label fx:id="labelClockingTimeInfo" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="18.0" prefWidth="520.0" textAlignment="CENTER" textFill="#d63031">
+                           <font>
+                              <Font name="Segoe UI Semibold" size="12.0" />
+                           </font>
+                        </Label>
                      </children>
                      <cursor>
                         <Cursor fx:constant="DEFAULT" />

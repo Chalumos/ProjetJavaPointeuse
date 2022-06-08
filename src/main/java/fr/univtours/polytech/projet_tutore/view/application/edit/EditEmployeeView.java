@@ -1,12 +1,13 @@
-package fr.univtours.polytech.projet_tutore.view.application;
+package fr.univtours.polytech.projet_tutore.view.application.edit;
 
 import fr.univtours.polytech.projet_tutore.controller.Observable;
 import fr.univtours.polytech.projet_tutore.controller.application.ApplicationController;
-import fr.univtours.polytech.projet_tutore.controller.application.EditEmployeeController;
+import fr.univtours.polytech.projet_tutore.controller.application.edit.EditEmployeeController;
 import fr.univtours.polytech.projet_tutore.model.company.Company;
 import fr.univtours.polytech.projet_tutore.model.company.Department;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 import fr.univtours.polytech.projet_tutore.view.View;
+import fr.univtours.polytech.projet_tutore.view.application.ApplicationView;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -72,6 +73,7 @@ public class EditEmployeeView extends View {
 
         // Creation of the scene.
         Scene scene = new Scene(fxmlLoader.load());
+        setIcon(stage);
         stage.setResizable(false);
         stage.setScene(scene);
 

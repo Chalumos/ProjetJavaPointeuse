@@ -2,6 +2,10 @@ package fr.univtours.polytech.projet_tutore.view;
 
 import fr.univtours.polytech.projet_tutore.controller.Controller;
 import javafx.application.Application;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
+
+import java.io.File;
 
 /**
  * View of a HIM.
@@ -21,6 +25,29 @@ public abstract class View extends Application implements Observer {
      * Initialize the view.
      */
     public abstract void initialize();
+
+    /**
+     * Set the icon of the view.
+     */
+    public void setIcon(Stage stage) {
+        // Get the project root path.
+        File root = new File("");
+
+        // Create the path for the packages.
+        String packages = File.separator + "src" +
+                File.separator + "main" +
+                File.separator + "resources" +
+                File.separator + "fr" +
+                File.separator + "univtours" +
+                File.separator + "polytech" +
+                File.separator + "projet_tutore" +
+                File.separator + "img" +
+                File.separator;
+
+        String path = root.getAbsolutePath() + packages + "icon.png";
+
+        stage.getIcons().add(new Image(path));
+    }
 
     /**
      * Show the view.

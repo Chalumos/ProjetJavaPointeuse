@@ -1,4 +1,4 @@
-package fr.univtours.polytech.projet_tutore.view.application;
+package fr.univtours.polytech.projet_tutore.view.application.edit;
 
 import fr.univtours.polytech.projet_tutore.controller.application.ApplicationController;
 import fr.univtours.polytech.projet_tutore.model.date.Date;
@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
@@ -60,7 +61,7 @@ public class EditClockingTimeViewController extends ViewController {
     private Button buttonEditClockingTime;
 
     /**
-     * Close the view and cancel the addition or edition of the employee.
+     * Close the view and cancel the addition or edition of the clocking time.
      */
     @FXML
     public void closeView() {
@@ -68,31 +69,36 @@ public class EditClockingTimeViewController extends ViewController {
     }
 
     /**
-     * Add a new employee or edit the employee in edition.
+     * Add a new clocking time or edit the clocking time in edition.
      */
     @FXML
     public void editClockingTime() {
         ClockingTime clockingTime = getView().getController().getClockingTime();
-        LocalDate localDate = getDatePickerDate().getValue();
+        String dateString = getDatePickerDate().getEditor().getText();
         String timeString = getTextFieldTime().getText();
         Employee employee = getComboBoxEmployee().getValue();
         boolean areTextFieldsFilled = true;
 
         // Check if the text fields are filled.
-        if (localDate == null) {
-            setLabelDateError("Please select a date like yyyy-mm-dd");
-            areTextFieldsFilled = false;
-        } else {
+        if (Pattern.matches("^\\d{2}/\\d{2}/\\d{4}$", dateString)) {
             try {
-                Date date = new Date(localDate.getDayOfMonth(), localDate.getMonth(), localDate.getYear());
+                String[] dateComponents = dateString.split("/");
+                int day = Integer.parseInt(dateComponents[0]);
+                Month month = Month.of(Integer.parseInt(dateComponents[1]));
+                int year = Integer.parseInt(dateComponents[2]);
+                Date date = new Date(day, month, year);
 
                 setLabelDateError("");
                 clockingTime.setDate(date);
             } catch (Exception exception) {
-                setLabelDateError("Please select a date like yyyy-mm-dd");
+                setLabelDateError("Please select a valid date");
                 areTextFieldsFilled = false;
             }
+        } else {
+            setLabelDateError("Please select a date like dd/mm/yyyy");
+            areTextFieldsFilled = false;
         }
+
 
         if (timeString.length() != 5
                 || !Pattern.matches("^\\d{2}:\\d{2}$", timeString)

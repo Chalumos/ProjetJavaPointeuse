@@ -6,11 +6,15 @@ import fr.univtours.polytech.projet_tutore.model.date.WorkingDay;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
 import fr.univtours.polytech.projet_tutore.view.ViewController;
+import fr.univtours.polytech.projet_tutore.view.application.edit.EditClockingTimeView;
+import fr.univtours.polytech.projet_tutore.view.application.edit.EditEmployeeView;
+import fr.univtours.polytech.projet_tutore.view.application.edit.EditWorkingDayView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.time.Clock;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -47,6 +51,12 @@ public class ApplicationViewController extends ViewController {
      */
     @FXML
     private TableView<ClockingTime> tableViewClockingTimes;
+
+    /**
+     * Label to print information about the clocking times management.
+     */
+    @FXML
+    private Label labelClockingTimeInfo;
 
     /**
      * Button to add a new clocking time manually.
@@ -172,7 +182,17 @@ public class ApplicationViewController extends ViewController {
      */
     @FXML
     public void addClockingTimesFromFile() {
-        getView().getController().recoverClockingTimesFromFile();
+        int clockingTimesNumber = getView().getController().recoverClockingTimesFromFile();
+
+        if (clockingTimesNumber > 0) {
+            getLabelClockingTimeInfo().setStyle("-fx-text-fill: #11b45a");
+            setLabelClockingTimeInfo(clockingTimesNumber + " clocking times have been successfully added to the list.");
+        }
+        else if (clockingTimesNumber < 0) {
+            getLabelClockingTimeInfo().setStyle("-fx-text-fill: #d63031");
+            setLabelClockingTimeInfo("Error: An error occurred while parsing the file.");
+        }
+
     }
 
     @FXML
@@ -185,7 +205,12 @@ public class ApplicationViewController extends ViewController {
      * Open a view to edit the current schedule of the selected employee.
      */
     @FXML
-    public void editSchedule() {}
+    public void editSchedule() {
+        WorkingDay workingDay = getTableViewEmployeeSchedule().getFocusModel().getFocusedItem();
+
+        EditWorkingDayView view = new EditWorkingDayView(getView().getController(), workingDay);
+        view.show();
+    }
 
     /**
      * Open a view to add a new employee to the company.
@@ -306,6 +331,22 @@ public class ApplicationViewController extends ViewController {
     public void setTableViewClockingTimes(ArrayList<ClockingTime> newClockingTimeList) {
         ObservableList<ClockingTime> list = FXCollections.observableArrayList(newClockingTimeList);
         this.tableViewClockingTimes.setItems(list);
+    }
+
+    /**
+     * Get the label to show information about the clocking times.
+     * @return The label to show information about the clocking times.
+     */
+    public Label getLabelClockingTimeInfo() {
+        return labelClockingTimeInfo;
+    }
+
+    /**
+     * Set the text of the label to show information about the clocking times.
+     * @param newText The new text.
+     */
+    public void setLabelClockingTimeInfo(String newText) {
+        this.labelClockingTimeInfo.setText(newText);
     }
 
     /**

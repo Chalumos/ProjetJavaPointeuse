@@ -40,10 +40,10 @@ public class TimeTrackerViewController extends ViewController {
     private ComboBox<Employee> employeeComboBox;
 
     /**
-     * Label to print the errors.
+     * Label to print information.
      */
     @FXML
-    private Label errorLabel;
+    private Label labelCheckInfo;
 
     /**
      * Try to check an employee.
@@ -53,11 +53,16 @@ public class TimeTrackerViewController extends ViewController {
         Employee employee = employeeComboBox.getValue();
 
         if (employee == null) {
-            errorLabel.setText("Please select an employee.");
+            getLabelCheckInfo().setStyle("-fx-text-fill: #f54e4e");
+            setLabelCheckInfo("Please select an employee.");
         } else {
-            errorLabel.setText("");
-
-            getView().getController().checkEmployee(employee);
+            if (getView().getController().checkEmployee(employee)) {
+                getLabelCheckInfo().setStyle("-fx-text-fill: #11b45a");
+                setLabelCheckInfo("The clocking time has been successfully sent.");
+            } else {
+                getLabelCheckInfo().setStyle("-fx-text-fill: #f54e4e");
+                setLabelCheckInfo("An error occurred when sending the clocking time.");
+            }
         }
     }
 
@@ -145,5 +150,21 @@ public class TimeTrackerViewController extends ViewController {
     public void setEmployeeComboBox(ArrayList<Employee> newEmployeeList) {
         employeeComboBox.getItems().clear();
         employeeComboBox.getItems().addAll(newEmployeeList);
+    }
+
+    /**
+     * Get the label to print information about the check.
+     * @return The label to print information about the check.
+     */
+    public Label getLabelCheckInfo() {
+        return labelCheckInfo;
+    }
+
+    /**
+     * Set the text of the label to print information about the check.
+     * @param newText The new text.
+     */
+    public void setLabelCheckInfo(String newText) {
+        this.labelCheckInfo.setText(newText);
     }
 }

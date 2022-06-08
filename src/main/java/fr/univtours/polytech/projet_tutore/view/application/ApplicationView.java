@@ -11,6 +11,7 @@ import fr.univtours.polytech.projet_tutore.model.date.WorkingDay;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
 import fr.univtours.polytech.projet_tutore.view.View;
+import fr.univtours.polytech.projet_tutore.view.application.edit.EditClockingTimeView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -20,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -170,6 +172,7 @@ public class ApplicationView extends View {
         // Creation of the scene.
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Time tracker monitoring");
+        setIcon(stage);
         stage.setResizable(false);
         stage.setScene(scene);
 
@@ -218,6 +221,7 @@ public class ApplicationView extends View {
                         // Update the list of clocking times.
                         getViewController().setTableViewClockingTimes(getController().getFilteredClockingTimes());
                         getViewController().getTableViewClockingTimes().refresh();
+                        getViewController().setLabelClockingTimeInfo("");
                     }
                     case "employees" -> {
                         // Update the list of employees.
