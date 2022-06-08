@@ -59,7 +59,7 @@ public abstract class DataManager {
         ArrayList<T> objectList = new ArrayList<T>();
 
         // Check that the file exists to parse it.
-        if (file.exists() && file.length()>0) {
+        if (file.exists() && file.length() > 0) {
             FileInputStream inputFile = new FileInputStream(file.getPath());
             BufferedInputStream inputBuffer = new BufferedInputStream(inputFile);
             DataInputStream inputStream = new DataInputStream(inputBuffer);
@@ -78,7 +78,7 @@ public abstract class DataManager {
                 e.printStackTrace();
             }
         } else {
-            throw new IOException();
+            System.out.println("The file '" + filePath + "' doesn't exist.");
         }
 
         return objectList;
