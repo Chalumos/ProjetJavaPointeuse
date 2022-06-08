@@ -59,6 +59,7 @@ public class SettingsView extends View {
         // Creation of the scene.
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Settings");
+        setIcon(stage);
         stage.setResizable(false);
         stage.setScene(scene);
 

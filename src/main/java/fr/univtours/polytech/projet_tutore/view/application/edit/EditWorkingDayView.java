@@ -67,6 +67,7 @@ public class EditWorkingDayView extends View {
 
         // Creation of the scene.
         Scene scene = new Scene(fxmlLoader.load());
+        setIcon(stage);
         stage.setResizable(false);
         stage.setScene(scene);
 

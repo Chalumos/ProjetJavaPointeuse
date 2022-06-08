@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -170,6 +171,7 @@ public class ApplicationView extends View {
         // Creation of the scene.
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Time tracker monitoring");
+        setIcon(stage);
         stage.setResizable(false);
         stage.setScene(scene);
 
