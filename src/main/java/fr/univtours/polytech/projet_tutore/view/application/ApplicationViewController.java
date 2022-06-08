@@ -12,6 +12,7 @@ import fr.univtours.polytech.projet_tutore.view.application.edit.EditWorkingDayV
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 
 import java.time.Clock;
@@ -163,9 +164,10 @@ public class ApplicationViewController extends ViewController {
     @FXML
     public void clearClockingTimeList() {
         getView().getController().clearFilters();
-        getComboBoxEmployeeFilters().setPromptText("Select an employee");
-        //datePickerFromFilters.setPromptText("");
-
+        getComboBoxEmployeeFilters().valueProperty().setValue(null);
+        getComboBoxDepartmentFilters().valueProperty().setValue(null);
+        getDatePickerFromFilters().valueProperty().setValue(null);
+        getDatePickerToFilters().valueProperty().setValue(null);
     }
 
     /**
