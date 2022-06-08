@@ -22,7 +22,7 @@ public class EditClockingTimeController extends Controller {
     private boolean editionMode;
 
     /**
-     * The employee in addition or in edition
+     * The employee in addition or in edition.
      */
     private ClockingTime clockingTime;
 

@@ -2,6 +2,8 @@ package fr.univtours.polytech.projet_tutore.view.application;
 
 import fr.univtours.polytech.projet_tutore.model.company.Department;
 import fr.univtours.polytech.projet_tutore.model.date.Date;
+import fr.univtours.polytech.projet_tutore.model.date.Days;
+import fr.univtours.polytech.projet_tutore.model.date.Time;
 import fr.univtours.polytech.projet_tutore.model.date.WorkingDay;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
@@ -187,7 +189,12 @@ public class ApplicationViewController extends ViewController {
      * Open a view to edit the current schedule of the selected employee.
      */
     @FXML
-    public void editSchedule() {}
+    public void editSchedule() {
+        WorkingDay workingDay = getTableViewEmployeeSchedule().getFocusModel().getFocusedItem();
+
+        EditWorkingDayView view = new EditWorkingDayView(getView().getController(), workingDay);
+        view.show();
+    }
 
     /**
      * Open a view to add a new employee to the company.

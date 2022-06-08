@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="198.0" prefWidth="337.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univtours.polytech.projet_tutore.view.application.EditWorkingDayViewController">
+   <top>
+      <Label fx:id="labelTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="353.0" text="Edit working day" textAlignment="CENTER" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Segoe UI Semilight" size="22.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets bottom="20.0" top="10.0" />
+         </BorderPane.margin>
+      </Label>
+   </top>
+   <center>
+      <GridPane prefHeight="99.0" prefWidth="342.0" BorderPane.alignment="CENTER">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="177.0" minWidth="10.0" prefWidth="105.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="234.0" minWidth="10.0" prefWidth="172.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" valignment="TOP" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" valignment="TOP" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label text="Starting time" />
+            <Label text="Ending time" GridPane.rowIndex="2" />
+            <TextField fx:id="textFieldEndingTime" focusTraversable="false" promptText="hh:mm" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="labelStartingTimeError" prefHeight="8.0" prefWidth="224.0" textFill="#d63031" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Segoe UI Semibold" size="10.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="2.0" right="2.0" top="1.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="labelEndingTimeError" prefHeight="8.0" prefWidth="224.0" textFill="#d63031" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Segoe UI Semibold" size="10.0" />
+               </font>
+               <padding>
+                  <Insets left="2.0" right="2.0" top="1.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="textFieldStartingTime" focusTraversable="false" promptText="hh:mm" GridPane.columnIndex="1" />
+         </children>
+         <BorderPane.margin>
+            <Insets left="20.0" right="20.0" />
+         </BorderPane.margin>
+      </GridPane>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER_RIGHT" prefHeight="22.0" prefWidth="382.0" BorderPane.alignment="CENTER_RIGHT">
+         <children>
+            <Button mnemonicParsing="false" onAction="#closeView" text="Cancel">
+               <font>
+                  <Font name="Segoe UI" size="13.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="6.0" />
+               </HBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="buttonEditWorkingDay" mnemonicParsing="false" onAction="#editWorkingDay" text="Edit working day">
+               <font>
+                  <Font name="Segoe UI Semibold" size="12.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </HBox>
+   </bottom>
+   <padding>
+      <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+   </padding>
+</BorderPane>

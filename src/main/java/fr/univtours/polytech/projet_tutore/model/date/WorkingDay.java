@@ -83,7 +83,7 @@ public class WorkingDay implements Externalizable {
      * @throws Exception If the new starting time is not before the ending time.
      */
     public void setStartTime(Time startTime) throws Exception {
-        if (getEndTime() != null && startTime.compareTo(getEndTime()) >= 0) {
+        if (startTime != null && getEndTime() != null && startTime.compareTo(getEndTime()) >= 0) {
             throw new Exception("The starting time should be before the ending time.");
         } else {
             this.startTime = startTime;
@@ -96,7 +96,7 @@ public class WorkingDay implements Externalizable {
      * @throws Exception If the new starting time is not before the ending time.
      */
     public void setEndTime(Time endTime) throws Exception {
-        if (getStartTime() != null && endTime.compareTo(getStartTime()) <= 0) {
+        if (endTime != null && getStartTime() != null && endTime.compareTo(getStartTime()) <= 0) {
             throw new Exception("The ending time should be after the starting time.");
         } else {
             this.endTime = endTime;

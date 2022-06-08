@@ -60,7 +60,7 @@ public class EditClockingTimeViewController extends ViewController {
     private Button buttonEditClockingTime;
 
     /**
-     * Close the view and cancel the addition or edition of the employee.
+     * Close the view and cancel the addition or edition of the clocking time.
      */
     @FXML
     public void closeView() {
@@ -68,7 +68,7 @@ public class EditClockingTimeViewController extends ViewController {
     }
 
     /**
-     * Add a new employee or edit the employee in edition.
+     * Add a new clocking time or edit the clocking time in edition.
      */
     @FXML
     public void editClockingTime() {
