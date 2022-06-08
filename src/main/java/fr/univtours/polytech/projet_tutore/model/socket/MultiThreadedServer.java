@@ -10,7 +10,7 @@ import java.util.function.Function;
 /**
  * Multithreaded server.
  */
-public class ServerMultiThread<T> extends Thread {
+public class MultiThreadedServer<T> extends Thread {
     /**
      * Network settings of the server.
      */
@@ -30,7 +30,7 @@ public class ServerMultiThread<T> extends Thread {
      * Initialize the server with the address 127.0.0.1:9521.
      * @param onServerGetData Function called when the server get data.
      */
-    public ServerMultiThread(Function<ArrayList<T>, Void> onServerGetData) {
+    public MultiThreadedServer(Function<ArrayList<T>, Void> onServerGetData) {
         networkSettings = new NetworkSettings("127.0.0.1", "9521");
         this.onServerGetData = onServerGetData;
     }
@@ -39,7 +39,7 @@ public class ServerMultiThread<T> extends Thread {
      * Initialize the server with the network settings passed in argument.
      * @param onServerGetData Function called when the server get data.
      */
-    public ServerMultiThread(Function<ArrayList<T>, Void> onServerGetData, NetworkSettings networkSettings) {
+    public MultiThreadedServer(Function<ArrayList<T>, Void> onServerGetData, NetworkSettings networkSettings) {
         this.networkSettings = networkSettings;
         this.onServerGetData = onServerGetData;
     }
