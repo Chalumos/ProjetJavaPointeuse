@@ -329,4 +329,13 @@ public class ApplicationController extends Controller {
         String[] messages = {"clocking_times"};
         notifyObservers(messages);
     }
+
+    public void clearFilters() {
+
+        getFilteredClockingTimes().clear();
+        getFilteredClockingTimes().addAll(clockingTimes);
+
+        String[] messages = {"employee_filter", "department_filter", "clocking_times"};
+        notifyObservers(messages);
+    }
 }

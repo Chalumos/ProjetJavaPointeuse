@@ -151,7 +151,12 @@ public class ApplicationViewController extends ViewController {
      * Clear the clocking times filters.
      */
     @FXML
-    public void clearClockingTimeList() {}
+    public void clearClockingTimeList() {
+        getView().getController().clearFilters();
+        getComboBoxEmployeeFilters().setPromptText("Select an employee");
+        //datePickerFromFilters.setPromptText("");
+
+    }
 
     /**
      * Add a new clocking time manually.

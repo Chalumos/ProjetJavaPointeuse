@@ -2,6 +2,7 @@ package fr.univtours.polytech.projet_tutore.view.application;
 
 import fr.univtours.polytech.projet_tutore.controller.Observable;
 import fr.univtours.polytech.projet_tutore.controller.application.ApplicationController;
+import fr.univtours.polytech.projet_tutore.model.Stub;
 import fr.univtours.polytech.projet_tutore.model.company.Company;
 import fr.univtours.polytech.projet_tutore.model.company.Department;
 import fr.univtours.polytech.projet_tutore.model.date.Days;
@@ -195,12 +196,13 @@ public class ApplicationView extends View {
     @Override
     public void update(Observable observable, String[] messages) {
         Company company = getController().getCompany();
-        ArrayList<Employee> employees = new ArrayList<>();
 
+        ArrayList<Employee> employees = new ArrayList<>(company.getEmployees());
+/*
         for (Department department : company.getDepartments()) {
             employees.addAll(department.getEmployees());
         }
-
+*/
         try {
             for (String message : messages) {
                 switch (message) {
@@ -214,10 +216,7 @@ public class ApplicationView extends View {
                     }
                     case "clocking_times" -> {
                         // Update the list of clocking times.
-                        //getViewController().setTableViewClockingTimes(Stub.getClockingTimeList());
                         getViewController().setTableViewClockingTimes(getController().getFilteredClockingTimes());
-
-                        getViewController().setTableViewClockingTimes(getController().getClockingTimes());
                         getViewController().getTableViewClockingTimes().refresh();
                     }
                     case "employees" -> {
