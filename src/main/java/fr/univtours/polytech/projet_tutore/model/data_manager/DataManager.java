@@ -56,7 +56,7 @@ public abstract class DataManager {
      */
     public <T> ArrayList<T> parse() throws IOException, ClassNotFoundException {
         File file = new File(getFilePath());
-        ArrayList<T> objectList = new ArrayList<T>(1);
+        ArrayList<T> objectList = new ArrayList<T>();
 
         // Check that the file exists to parse it.
         if (file.exists() && file.length()>0) {
@@ -78,7 +78,7 @@ public abstract class DataManager {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("The file '" + getFilePath() + "' doesn't exist or is empty");
+            throw new IOException();
         }
 
         return objectList;

@@ -116,23 +116,25 @@ public class ApplicationController extends Controller {
         int information = 0;
 
         try {
-            FileDialog fileDialog = new FileDialog(new Frame(),"Chose a file");
+            FileDialog fileDialog = new FileDialog(new Frame(), "Chose a file");
             fileDialog.setDirectory("C:\\");
             fileDialog.setFile("*.txt");
             fileDialog.setVisible(true);
+            if(fileDialog.getFile()!=null){
+                manager.setFilePath(fileDialog.getDirectory() + fileDialog.getFile());
+                list = manager.parse();
 
-            manager.setFilePath(fileDialog.getDirectory() + fileDialog.getFile());
-            list = manager.parse();
+                getClockingTimes().addAll(list);
 
-            getClockingTimes().addAll(list);
+                String[] messages = {"clocking_times"};
+                notifyObservers(messages);
 
-            String[] messages = {"clocking_times"};
-            notifyObservers(messages);
-            information = list.size();
+                information = list.size();
+            }
         }
         catch(Exception e) {
-            e.printStackTrace();
             information = -1;
+            e.printStackTrace();
         }
 
         return information;
@@ -287,10 +289,8 @@ public class ApplicationController extends Controller {
     public void filters(Employee employee, Department department, LocalDate fromDate, LocalDate toDate) {
         ArrayList<ClockingTime> employeesFilter = new ArrayList<ClockingTime>();
 
-        // if the last call of filters have retun a empty list reset the list of clocking times
-        if (filteredClockingTimes.isEmpty()) {
-            filteredClockingTimes.addAll(clockingTimes);
-        }
+        filteredClockingTimes.clear();
+        filteredClockingTimes.addAll(clockingTimes);
 
         if (employee != null) {
             // search the clooking time equal to the employee filter
@@ -360,12 +360,14 @@ public class ApplicationController extends Controller {
         notifyObservers(messages);
     }
 
+    /**
+     * Clear the filters
+     */
     public void clearFilters() {
-
         getFilteredClockingTimes().clear();
         getFilteredClockingTimes().addAll(clockingTimes);
 
-        String[] messages = {"employee_filter", "department_filter", "clocking_times"};
+        String[] messages = {"clocking_times"};
         notifyObservers(messages);
     }
 }
