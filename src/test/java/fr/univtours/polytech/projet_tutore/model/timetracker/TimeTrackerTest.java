@@ -68,7 +68,7 @@ public class TimeTrackerTest {
             timeTracker.setEmployees(employees);
 
             String message = "Time-tracker (";
-            message += date.toString() + " at " + time.toString() + ", ";
+            message += date + " at " + time + ", ";
             message += employees.size() + " employees)";
 
             Assertions.assertEquals(message, timeTracker.toString());

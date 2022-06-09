@@ -4,7 +4,6 @@ import fr.univtours.polytech.projet_tutore.controller.Observable;
 import fr.univtours.polytech.projet_tutore.controller.application.ApplicationController;
 import fr.univtours.polytech.projet_tutore.model.company.Company;
 import fr.univtours.polytech.projet_tutore.model.date.Days;
-import fr.univtours.polytech.projet_tutore.model.date.Schedule;
 import fr.univtours.polytech.projet_tutore.model.date.WorkingDay;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
@@ -144,8 +143,9 @@ public class ApplicationView extends View {
     @Override
     public void initialize() {
         // Initialization of the controller.
-        ApplicationController controller = new ApplicationController();
-        setController(controller);
+        if (getController() == null) {
+            setController(new ApplicationController());
+        }
         getController().initialize();
 
         // Initialization of the components.
@@ -194,11 +194,7 @@ public class ApplicationView extends View {
     public void update(Observable observable, String[] messages) {
         Company company = getController().getCompany();
         ArrayList<Employee> employees = new ArrayList<>(company.getEmployees());
-/*
-        for (Department department : company.getDepartments()) {
-            employees.addAll(department.getEmployees());
-        }
-*/
+
         try {
             for (String message : messages) {
                 switch (message) {
@@ -221,15 +217,9 @@ public class ApplicationView extends View {
                         getViewController().setTableViewEmployeeList(employees);
                         getViewController().getTableViewEmployeeList().refresh();
 
-                        if(employees.isEmpty()) {
-                            getViewController().getButtonAddClockingTime().setDisable(true);
-                            getViewController().getButtonAddClockingTimesFromFile().setDisable(true);
-                        }
-                        else {
-                            getViewController().getButtonAddClockingTime().setDisable(false);
-                            getViewController().getButtonAddClockingTimesFromFile().setDisable(false);
-                        }
-                    }
+                        getViewController().getButtonAddClockingTime().setDisable(employees.size() == 0);
+                        getViewController().getButtonAddClockingTimesFromFile().setDisable(employees.size() == 0);
+                     }
                     case "selected_employee" -> {
                         // Update the information about the selected employee.
                         Employee selectedEmployee = getController().getSelectedEmployee();
