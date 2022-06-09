@@ -14,12 +14,12 @@ public class EditEmployeeController extends Controller {
     /**
      * Controller of the application.
      */
-    private ApplicationController applicationController;
+    private final ApplicationController applicationController;
 
     /**
      * Whether the employee is in edition or not (in addition).
      */
-    private boolean editionMode;
+    private final boolean editionMode;
 
     /**
      * The employee in addition or in edition
@@ -58,6 +58,16 @@ public class EditEmployeeController extends Controller {
         // Else, addition mode.
         else {
             this.employee = new Employee("", "", new Schedule());
+
+            // If there is no department in the company, we added a default one.
+            if (company.getDepartments().size() == 0) {
+                try {
+                    company.addDepartment(new Department("Default department"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
             department = company.getDepartments().get(0);
             editionMode = false;
         }

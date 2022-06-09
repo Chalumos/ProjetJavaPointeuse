@@ -100,7 +100,7 @@ public class ClockingTimeTest {
             Time time = new Time(9, 0, 0);
             clockingTime = new ClockingTime(employee, date, time);
 
-            Assertions.assertEquals("[ John DOE | " + date.toString() + " | " + time.toString() + " ]", clockingTime.toString());
+            Assertions.assertEquals("[ John DOE | " + date + " | " + time + " ]", clockingTime.toString());
 
             clockingTime = new ClockingTime();
 

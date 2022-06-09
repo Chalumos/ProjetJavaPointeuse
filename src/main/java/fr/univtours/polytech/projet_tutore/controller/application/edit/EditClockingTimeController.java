@@ -15,12 +15,12 @@ public class EditClockingTimeController extends Controller {
     /**
      * Controller of the application.
      */
-    private ApplicationController applicationController;
+    private final ApplicationController applicationController;
 
     /**
      * Whether the employee is in edition or not (in addition).
      */
-    private boolean editionMode;
+    private final boolean editionMode;
 
     /**
      * The employee in addition or in edition.

@@ -12,7 +12,7 @@ public class Service<T> extends Thread{
     /**
      * Socket of the service.
      */
-    private Socket socket;
+    private final Socket socket;
 
     /**
      * Initialize a service with the current socket.

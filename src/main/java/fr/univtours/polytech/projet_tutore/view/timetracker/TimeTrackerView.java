@@ -22,11 +22,15 @@ public class TimeTrackerView extends View {
      * Initialize the controller to null.
      */
     public TimeTrackerView() {
-        setController(new TimeTrackerController());
+        setController(null);
     }
 
     @Override
     public void initialize() {
+        // Initialization of the controller.
+        if (getController() == null) {
+            setController(new TimeTrackerController());
+        }
         getController().initialize();
     }
 

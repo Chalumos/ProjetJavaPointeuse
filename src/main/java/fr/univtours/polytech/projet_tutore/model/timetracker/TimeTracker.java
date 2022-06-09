@@ -20,7 +20,7 @@ public class TimeTracker {
     /**
      * Employees of the company.
      */
-    private ArrayList<Employee> employees;
+    private final ArrayList<Employee> employees;
 
     /**
      * Create a time tracker without any employee.

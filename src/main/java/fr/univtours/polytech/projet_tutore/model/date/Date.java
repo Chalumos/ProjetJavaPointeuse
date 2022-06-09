@@ -110,20 +110,15 @@ public class Date implements Externalizable {
             isValid = false;
         }
         // If the day is bigger than 28 but the month is February and the year is not leap.
-        else if (day > 28 && month == Month.FEBRUARY && !isYearLeap(year)) {
+        else // If the date is valid.
+            if (day > 28 && month == Month.FEBRUARY && !isYearLeap(year)) {
             isValid = false;
         }
         // If the day is bigger than 29 but the month is February and the year is leap.
-        else if (day > 29 && month == Month.FEBRUARY && isYearLeap(year)) {
-            isValid = false;
-        }
-        // If the date is valid.
-        else {
-            isValid = true;
-        }
+        else isValid = day <= 29 || month != Month.FEBRUARY || !isYearLeap(year);
 
         if (!isValid) {
-            throw new Exception("The date '" + toString() + "' is not valid.");
+            throw new Exception("The date '" + this + "' is not valid.");
         }
     }
 

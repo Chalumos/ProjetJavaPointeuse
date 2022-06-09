@@ -5,6 +5,7 @@ import fr.univtours.polytech.projet_tutore.model.Stub;
 import fr.univtours.polytech.projet_tutore.model.company.Company;
 import fr.univtours.polytech.projet_tutore.model.company.Department;
 import fr.univtours.polytech.projet_tutore.model.data_manager.ClockingTimeDataManager;
+import fr.univtours.polytech.projet_tutore.model.data_manager.CompanyDataManager;
 import fr.univtours.polytech.projet_tutore.model.data_manager.NetworkSettingsDataManager;
 import fr.univtours.polytech.projet_tutore.model.date.Date;
 import fr.univtours.polytech.projet_tutore.model.date.Time;
@@ -15,6 +16,7 @@ import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
 import fr.univtours.polytech.projet_tutore.model.timetracker.TimeTracker;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -36,31 +38,32 @@ public class TimeTrackerController extends Controller {
      * Create the controller.
      */
     public TimeTrackerController() {
-        setTimeTracker(null);
+        setTimeTracker(new TimeTracker());
     }
 
     @Override
     public void initialize() {
-        Company company = Stub.generateCompany();
-        TimeTracker timeTracker = new TimeTracker();
-        ArrayList<Employee> employees = new ArrayList<>();
+        try {
+            // Fetch the employees.
+            CompanyDataManager companyDataManager = new CompanyDataManager();
+            ArrayList<Company> companyData = companyDataManager.parse();
 
-        // Get the employees.
-        for(Department department : company.getDepartments()){
-            for (Employee employee : department.getEmployees()){
-                employees.add(employee);
+            TimeTracker timeTracker = new TimeTracker();
+            if (companyData.size() > 0) {
+                timeTracker.setEmployees(companyData.get(0).getEmployees());
+            } else {
+                timeTracker.setEmployees(new ArrayList<>());
             }
+            setTimeTracker(timeTracker);
+
+            setClockingTimes(new ArrayList<>());
+            updateTime();
+
+            String[] messages = {"date", "time", "employees", "clockingTime"};
+            notifyObservers(messages);
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
-
-        timeTracker.setEmployees(employees);
-        setTimeTracker(timeTracker);
-
-        setClockingTimes(Stub.getClockingTimeList());
-
-        updateTime();
-
-        String[] messages = {"date", "time", "employees", "clockingTime"};
-        notifyObservers(messages);
     }
 
     /**
