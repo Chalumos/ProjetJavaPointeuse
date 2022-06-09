@@ -12,7 +12,7 @@ public class Observable {
     /**
      * Observers of the observable.
      */
-    private ArrayList<Observer> observers = new ArrayList<Observer>();
+    private final ArrayList<Observer> observers = new ArrayList<Observer>();
 
     /**
      * Add an observer to the observer list.

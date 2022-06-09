@@ -1,15 +1,16 @@
 package fr.univtours.polytech.projet_tutore.controller.application;
 
 import fr.univtours.polytech.projet_tutore.controller.Controller;
-import fr.univtours.polytech.projet_tutore.model.Stub;
 import fr.univtours.polytech.projet_tutore.model.company.Company;
 import fr.univtours.polytech.projet_tutore.model.company.Department;
 import fr.univtours.polytech.projet_tutore.model.data_manager.ClockingTimeDataManager;
+import fr.univtours.polytech.projet_tutore.model.data_manager.CompanyDataManager;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 import fr.univtours.polytech.projet_tutore.model.socket.MultiThreadedServer;
 import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
 
 import java.awt.*;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -47,35 +48,44 @@ public class ApplicationController extends Controller {
      * Create the company.
      */
     public ApplicationController() {
-        setCompany(null);
+        setCompany(new Company());
+        setClockingTimes(new ArrayList<>());
     }
 
     @Override
     public void initialize() {
-        serverMultiThread = new MultiThreadedServer((clockingTimes) -> {
-            getClockingTimes().addAll((ArrayList<ClockingTime>) clockingTimes);
-            getFilteredClockingTimes().addAll((ArrayList<ClockingTime>) clockingTimes);
-
-            String[] messages = {"clocking_times"};
-            notifyObservers(messages);
-            return null;
-        });
-
-        serverMultiThread.start();
-        do {
-            try {
-                setCompany(Stub.generateCompany());
-                setClockingTimes(Stub.getClockingTimeList());
-
-                filteredClockingTimes = new ArrayList<>();
-                filteredClockingTimes.addAll(clockingTimes);
-
-                String[] messages = {"employee_filter", "department_filter", "clocking_times", "employees", "selected_employee"};
-                notifyObservers(messages);
-            } catch (Exception exception) {
-                exception.printStackTrace();
+        try {
+            // Fetch the employees.
+            CompanyDataManager companyDataManager = new CompanyDataManager();
+            ArrayList<Company> companyData = companyDataManager.parse();
+            if (companyData.size() > 0) {
+                setCompany(companyData.get(0));
+            } else {
+                setCompany(new Company());
             }
-        } while (getCompany() == null);
+
+            // Fetch the clocking times.
+            ClockingTimeDataManager clockingTimeDataManager = new ClockingTimeDataManager();
+            setClockingTimes(clockingTimeDataManager.parse());
+            setFilteredClockingTimes(new ArrayList<>());
+            getFilteredClockingTimes().addAll(getClockingTimes());
+
+            // Initialize and launch the server.
+            serverMultiThread = new MultiThreadedServer((clockingTimes) -> {
+                getClockingTimes().addAll((ArrayList<ClockingTime>) clockingTimes);
+                getFilteredClockingTimes().addAll((ArrayList<ClockingTime>) clockingTimes);
+
+                String[] messages = {"clocking_times"};
+                notifyObservers(messages);
+                return null;
+            });
+            serverMultiThread.start();
+
+            String[] messages = {"employee_filter", "department_filter", "clocking_times", "employees", "selected_employee"};
+            notifyObservers(messages);
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -215,6 +225,9 @@ public class ApplicationController extends Controller {
      * @param company The new company.
      */
     public void setCompany(Company company) {
+        if (company == null) {
+            company = new Company();
+        }
         this.company = company;
     }
 
@@ -302,7 +315,7 @@ public class ApplicationController extends Controller {
         if (employee != null) {
             // Search the clocking time equal to the employee filter.
             for (ClockingTime clock : getFilteredClockingTimes()) {
-                if (employee.equals(clock.getEmployee())) {
+                if (employee.getId().equals(clock.getEmployee().getId())) {
                     employeesFilter.add(clock);
                 }
             }
@@ -316,7 +329,8 @@ public class ApplicationController extends Controller {
         if (department != null) {
             // Search the clocking time equal to the department filter.
             for (ClockingTime clock : getFilteredClockingTimes()) {
-                if (department.equals(getCompany().getDepartment(clock.getEmployee()))) {
+                Department employeeDepartment = getCompany().getDepartment(clock.getEmployee());
+                if (employeeDepartment != null && department.getName().equals(employeeDepartment.getName())) {
                     employeesFilter.add(clock);
                 }
             }
@@ -355,7 +369,7 @@ public class ApplicationController extends Controller {
             getFilteredClockingTimes().addAll(employeesFilter);
             employeesFilter.clear();
         }
-
+        
         String[] messages = {"clocking_times"};
         notifyObservers(messages);
     }

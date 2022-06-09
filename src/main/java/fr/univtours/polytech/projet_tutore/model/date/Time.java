@@ -69,7 +69,7 @@ public class Time implements Comparable<Time>, Externalizable {
         }
 
         if (!isValid) {
-            throw new Exception("The time '" + toString() + "' is not valid.");
+            throw new Exception("The time '" + this + "' is not valid.");
         }
     }
 
