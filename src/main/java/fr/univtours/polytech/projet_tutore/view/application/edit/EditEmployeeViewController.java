@@ -131,7 +131,7 @@ public class EditEmployeeViewController extends ViewController {
 
             getView().close();
 
-            String[] messages = {"employees", "selected_employee"};
+            String[] messages = {"employees", "selected_employee", "employee_filter"};
             applicationController.notifyObservers(messages);
         }
     }

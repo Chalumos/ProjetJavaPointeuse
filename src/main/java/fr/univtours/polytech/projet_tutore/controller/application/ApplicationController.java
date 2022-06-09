@@ -6,7 +6,7 @@ import fr.univtours.polytech.projet_tutore.model.company.Company;
 import fr.univtours.polytech.projet_tutore.model.company.Department;
 import fr.univtours.polytech.projet_tutore.model.data_manager.ClockingTimeDataManager;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
-import fr.univtours.polytech.projet_tutore.model.socket.ServerMultiThread;
+import fr.univtours.polytech.projet_tutore.model.socket.MultiThreadedServer;
 import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
 
 import java.awt.*;
@@ -36,7 +36,7 @@ public class ApplicationController extends Controller {
     /**
      * The server of the application.
      */
-    private ServerMultiThread serverMultiThread;
+    private MultiThreadedServer serverMultiThread;
 
     /**
      * Clocking times of the employees of the company filtered.
@@ -52,7 +52,7 @@ public class ApplicationController extends Controller {
 
     @Override
     public void initialize() {
-        serverMultiThread = new ServerMultiThread((clockingTimes) -> {
+        serverMultiThread = new MultiThreadedServer((clockingTimes) -> {
             getClockingTimes().addAll((ArrayList<ClockingTime>) clockingTimes);
             getFilteredClockingTimes().addAll((ArrayList<ClockingTime>) clockingTimes);
 
@@ -70,7 +70,7 @@ public class ApplicationController extends Controller {
                 filteredClockingTimes = new ArrayList<>();
                 filteredClockingTimes.addAll(clockingTimes);
 
-                String[] messages = {"employee_filter", "department_filter", "clocking_times", "employees"};
+                String[] messages = {"employee_filter", "department_filter", "clocking_times", "employees", "selected_employee"};
                 notifyObservers(messages);
             } catch (Exception exception) {
                 exception.printStackTrace();
@@ -156,22 +156,21 @@ public class ApplicationController extends Controller {
      */
     public void removeEmployee() {
         ArrayList<Employee> employees = company.getEmployees();
+        Department department = company.getDepartment(getSelectedEmployee());
+        boolean isEmployeeRemoved = false;
+        int index = 0;
 
-        // Remove the employee.
-        for (int i = 0; i < employees.size(); i++) {
-            Employee employee = employees.get(i);
+        // Remove the employee from its department.
+        do {
+            Employee employee = department.getEmployees().get(index);
 
-            // If the employee is found.
             if (getSelectedEmployee().getId().equals(employee.getId())) {
-                Department department = company.getDepartment(employee);
-
-                for (int j = 0; j < department.getEmployees().size(); j++) {
-                    if (getSelectedEmployee().getId().equals(employee.getId())) {
-                        department.getEmployees().remove(j);
-                    }
-                }
+                department.getEmployees().remove(index);
+                isEmployeeRemoved = true;
             }
-        }
+
+            index++;
+        } while (!isEmployeeRemoved && index < department.getEmployees().size());
 
         // Remove the clocking times of the employee.
         for (int i = getClockingTimes().size() - 1; i >= 0; i--) {
@@ -232,7 +231,7 @@ public class ApplicationController extends Controller {
      * Return the current application server.
      * @return the current application server.
      */
-    public ServerMultiThread getServerMultiThread() {
+    public MultiThreadedServer getServerMultiThread() {
         return serverMultiThread;
     }
 
@@ -279,93 +278,76 @@ public class ApplicationController extends Controller {
     }
 
     /**
-     * filters the list of clocking times
+     * Filter the list of clocking times.
      *
-     * @param employee   employee selected to filter
-     * @param department department selected to filter
-     * @param fromDate   fromDate selected to filter
-     * @param toDate     toDate selected to filter
+     * @param employee   Filter on an employee.
+     * @param department Filter on a department.
+     * @param fromDate   Filter on a starting date.
+     * @param toDate     Filter on an ending date.
      */
     public void filters(Employee employee, Department department, LocalDate fromDate, LocalDate toDate) {
-        ArrayList<ClockingTime> employeesFilter = new ArrayList<ClockingTime>();
+        ArrayList<ClockingTime> employeesFilter = new ArrayList<>();
 
-        filteredClockingTimes.clear();
-        filteredClockingTimes.addAll(clockingTimes);
+        getFilteredClockingTimes().clear();
+        getFilteredClockingTimes().addAll(getClockingTimes());
 
+        // Filter on an employee.
         if (employee != null) {
-            // search the clooking time equal to the employee filter
-            for (ClockingTime clock : filteredClockingTimes) {
+            // Search the clocking time equal to the employee filter.
+            for (ClockingTime clock : getFilteredClockingTimes()) {
                 if (employee.equals(clock.getEmployee())) {
                     employeesFilter.add(clock);
                 }
             }
-            // apply the filter list to the time clock list
+            // Apply the filter list to the time clock list.
             getFilteredClockingTimes().clear();
             getFilteredClockingTimes().addAll(employeesFilter);
             employeesFilter.clear();
         }
 
+        // Filter on a department.
         if (department != null) {
-            // search the clooking time equal to the department filter
-            for (ClockingTime clock : filteredClockingTimes) {
+            // Search the clocking time equal to the department filter.
+            for (ClockingTime clock : getFilteredClockingTimes()) {
                 if (department.equals(getCompany().getDepartment(clock.getEmployee()))) {
                     employeesFilter.add(clock);
                 }
             }
-            //apply the filter list to the time clock list
+            // Apply the filter list to the time clock list.
             getFilteredClockingTimes().clear();
             getFilteredClockingTimes().addAll(employeesFilter);
             employeesFilter.clear();
         }
-        if (fromDate != null && toDate != null) {
-            // search for clocking times that are equal to or after fromDate
-            // but before or equal toDate
-            for (ClockingTime clock : filteredClockingTimes) {
-                LocalDate dateCheck = LocalDate.of(clock.getDate().getYear(), clock.getDate().getMonth(), clock.getDate().getDay());
-                if ((dateCheck.isEqual(fromDate) || dateCheck.isAfter(fromDate)) && (dateCheck.isEqual(toDate) || dateCheck.isBefore(toDate))) {
-                    employeesFilter.add(clock);
-                }
-            }
-            //apply the filter list to the time clock list
-            getFilteredClockingTimes().clear();
-            getFilteredClockingTimes().addAll(employeesFilter);
-            employeesFilter.clear();
-        } else if (fromDate != null) {
-            // search for clocking times that are equal to or after fromDate
-            for (ClockingTime clock : filteredClockingTimes) {
+
+        // Filter on the starting date.
+        if (fromDate != null) {
+            // Search for clocking times that are after the date.
+            for (ClockingTime clock : getFilteredClockingTimes()) {
                 LocalDate dateCheck = LocalDate.of(clock.getDate().getYear(), clock.getDate().getMonth(), clock.getDate().getDay());
                 if (dateCheck.isEqual(fromDate) || dateCheck.isAfter(fromDate)) {
                     employeesFilter.add(clock);
                 }
             }
-            //apply the filter list to the time clock list
+            // Apply the filter list to the time clock list.
             getFilteredClockingTimes().clear();
             getFilteredClockingTimes().addAll(employeesFilter);
             employeesFilter.clear();
-        } else if (toDate != null) {
-            // search for clocking times that before or equal toDate
+        }
+
+        // Filter on the ending date.
+        if (toDate != null) {
+            // Search for clocking times that are before the date.
             for (ClockingTime clock : filteredClockingTimes) {
                 LocalDate dateCheck = LocalDate.of(clock.getDate().getYear(), clock.getDate().getMonth(), clock.getDate().getDay());
                 if (dateCheck.isEqual(toDate) || dateCheck.isBefore(toDate)) {
                     employeesFilter.add(clock);
                 }
             }
-            //apply the filter list to the time clock list
+            // Apply the filter list to the time clock list.
             getFilteredClockingTimes().clear();
             getFilteredClockingTimes().addAll(employeesFilter);
             employeesFilter.clear();
         }
-
-        String[] messages = {"clocking_times"};
-        notifyObservers(messages);
-    }
-
-    /**
-     * Clear the filters
-     */
-    public void clearFilters() {
-        getFilteredClockingTimes().clear();
-        getFilteredClockingTimes().addAll(clockingTimes);
 
         String[] messages = {"clocking_times"};
         notifyObservers(messages);

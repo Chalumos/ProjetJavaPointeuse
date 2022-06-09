@@ -131,6 +131,7 @@ public class EditClockingTimeViewController extends ViewController {
             if (!getView().getController().isEdition())  {
                 try {
                     applicationController.getClockingTimes().add(clockingTime);
+                    applicationController.getFilteredClockingTimes().add(clockingTime);
                 } catch (Exception exception) {
                     exception.printStackTrace();
                 }

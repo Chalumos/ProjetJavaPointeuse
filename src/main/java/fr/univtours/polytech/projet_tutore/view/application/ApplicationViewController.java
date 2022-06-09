@@ -105,22 +105,10 @@ public class ApplicationViewController extends ViewController {
     private TableView<WorkingDay> tableViewEmployeeSchedule;
 
     /**
-     * Button to add a new schedule to the selected employee.
-     */
-    @FXML
-    private Button buttonEmployeeNewSchedule;
-
-    /**
      * Button to edit the current schedule of the selected employee.
      */
     @FXML
     private Button buttonEmployeeEditSchedule;
-
-    /**
-     * Button to remove the current schedule of the selected employee.
-     */
-    @FXML
-    private Button buttonEmployeeRemoveSchedule;
 
     /**
      * Button to add a new employee to the company.
@@ -160,7 +148,7 @@ public class ApplicationViewController extends ViewController {
      */
     @FXML
     public void clearClockingTimeList() {
-        getView().getController().clearFilters();
+        getView().getController().filters(null, null, null, null);
         getComboBoxEmployeeFilters().valueProperty().setValue(null);
         getComboBoxDepartmentFilters().valueProperty().setValue(null);
         getDatePickerFromFilters().valueProperty().setValue(null);
@@ -469,27 +457,11 @@ public class ApplicationViewController extends ViewController {
     }
 
     /**
-     * Get the button to add a new schedule to the selected employee.
-     * @return The button to add a new schedule to the selected employee.
-     */
-    public Button getButtonEmployeeNewSchedule() {
-        return buttonEmployeeNewSchedule;
-    }
-
-    /**
      * Get the button to edit the current schedule of the selected employee.
      * @return The button to edit the current schedule of the selected employee.
      */
     public Button getButtonEmployeeEditSchedule() {
         return buttonEmployeeEditSchedule;
-    }
-
-    /**
-     * Get the button to remove the current schedule of the selected employee.
-     * @return The button to remove the current schedule of the selected employee.
-     */
-    public Button getButtonEmployeeRemoveSchedule() {
-        return buttonEmployeeRemoveSchedule;
     }
 
     /**
