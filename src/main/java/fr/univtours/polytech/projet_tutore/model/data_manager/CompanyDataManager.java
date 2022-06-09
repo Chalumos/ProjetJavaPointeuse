@@ -1,6 +1,11 @@
 package fr.univtours.polytech.projet_tutore.model.data_manager;
 
+import fr.univtours.polytech.projet_tutore.model.company.Company;
+import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
+
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class CompanyDataManager extends DataManager {
 
@@ -26,5 +31,22 @@ public class CompanyDataManager extends DataManager {
 
         String path = root.getAbsolutePath() + packages + "Company.txt";
         setFilePath(path);
+    }
+
+    @Override
+    public <T> ArrayList<T> parse() throws IOException, ClassNotFoundException{
+        ArrayList<T> objectList= super.parse();
+        boolean typeok=true;
+        for(int i=0; i< objectList.size();i++){
+            if(objectList.get(i).getClass()!= Company.class){
+                typeok=false;
+            }
+        }
+        if(typeok){
+            return objectList;
+        }
+        else{
+            throw new IOException();
+        }
     }
 }
