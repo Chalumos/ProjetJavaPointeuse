@@ -220,6 +220,8 @@ public class ApplicationView extends View {
                         // Update the list of employees.
                         getViewController().setTableViewEmployeeList(employees);
                         getViewController().getTableViewEmployeeList().refresh();
+                        getViewController().getButtonAddClockingTime().setDisable( employees.size() == 0);
+                        getViewController().getButtonAddClockingTimesFromFile().setDisable(employees.size() == 0);
                     }
                     case "selected_employee" -> {
                         // Update the information about the selected employee.
@@ -241,8 +243,6 @@ public class ApplicationView extends View {
                             getViewController().getButtonEmployeeEditSchedule().setDisable(false);
                             getViewController().getButtonEditEmployee().setDisable(false);
                             getViewController().getButtonRemoveEmployee().setDisable(false);
-                           // getViewController().getButtonAddClockingTime().setDisable(false);
-                            // getViewController().getButtonAddClockingTimesFromFile().setDisable(false);
                         }
                         else {
                             // Employee.
@@ -254,8 +254,6 @@ public class ApplicationView extends View {
                             getViewController().getButtonEmployeeEditSchedule().setDisable(true);
                             getViewController().getButtonEditEmployee().setDisable(true);
                             getViewController().getButtonRemoveEmployee().setDisable(true);
-                            //getViewController().getButtonAddClockingTime().setDisable(true);
-                            //getViewController().getButtonAddClockingTimesFromFile().setDisable(true);
                         }
 
                         // Schedule.
