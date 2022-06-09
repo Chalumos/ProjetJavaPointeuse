@@ -106,7 +106,13 @@ public class TimeTrackerController extends Controller {
 
             NetworkSettingsDataManager networkSettingsDataManager = new NetworkSettingsDataManager();
             ArrayList<NetworkSettings> networkSettings = networkSettingsDataManager.parse();
-            NetworkSettings networkSetting = (networkSettings.size() > 0) ? networkSettings.get(0) : new NetworkSettings();
+            if (networkSettings.size() <= 0 ){
+                networkSettings = new ArrayList<>();
+                networkSettings.add(new NetworkSettings());
+                networkSettingsDataManager.serialize(networkSettings);
+                networkSettings = networkSettingsDataManager.parse();
+            }
+            NetworkSettings networkSetting =  networkSettings.get(0);
 
             // Success of the sending.
             if (Client.sendData(clockingTimes, networkSetting)) {
