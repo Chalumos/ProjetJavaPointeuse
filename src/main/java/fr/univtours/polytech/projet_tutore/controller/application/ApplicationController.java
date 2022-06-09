@@ -130,6 +130,7 @@ public class ApplicationController extends Controller {
 
         try {
             FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt"));
             File file = fileChooser.showOpenDialog(new Stage());
 
             if (file != null) {
@@ -144,7 +145,8 @@ public class ApplicationController extends Controller {
                         Employee employee = getCompany().getEmployees().get(j);
 
                         if (clockingTime.getEmployee().getId().equals(employee.getId())) {
-                            getClockingTimes().add(listClockingTimes.get(i));
+                            getClockingTimes().add(clockingTime);
+                            getFilteredClockingTimes().add(clockingTime);
                             information++;
                         }
                     }
