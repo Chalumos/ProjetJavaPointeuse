@@ -8,8 +8,11 @@ import fr.univtours.polytech.projet_tutore.model.data_manager.CompanyDataManager
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 import fr.univtours.polytech.projet_tutore.model.socket.MultiThreadedServer;
 import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -126,25 +129,27 @@ public class ApplicationController extends Controller {
         int information = 0;
 
         try {
-            FileDialog fileDialog = new FileDialog(new Frame(), "Chose a file");
-            fileDialog.setDirectory("C:\\");
-            fileDialog.setFile("*.txt");
-            fileDialog.setVisible(true);
-            if(fileDialog.getFile()!=null){
-                manager.setFilePath(fileDialog.getDirectory() + fileDialog.getFile());
+            FileChooser fileChooser = new FileChooser();
+            File file = fileChooser.showOpenDialog(new Stage());
+
+            if (file != null) {
+                manager.setFilePath(file.getPath());
                 listClockingTimes = manager.parse();
-                /*
-                getClockingTimes().addAll(listClockingTimes);
-                information= listClockingTimes.size();
-                */
-                for (int i=0;i<listClockingTimes.size();i++){
-                    for(int j=0;j<getCompany().getEmployees().size();j++){
-                        if(listClockingTimes.get(i).getEmployee().getId().equals(getCompany().getEmployees().get(j).getId())){
+
+                // If the clocking time is about an employee who isn't in the company,
+                // we don't add the clocking time.
+                for (int i = 0; i < listClockingTimes.size(); i++) {
+                    for (int j = 0; j < getCompany().getEmployees().size(); j++) {
+                        ClockingTime clockingTime = listClockingTimes.get(i);
+                        Employee employee = getCompany().getEmployees().get(j);
+
+                        if (clockingTime.getEmployee().getId().equals(employee.getId())) {
                             getClockingTimes().add(listClockingTimes.get(i));
-                            information+=1;
+                            information++;
                         }
                     }
                 }
+
                 String[] messages = {"clocking_times"};
                 notifyObservers(messages);
             }
