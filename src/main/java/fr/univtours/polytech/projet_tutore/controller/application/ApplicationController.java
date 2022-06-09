@@ -129,7 +129,20 @@ public class ApplicationController extends Controller {
         int information = 0;
 
         try {
+            File root = new File("");
+            String packages = File.separator + "src" +
+                    File.separator + "main" +
+                    File.separator + "resources" +
+                    File.separator + "fr" +
+                    File.separator + "univtours" +
+                    File.separator + "polytech" +
+                    File.separator + "projet_tutore" +
+                    File.separator + "data" +
+                    File.separator;
+            String path = root.getAbsolutePath() + packages;
+
             FileChooser fileChooser = new FileChooser();
+            fileChooser.setInitialDirectory(new File(path));
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt"));
             File file = fileChooser.showOpenDialog(new Stage());
 

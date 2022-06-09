@@ -204,12 +204,15 @@ public class Stub {
             path +=File.separator + "ExampleClockingTimeToImport.txt";
             manager.setFilePath(path);
 
-            ArrayList<ClockingTime> clockingTimeArrayList= new ArrayList<>();
-            clockingTimeArrayList.add(new ClockingTime(employeeList.get(0),new Date(),new Time()));
-            clockingTimeArrayList.add(new ClockingTime(employeeList.get(1),new Date(),new Time()));
-            clockingTimeArrayList.add(new ClockingTime(employeeList.get(2),new Date(),new Time()));
-            clockingTimeArrayList.add(new ClockingTime(new Employee("Aurelien","Da Fonseca"),new Date(),new Time()));
-            clockingTimeArrayList.add(new ClockingTime(new Employee("Charles","Caillon"),new Date(),new Time()));
+            // Addition of some clocking times in a file to import them in the future.
+            ArrayList<ClockingTime> clockingTimeArrayList = new ArrayList<>();
+            Date date = Date.getCurrentDate();
+            Time time = Time.getCurrentTime();
+            clockingTimeArrayList.add(new ClockingTime(employeeList.get(0), date, time));
+            clockingTimeArrayList.add(new ClockingTime(employeeList.get(1), date, time));
+            clockingTimeArrayList.add(new ClockingTime(employeeList.get(2), date, time));
+            clockingTimeArrayList.add(new ClockingTime(new Employee("Aurelien","Da Fonseca"), date, time));
+            clockingTimeArrayList.add(new ClockingTime(new Employee("Charles","Caillon"), date, time));
             manager.serialize(clockingTimeArrayList);
 
         } catch (Exception exception){
