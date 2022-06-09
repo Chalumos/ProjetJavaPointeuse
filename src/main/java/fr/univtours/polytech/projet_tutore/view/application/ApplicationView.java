@@ -144,8 +144,9 @@ public class ApplicationView extends View {
     @Override
     public void initialize() {
         // Initialization of the controller.
-        ApplicationController controller = new ApplicationController();
-        setController(controller);
+        if (getController() == null) {
+            setController(new ApplicationController());
+        }
         getController().initialize();
 
         // Initialization of the components.
@@ -194,11 +195,7 @@ public class ApplicationView extends View {
     public void update(Observable observable, String[] messages) {
         Company company = getController().getCompany();
         ArrayList<Employee> employees = new ArrayList<>(company.getEmployees());
-/*
-        for (Department department : company.getDepartments()) {
-            employees.addAll(department.getEmployees());
-        }
-*/
+
         try {
             for (String message : messages) {
                 switch (message) {
