@@ -195,14 +195,21 @@ public class Stub {
                     numberOfTheDays++;
                 }
             }
+
             //creation of an example of a file with serialisation
+            //with 1 employee in the company and 1 outsider
             ClockingTimeDataManager manager = new ClockingTimeDataManager();
 
             String path = (new File(manager.getFilePath())).getParentFile().getPath();
-            path +=File.separator + "ExampleClockingTimeApart.txt";
+            path +=File.separator + "ExampleClockingTimeToImport.txt";
+            manager.setFilePath(path);
 
             ArrayList<ClockingTime> clockingTimeArrayList= new ArrayList<>();
-            clockingTimeArrayList.add(new ClockingTime(employeeList.get(0),new Date(),new Time(8,10,00)));
+            clockingTimeArrayList.add(new ClockingTime(employeeList.get(0),new Date(),new Time()));
+            clockingTimeArrayList.add(new ClockingTime(employeeList.get(1),new Date(),new Time()));
+            clockingTimeArrayList.add(new ClockingTime(employeeList.get(2),new Date(),new Time()));
+            clockingTimeArrayList.add(new ClockingTime(new Employee("Aurelien","Da Fonseca"),new Date(),new Time()));
+            clockingTimeArrayList.add(new ClockingTime(new Employee("Charles","Caillon"),new Date(),new Time()));
             manager.serialize(clockingTimeArrayList);
 
         } catch (Exception exception){

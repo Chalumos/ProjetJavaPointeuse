@@ -111,7 +111,7 @@ public class ApplicationController extends Controller {
      * @return Whether the operation succeed or failed.
      */
     public int recoverClockingTimesFromFile() {
-        ArrayList<ClockingTime> list = new ArrayList<ClockingTime>();
+        ArrayList<ClockingTime> listClockingTimes = new ArrayList<ClockingTime>();
         ClockingTimeDataManager manager = new ClockingTimeDataManager();
         int information = 0;
 
@@ -122,14 +122,21 @@ public class ApplicationController extends Controller {
             fileDialog.setVisible(true);
             if(fileDialog.getFile()!=null){
                 manager.setFilePath(fileDialog.getDirectory() + fileDialog.getFile());
-                list = manager.parse();
-
-                getClockingTimes().addAll(list);
-
+                listClockingTimes = manager.parse();
+                /*
+                getClockingTimes().addAll(listClockingTimes);
+                information= listClockingTimes.size();
+                */
+                for (int i=0;i<listClockingTimes.size();i++){
+                    for(int j=0;j<getCompany().getEmployees().size();j++){
+                        if(listClockingTimes.get(i).getEmployee().getId().equals(getCompany().getEmployees().get(j).getId())){
+                            getClockingTimes().add(listClockingTimes.get(i));
+                            information+=1;
+                        }
+                    }
+                }
                 String[] messages = {"clocking_times"};
                 notifyObservers(messages);
-
-                information = list.size();
             }
         }
         catch(Exception e) {
