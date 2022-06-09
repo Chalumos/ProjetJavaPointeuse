@@ -2,10 +2,12 @@ package fr.univtours.polytech.projet_tutore.model;
 
 import fr.univtours.polytech.projet_tutore.model.company.Company;
 import fr.univtours.polytech.projet_tutore.model.company.Department;
+import fr.univtours.polytech.projet_tutore.model.data_manager.ClockingTimeDataManager;
 import fr.univtours.polytech.projet_tutore.model.date.*;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
 import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
 
+import java.io.File;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Random;
@@ -193,6 +195,16 @@ public class Stub {
                     numberOfTheDays++;
                 }
             }
+            //creation of an example of a file with serialisation
+            ClockingTimeDataManager manager = new ClockingTimeDataManager();
+
+            String path = (new File(manager.getFilePath())).getParentFile().getPath();
+            path +=File.separator + "ExampleClockingTimeApart.txt";
+
+            ArrayList<ClockingTime> clockingTimeArrayList= new ArrayList<>();
+            clockingTimeArrayList.add(new ClockingTime(employeeList.get(0),new Date(),new Time(8,10,00)));
+            manager.serialize(clockingTimeArrayList);
+
         } catch (Exception exception){
             exception.printStackTrace();
         }

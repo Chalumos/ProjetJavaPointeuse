@@ -83,9 +83,9 @@ public class CompanyTest {
 
     @Test
     void testToString() {
-        Assertions.assertEquals("Company: Unknown", company.toString());
+        Assertions.assertEquals("Unknown", company.toString());
 
         company = new Company("theCompany");
-        Assertions.assertEquals("Company: theCompany", company.toString());
+        Assertions.assertEquals("theCompany", company.toString());
     }
 }
