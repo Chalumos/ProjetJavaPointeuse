@@ -241,6 +241,8 @@ public class ApplicationView extends View {
                             getViewController().getButtonEmployeeEditSchedule().setDisable(false);
                             getViewController().getButtonEditEmployee().setDisable(false);
                             getViewController().getButtonRemoveEmployee().setDisable(false);
+                            getViewController().getButtonAddClockingTime().setDisable(false);
+                            getViewController().getButtonAddClockingTimesFromFile().setDisable(false);
                         }
                         else {
                             // Employee.
@@ -252,6 +254,8 @@ public class ApplicationView extends View {
                             getViewController().getButtonEmployeeEditSchedule().setDisable(true);
                             getViewController().getButtonEditEmployee().setDisable(true);
                             getViewController().getButtonRemoveEmployee().setDisable(true);
+                            getViewController().getButtonAddClockingTime().setDisable(true);
+                            getViewController().getButtonAddClockingTimesFromFile().setDisable(true);
                         }
 
                         // Schedule.
