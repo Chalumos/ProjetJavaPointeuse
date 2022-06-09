@@ -102,7 +102,7 @@ public class Company implements Externalizable {
         Department employeeDepartment = null;
 
         for (Department department : departments) {
-            List<Employee> employeesFilter = department.getEmployees().stream().filter(employeeI -> employeeI == employee).toList();
+            List<Employee> employeesFilter = department.getEmployees().stream().filter(emp -> emp.getId().equals(employee.getId())).toList();
             if (!employeesFilter.isEmpty()) {
                 employeeDepartment = department;
             }

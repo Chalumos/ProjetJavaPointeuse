@@ -122,7 +122,6 @@ public class EditClockingTimeViewController extends ViewController {
 
         if (areTextFieldsFilled) {
             ApplicationController applicationController = getView().getController().getApplicationController();
-            ArrayList<ClockingTime> clockingTimes = applicationController.getClockingTimes();
 
             clockingTime.setEmployee(employee);
             getView().getController().setClockingTime(clockingTime);

@@ -67,7 +67,8 @@ public class ApplicationController extends Controller {
             // Fetch the clocking times.
             ClockingTimeDataManager clockingTimeDataManager = new ClockingTimeDataManager();
             setClockingTimes(clockingTimeDataManager.parse());
-            setFilteredClockingTimes(getClockingTimes());
+            setFilteredClockingTimes(new ArrayList<>());
+            getFilteredClockingTimes().addAll(getClockingTimes());
 
             // Initialize and launch the server.
             serverMultiThread = new MultiThreadedServer((clockingTimes) -> {
@@ -307,7 +308,7 @@ public class ApplicationController extends Controller {
         if (employee != null) {
             // Search the clocking time equal to the employee filter.
             for (ClockingTime clock : getFilteredClockingTimes()) {
-                if (employee.equals(clock.getEmployee())) {
+                if (employee.getId().equals(clock.getEmployee().getId())) {
                     employeesFilter.add(clock);
                 }
             }
@@ -321,7 +322,8 @@ public class ApplicationController extends Controller {
         if (department != null) {
             // Search the clocking time equal to the department filter.
             for (ClockingTime clock : getFilteredClockingTimes()) {
-                if (department.equals(getCompany().getDepartment(clock.getEmployee()))) {
+                Department employeeDepartment = getCompany().getDepartment(clock.getEmployee());
+                if (employeeDepartment != null && department.getName().equals(employeeDepartment.getName())) {
                     employeesFilter.add(clock);
                 }
             }
@@ -360,7 +362,7 @@ public class ApplicationController extends Controller {
             getFilteredClockingTimes().addAll(employeesFilter);
             employeesFilter.clear();
         }
-
+        
         String[] messages = {"clocking_times"};
         notifyObservers(messages);
     }
