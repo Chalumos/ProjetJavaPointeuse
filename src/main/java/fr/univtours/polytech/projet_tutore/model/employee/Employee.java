@@ -1,6 +1,7 @@
 package fr.univtours.polytech.projet_tutore.model.employee;
 
 import fr.univtours.polytech.projet_tutore.model.date.Schedule;
+import fr.univtours.polytech.projet_tutore.model.date.Time;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -34,6 +35,11 @@ public class Employee implements Externalizable {
     private Schedule schedule;
 
     /**
+     * overtime of the employee
+     */
+    private int overtime;
+
+    /**
      * Create an unknown employee.
      */
     public Employee() {
@@ -61,6 +67,7 @@ public class Employee implements Externalizable {
         setFirstName(firstName);
         setLastName(lastName);
         this.schedule = schedule;
+        overtime=0;
     }
 
     /**
@@ -138,6 +145,30 @@ public class Employee implements Externalizable {
         this.schedule = schedule;
     }
 
+    /**
+     * Get overtime of the employee
+     * @return the overtime of the employee
+     */
+    public int getOvertime() {
+        return overtime;
+    }
+
+    /**
+     * set overtime of the employee
+     * @param newOvertime the new overtime of the employee
+     */
+    public void setOvertime(int newOvertime){
+        overtime=newOvertime;
+    }
+
+    /**
+     * increase the overtime
+     * @param timeToAdd the time which is added to the overtime
+     */
+    public void addOvertime(int timeToAdd){
+        overtime+=timeToAdd;
+    }
+
     @Override
     public String toString() {
         return  firstName + " " + lastName;
@@ -149,6 +180,7 @@ public class Employee implements Externalizable {
         out.writeObject(firstName);
         out.writeObject(lastName);
         out.writeObject(schedule);
+        out.writeObject(overtime);
     }
 
     @Override
@@ -157,5 +189,6 @@ public class Employee implements Externalizable {
         firstName = (String) in.readObject();
         lastName = (String) in.readObject();
         schedule = (Schedule) in.readObject();
+        overtime = (int) in.readObject();
     }
 }

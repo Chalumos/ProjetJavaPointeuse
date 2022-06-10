@@ -78,6 +78,10 @@ public class ApplicationController extends Controller {
                 getClockingTimes().addAll((ArrayList<ClockingTime>) clockingTimes);
                 getFilteredClockingTimes().addAll((ArrayList<ClockingTime>) clockingTimes);
 
+                // TODO Heures supp
+                // TODO Get tous les employés présents dans les clicking times
+                // TODO Boucler sur ces employés pour recalculer leurs heures supp
+
                 String[] messages = {"clocking_times"};
                 notifyObservers(messages);
                 return null;
