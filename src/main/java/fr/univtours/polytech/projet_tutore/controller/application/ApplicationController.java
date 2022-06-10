@@ -11,7 +11,6 @@ import fr.univtours.polytech.projet_tutore.model.timetracker.ClockingTime;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -78,10 +77,7 @@ public class ApplicationController extends Controller {
                 getClockingTimes().addAll((ArrayList<ClockingTime>) clockingTimes);
                 getFilteredClockingTimes().addAll((ArrayList<ClockingTime>) clockingTimes);
 
-                // TODO Heures supp
-                // TODO Get tous les employés présents dans les clicking times
-                // TODO Boucler sur ces employés pour recalculer leurs heures supp
-
+                saveData();
                 String[] messages = {"clocking_times"};
                 notifyObservers(messages);
                 return null;
@@ -119,6 +115,7 @@ public class ApplicationController extends Controller {
         }
 
         selectedEmployee = null;
+        saveData();
         String[] messages = {"clocking_times"};
         notifyObservers(messages);
     }
@@ -169,6 +166,7 @@ public class ApplicationController extends Controller {
                     }
                 }
 
+                saveData();
                 String[] messages = {"clocking_times"};
                 notifyObservers(messages);
             }
@@ -232,6 +230,7 @@ public class ApplicationController extends Controller {
         }
 
         selectedEmployee = null;
+        saveData();
         String[] messages = {"employees", "selected_employee", "employee_filter", "clocking_times"};
         notifyObservers(messages);
     }
@@ -396,5 +395,23 @@ public class ApplicationController extends Controller {
         
         String[] messages = {"clocking_times"};
         notifyObservers(messages);
+    }
+
+    /**
+     * Serialize the data in storage files.
+     */
+    public void saveData() {
+        CompanyDataManager companyDataManager = new CompanyDataManager();
+        ClockingTimeDataManager clockingTimeDataManager = new ClockingTimeDataManager();
+
+        try {
+            ArrayList<Company> companyData = new ArrayList<>();
+            companyData.add(getCompany());
+            companyDataManager.serialize(companyData);
+
+            clockingTimeDataManager.serialize(getClockingTimes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

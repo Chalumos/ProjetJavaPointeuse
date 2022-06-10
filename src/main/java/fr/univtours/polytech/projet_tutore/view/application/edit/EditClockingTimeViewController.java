@@ -138,6 +138,7 @@ public class EditClockingTimeViewController extends ViewController {
 
             getView().close();
 
+            applicationController.saveData();
             String[] messages = {"clocking_times"};
             applicationController.notifyObservers(messages);
         }

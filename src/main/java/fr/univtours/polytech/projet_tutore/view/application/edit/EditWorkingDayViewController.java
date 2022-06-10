@@ -129,6 +129,7 @@ public class EditWorkingDayViewController extends ViewController {
 
             getView().close();
 
+            applicationController.saveData();
             String[] messages = {"selected_employee"};
             applicationController.notifyObservers(messages);
         }

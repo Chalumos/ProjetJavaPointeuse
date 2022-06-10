@@ -1,6 +1,9 @@
 package fr.univtours.polytech.projet_tutore.view.application;
 
+import fr.univtours.polytech.projet_tutore.model.company.Company;
 import fr.univtours.polytech.projet_tutore.model.company.Department;
+import fr.univtours.polytech.projet_tutore.model.data_manager.ClockingTimeDataManager;
+import fr.univtours.polytech.projet_tutore.model.data_manager.CompanyDataManager;
 import fr.univtours.polytech.projet_tutore.model.date.Date;
 import fr.univtours.polytech.projet_tutore.model.date.WorkingDay;
 import fr.univtours.polytech.projet_tutore.model.employee.Employee;
