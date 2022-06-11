@@ -50,7 +50,9 @@ public class TimeTrackerView extends View {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Time tracker emulator");
         setIcon(stage);
-        stage.setResizable(false);
+        stage.setResizable(true);
+        stage.setMinWidth(500);
+        stage.setMinHeight(300);
         stage.setScene(scene);
 
         // Get the controller which controls the elements of the view.

@@ -171,7 +171,9 @@ public class ApplicationView extends View {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Time tracker monitoring");
         setIcon(stage);
-        stage.setResizable(false);
+        stage.setResizable(true);
+        stage.setMinWidth(880);
+        stage.setMinHeight(580);
         stage.setScene(scene);
 
         // Get the controller which controls the elements of the view.
