@@ -16,10 +16,11 @@ public class SettingsController extends Controller {
     private NetworkSettings networkSettings;
 
     /**
-     * Initialize the network settings with the localhost address.
+     * Initialize the network settings with the address 127.0.0.1:9521.
      */
     public SettingsController() {
         networkSettings = new NetworkSettings();
+        networkSettings.setIpPort("9521");
     }
 
     /**
