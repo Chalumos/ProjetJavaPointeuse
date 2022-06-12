@@ -37,6 +37,8 @@ INFORMATIONS IMPORTANTES :
 
 	Si la liste des employés des l'entreprise est mise à jour, il est nécessaire de relancer la pointeuse pour que celle-ci 
 	récupère la dernière liste des employés.
+
+	Le port de l'application est 9521. La pointeuse doit donc être paramétrée pour envoyer les pointages à l'adresse 127.0.0.1:9521.
 	
 
 COMMENT LANCER LES PROGRAMES :
