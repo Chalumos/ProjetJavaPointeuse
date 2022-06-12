@@ -29,6 +29,14 @@ ORGANISATION DES SOURCES :
 	Les fichiers de stockage de l'application et de la pointeuse sont placés dans un package data dans les ressources du projet.
 
 	Pour finir, il n'y a qu'une seule méthode main(), placée dans la classe Main à la racine du projet.
+
+INFORMATIONS IMPORTANTES :
+
+	Lors de l'import de pointages depuis un fichier texte, seuls les pointages correspondant à des employés déjà présents dans 
+	l'entreprise sont importés, les autres sont ignorés.
+
+	Si la liste des employés des l'entreprise est mise à jour, il est nécessaire de relancer la pointeuse pour que celle-ci 
+	récupère la dernière liste des employés.
 	
 
 COMMENT LANCER LES PROGRAMES :
